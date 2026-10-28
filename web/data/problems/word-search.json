@@ -1,0 +1,139 @@
+{
+  "id": 79,
+  "slug": "word-search",
+  "title": "Word Search",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "string",
+    "backtracking",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Letter Tile Maze",
+    "text": "An explorer must spell a word by stepping between neighbouring tiles. Each tile used is chalked so it isn't reused; at a dead end the chalk is wiped off and the explorer backs out through the door.",
+    "goal": "Return true if the word can be traced on the board."
+  },
+  "spec": {
+    "method": "exist",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<vector<char>>&",
+        "board"
+      ],
+      [
+        "string",
+        "word"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "ABCCED"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "SEE"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          [
+            "S",
+            "F",
+            "C",
+            "S"
+          ],
+          [
+            "A",
+            "D",
+            "E",
+            "E"
+          ]
+        ],
+        "ABCB"
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "board",
+        "palette": "board",
+        "label": "tile maze",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "word",
+        "label": "word",
+        "pointers": [
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool go(vector<vector<char>>& board, string& word, int k, int r, int c) {\n        if (k == (int)word.size()) return true;\n        if (r < 0 || c < 0 || r >= (int)board.size() || c >= (int)board[0].size() || board[r][c] != word[k]) return false;\n        char saved = board[r][c];\n        board[r][c] = '#';\n        bool found = go(board, word, k + 1, r + 1, c) || go(board, word, k + 1, r - 1, c) ||\n                     go(board, word, k + 1, r, c + 1) || go(board, word, k + 1, r, c - 1);\n        board[r][c] = saved;\n        return found;\n    }\n    bool exist(vector<vector<char>>& board, string word) {\n        for (int r = 0; r < (int)board.size(); r++)\n            for (int c = 0; c < (int)board[0].size(); c++)\n                if (go(board, word, 0, r, c)) return true;\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

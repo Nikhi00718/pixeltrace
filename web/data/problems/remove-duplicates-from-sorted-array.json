@@ -1,0 +1,80 @@
+{
+  "id": 26,
+  "slug": "remove-duplicates-from-sorted-array",
+  "title": "Remove Duplicates from Sorted Array",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "The Sticker Album",
+    "text": "Sorted stickers sit in a row, some repeated. A collector walks the row; a keeper stands at the end of the unique stickers and only moves forward when the collector finds one the keeper hasn't got yet.",
+    "goal": "Return how many unique stickers there are (they end up at the front)."
+  },
+  "spec": {
+    "method": "removeDuplicates",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          7
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "album",
+        "pointers": [
+          "k",
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int removeDuplicates(vector<int>& nums) {\n        int k = 1;\n        for (int i = 1; i < (int)nums.size(); i++) {\n            if (nums[i] != nums[k - 1]) {\n                nums[k] = nums[i];\n                k++;\n            }\n        }\n        return k;\n    }\n};",
+  "tier": "crafted"
+}

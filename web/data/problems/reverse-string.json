@@ -1,0 +1,88 @@
+{
+  "id": 344,
+  "slug": "reverse-string",
+  "title": "Reverse String",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "string",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "The Sign Painter's Mistake",
+    "text": "A sign was painted backwards. Two painters start at either end and swap letter tiles, stepping inward until they meet.",
+    "goal": "Reverse the letters in place."
+  },
+  "spec": {
+    "method": "reverseString",
+    "ret": "void",
+    "params": [
+      [
+        "vector<char>&",
+        "s"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "h",
+          "e",
+          "l",
+          "l",
+          "o"
+        ]
+      ],
+      "expected": [
+        "o",
+        "l",
+        "l",
+        "e",
+        "h"
+      ]
+    },
+    {
+      "args": [
+        [
+          "H",
+          "a",
+          "n",
+          "n",
+          "a",
+          "h"
+        ]
+      ],
+      "expected": [
+        "h",
+        "a",
+        "n",
+        "n",
+        "a",
+        "H"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "s",
+        "label": "sign",
+        "style": "letters",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void reverseString(vector<char>& s) {\n        int l = 0, r = s.size() - 1;\n        while (l < r) {\n            swap(s[l], s[r]);\n            l++;\n            r--;\n        }\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,95 @@
+{
+  "id": 875,
+  "slug": "koko-eating-bananas",
+  "title": "Koko Eating Bananas",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Banana Guard's Speed",
+    "text": "A monkey must finish every banana pile before the guards return. Too slow fails, too fast is wasteful. The monkey binary-searches its eating speed, timing each guess pile by pile.",
+    "goal": "Return the slowest speed that finishes within h hours."
+  },
+  "spec": {
+    "method": "minEatingSpeed",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "piles"
+      ],
+      [
+        "int",
+        "h"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          6,
+          7,
+          11
+        ],
+        8
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        5
+      ],
+      "expected": 30
+    },
+    {
+      "args": [
+        [
+          30,
+          11,
+          23,
+          4,
+          20
+        ],
+        6
+      ],
+      "expected": 23
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "piles",
+        "label": "banana piles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "lo",
+          "mid",
+          "hi",
+          "hours",
+          "h"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minEatingSpeed(vector<int>& piles, int h) {\n        int lo = 1, hi = *max_element(piles.begin(), piles.end());\n        while (lo < hi) {\n            int mid = lo + (hi - lo) / 2;\n            long long hours = 0;\n            for (int i = 0; i < (int)piles.size(); i++) hours += (piles[i] + mid - 1) / mid;\n            if (hours <= h) hi = mid;\n            else lo = mid + 1;\n        }\n        return lo;\n    }\n};",
+  "tier": "crafted"
+}

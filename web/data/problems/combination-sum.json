@@ -1,0 +1,117 @@
+{
+  "id": 39,
+  "slug": "combination-sum",
+  "title": "Combination Sum",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "backtracking"
+  ],
+  "story": {
+    "title": "Exact Change, Any Coins",
+    "text": "A shopkeeper may reuse any coin as often as they like. At each door they try adding a coin no smaller than the last one; if the bag goes over the price, they put the coin back and try the next.",
+    "goal": "Return every combination of coins that adds up to target (any order)."
+  },
+  "spec": {
+    "method": "combinationSum",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<int>&",
+        "candidates"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "compare": "unordered-deep",
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          3,
+          6,
+          7
+        ],
+        7
+      ],
+      "expected": [
+        [
+          2,
+          2,
+          3
+        ],
+        [
+          7
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          3,
+          5
+        ],
+        8
+      ],
+      "expected": [
+        [
+          2,
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          3,
+          3
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          2
+        ],
+        1
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "candidates",
+        "label": "coins",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "path",
+        "label": "bag",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "remain"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> res;\n    vector<int> path;\n    void go(vector<int>& candidates, int start, int remain) {\n        if (remain == 0) {\n            res.push_back(path);\n            return;\n        }\n        for (int i = start; i < (int)candidates.size(); i++) {\n            if (candidates[i] > remain) continue;\n            path.push_back(candidates[i]);\n            go(candidates, i, remain - candidates[i]);\n            path.pop_back();\n        }\n    }\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n        go(candidates, 0, target);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

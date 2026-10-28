@@ -1,0 +1,94 @@
+{
+  "id": 977,
+  "slug": "squares-of-a-sorted-array",
+  "title": "Squares of a Sorted Array",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Tallest Tower First",
+    "text": "Signed numbers are sorted, but squaring flips the negatives. The biggest square is always at one end, so two builders compare the ends and stack the bigger square at the back of the new row.",
+    "goal": "Return the squares in sorted order."
+  },
+  "spec": {
+    "method": "sortedSquares",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          -4,
+          -1,
+          0,
+          3,
+          10
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        9,
+        16,
+        100
+      ]
+    },
+    {
+      "args": [
+        [
+          -7,
+          -3,
+          2,
+          3,
+          11
+        ]
+      ],
+      "expected": [
+        4,
+        9,
+        9,
+        49,
+        121
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "numbers",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "squares",
+        "style": "tiles",
+        "pointers": [
+          "w"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> sortedSquares(vector<int>& nums) {\n        int n = nums.size();\n        vector<int> res(n);\n        int l = 0, r = n - 1;\n        for (int w = n - 1; w >= 0; w--) {\n            if (abs(nums[l]) > abs(nums[r])) {\n                res[w] = nums[l] * nums[l];\n                l++;\n            } else {\n                res[w] = nums[r] * nums[r];\n                r--;\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

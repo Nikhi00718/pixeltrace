@@ -1,0 +1,104 @@
+{
+  "id": 100,
+  "slug": "same-tree",
+  "title": "Same Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Twin Orchards",
+    "text": "Two orchards were planted from the same plan, or were they? Two squirrels climb both trees in lockstep and compare each fruit and branch.",
+    "goal": "Return true if both trees have the same shape and values."
+  },
+  "spec": {
+    "method": "isSameTree",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "p"
+      ],
+      [
+        "TreeNode*",
+        "q"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          null,
+          2
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "tree",
+            "var": "p",
+            "pointers": [
+              "p"
+            ],
+            "label": "orchard p"
+          },
+          {
+            "kind": "tree",
+            "var": "q",
+            "pointers": [
+              "q"
+            ],
+            "label": "orchard q"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isSameTree(TreeNode* p, TreeNode* q) {\n        if (!p && !q) return true;\n        if (!p || !q || p->val != q->val) return false;\n        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);\n    }\n};",
+  "tier": "crafted"
+}

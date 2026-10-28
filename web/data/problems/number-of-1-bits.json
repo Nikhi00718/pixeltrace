@@ -1,0 +1,60 @@
+{
+  "id": 191,
+  "slug": "number-of-1-bits",
+  "title": "Number of 1 Bits",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "divide-and-conquer",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Switching Off the Lamps",
+    "text": "A row of lamps shows a number in binary. Each trick n & (n - 1) switches off the lowest lit lamp; count how many tricks it takes to go dark.",
+    "goal": "Return how many 1 bits n has."
+  },
+  "spec": {
+    "method": "hammingWeight",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        11
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        128
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        2147483645
+      ],
+      "expected": 30
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int hammingWeight(int n) {\n        int count = 0;\n        while (n) {\n            n &= n - 1;\n            count++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

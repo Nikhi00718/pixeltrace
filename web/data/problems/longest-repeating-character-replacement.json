@@ -1,0 +1,88 @@
+{
+  "id": 424,
+  "slug": "longest-repeating-character-replacement",
+  "title": "Longest Repeating Character Replacement",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "string",
+    "sliding-window",
+    "hash-table"
+  ],
+  "story": {
+    "title": "Repainting the Buoys",
+    "text": "The lighthouse beam may hold any buoys as long as at most k of them need repainting to match the most common colour inside the beam. When more than k would need paint, the beam's left edge moves up.",
+    "goal": "Return the longest stretch that can be made one colour with at most k repaints."
+  },
+  "spec": {
+    "method": "characterReplacement",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "ABAB",
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        "AABABBA",
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        "AAAA",
+        0
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "buoys",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "colours in beam"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "most",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int characterReplacement(string s, int k) {\n        map<char, int> cnt;\n        int l = 0, most = 0, best = 0;\n        for (int r = 0; r < (int)s.size(); r++) {\n            most = max(most, ++cnt[s[r]]);\n            while (r - l + 1 - most > k) {\n                cnt[s[l]]--;\n                l++;\n            }\n            best = max(best, r - l + 1);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,91 @@
+{
+  "id": 416,
+  "slug": "partition-equal-subset-sum",
+  "title": "Partition Equal Subset Sum",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Two Fair Harvest Carts",
+    "text": "The harvest must be split into two carts of equal weight. A ledger marks every weight one cart could reach; each new sack is tried on top of every weight already reachable, scanning from heavy to light.",
+    "goal": "Return true if the sacks can be split into two equal halves."
+  },
+  "spec": {
+    "method": "canPartition",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          5,
+          11,
+          5
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          5
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          3,
+          5
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "sacks",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "can",
+        "label": "reachable cart weights",
+        "style": "tiles",
+        "pointers": [
+          "s"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "half"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool canPartition(vector<int>& nums) {\n        int total = 0;\n        for (int x : nums) total += x;\n        if (total % 2) return false;\n        int half = total / 2;\n        vector<bool> can(half + 1, false);\n        can[0] = true;\n        for (int k = 0; k < (int)nums.size(); k++) {\n            for (int s = half; s >= nums[k]; s--) {\n                if (can[s - nums[k]]) can[s] = true;\n            }\n        }\n        return can[half];\n    }\n};",
+  "tier": "crafted"
+}

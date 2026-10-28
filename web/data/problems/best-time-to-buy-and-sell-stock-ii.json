@@ -1,0 +1,87 @@
+{
+  "id": 122,
+  "slug": "best-time-to-buy-and-sell-stock-ii",
+  "title": "Best Time to Buy and Sell Stock II",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Catching Every Uphill",
+    "text": "A trader may buy and sell as often as they like. Walking the skyline, they pocket every rise from one day to the next and ignore every drop.",
+    "goal": "Return the maximum total profit."
+  },
+  "spec": {
+    "method": "maxProfit",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "prices"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          7,
+          1,
+          5,
+          3,
+          6,
+          4
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          7,
+          6,
+          4,
+          3,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "prices",
+        "label": "price towers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "profit"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        int profit = 0;\n        for (int i = 1; i < (int)prices.size(); i++) {\n            if (prices[i] > prices[i - 1]) profit += prices[i] - prices[i - 1];\n        }\n        return profit;\n    }\n};",
+  "tier": "crafted"
+}

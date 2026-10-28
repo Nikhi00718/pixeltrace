@@ -1,0 +1,113 @@
+{
+  "id": 2,
+  "slug": "add-two-numbers",
+  "title": "Add Two Numbers",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "math",
+    "recursion"
+  ],
+  "story": {
+    "title": "The Counting Trains",
+    "text": "Two trains carry the digits of two numbers, ones digit first. A clerk walks both trains together, adds the digits and the carry, and couples a new car with the result digit onto a third train.",
+    "goal": "Return the train holding the sum."
+  },
+  "spec": {
+    "method": "addTwoNumbers",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "l1"
+      ],
+      [
+        "ListNode*",
+        "l2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          4,
+          3
+        ],
+        [
+          5,
+          6,
+          4
+        ]
+      ],
+      "expected": [
+        7,
+        0,
+        8
+      ]
+    },
+    {
+      "args": [
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          9,
+          9,
+          9,
+          9
+        ],
+        [
+          9,
+          9
+        ]
+      ],
+      "expected": [
+        8,
+        9,
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "l1",
+          "l2",
+          "tail"
+        ],
+        "heads": [
+          "l1",
+          "l2"
+        ],
+        "label": "trains"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum",
+          "carry"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        ListNode* dummy = new ListNode(0);\n        ListNode* tail = dummy;\n        int carry = 0;\n        while (l1 || l2 || carry) {\n            int sum = carry;\n            if (l1) { sum += l1->val; l1 = l1->next; }\n            if (l2) { sum += l2->val; l2 = l2->next; }\n            carry = sum / 10;\n            tail->next = new ListNode(sum % 10);\n            tail = tail->next;\n        }\n        return dummy->next;\n    }\n};",
+  "tier": "crafted"
+}

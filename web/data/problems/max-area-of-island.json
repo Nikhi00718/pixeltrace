@@ -1,0 +1,125 @@
+{
+  "id": 695,
+  "slug": "max-area-of-island",
+  "title": "Max Area of Island",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "Measuring the Islands",
+    "text": "A surveyor lands on every unexplored island and paces out each land tile, marking it so it isn't counted twice. The biggest tally wins.",
+    "goal": "Return the area of the largest island (0 if none)."
+  },
+  "spec": {
+    "method": "maxAreaOfIsland",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "islands",
+        "label": "sea chart",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "area",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int walk(vector<vector<int>>& grid, int r, int c) {\n        if (r < 0 || c < 0 || r >= (int)grid.size() || c >= (int)grid[0].size() || grid[r][c] != 1) return 0;\n        grid[r][c] = 2;\n        return 1 + walk(grid, r + 1, c) + walk(grid, r - 1, c) + walk(grid, r, c + 1) + walk(grid, r, c - 1);\n    }\n    int maxAreaOfIsland(vector<vector<int>>& grid) {\n        int best = 0;\n        for (int r = 0; r < (int)grid.size(); r++)\n            for (int c = 0; c < (int)grid[0].size(); c++)\n                if (grid[r][c] == 1) {\n                    int area = walk(grid, r, c);\n                    best = max(best, area);\n                }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,72 @@
+{
+  "id": 543,
+  "slug": "diameter-of-binary-tree",
+  "title": "Diameter of Binary Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "The Longest Vine",
+    "text": "A vine can run between any two fruits along the branches. Every fruit asks its two branches how deep they go; the two depths together are the longest vine passing through it.",
+    "goal": "Return the number of branches on the longest path between any two fruits."
+  },
+  "spec": {
+    "method": "diameterOfBinaryTree",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int best = 0;\n    int depth(TreeNode* node) {\n        if (!node) return 0;\n        int l = depth(node->left);\n        int r = depth(node->right);\n        best = max(best, l + r);\n        return 1 + max(l, r);\n    }\n    int diameterOfBinaryTree(TreeNode* root) {\n        depth(root);\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

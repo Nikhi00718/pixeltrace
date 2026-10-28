@@ -1,0 +1,99 @@
+{
+  "id": 300,
+  "slug": "longest-increasing-subsequence",
+  "title": "Longest Increasing Subsequence",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "binary-search",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Growing Beanstalks",
+    "text": "Each plot remembers the longest run of ever-taller beanstalks that can end there: look back at every shorter beanstalk and extend its run by one.",
+    "goal": "Return the length of the longest strictly increasing subsequence."
+  },
+  "spec": {
+    "method": "lengthOfLIS",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          9,
+          2,
+          5,
+          3,
+          7,
+          101,
+          18
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          0,
+          3,
+          2,
+          3
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          7,
+          7,
+          7,
+          7
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "beanstalks",
+        "pointers": [
+          "j",
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "longest run ending here",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int lengthOfLIS(vector<int>& nums) {\n        int n = nums.size(), best = 1;\n        vector<int> dp(n, 1);\n        for (int i = 1; i < n; i++) {\n            for (int j = 0; j < i; j++) {\n                if (nums[j] < nums[i]) dp[i] = max(dp[i], dp[j] + 1);\n            }\n            best = max(best, dp[i]);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

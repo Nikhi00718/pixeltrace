@@ -1,0 +1,121 @@
+{
+  "id": 88,
+  "slug": "merge-sorted-array",
+  "title": "Merge Sorted Array",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "story": {
+    "title": "Filling the Warehouse from the Back",
+    "text": "The first shelf has empty slots at the end; a second sorted shelf must fit in. Workers compare the heaviest remaining crate on each shelf and place it in the last free slot, walking backwards.",
+    "goal": "Merge the second shelf into the first so it stays sorted."
+  },
+  "spec": {
+    "method": "merge",
+    "ret": "void",
+    "params": [
+      [
+        "vector<int>&",
+        "nums1"
+      ],
+      [
+        "int",
+        "m"
+      ],
+      [
+        "vector<int>&",
+        "nums2"
+      ],
+      [
+        "int",
+        "n"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          0,
+          0,
+          0
+        ],
+        3,
+        [
+          2,
+          5,
+          6
+        ],
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        2,
+        3,
+        5,
+        6
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1,
+        [],
+        0
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          0
+        ],
+        0,
+        [
+          1
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums1",
+        "label": "shelf 1",
+        "pointers": [
+          "i",
+          "w"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "nums2",
+        "label": "shelf 2",
+        "pointers": [
+          "j"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {\n        int i = m - 1, j = n - 1, w = m + n - 1;\n        while (j >= 0) {\n            if (i >= 0 && nums1[i] > nums2[j]) {\n                nums1[w] = nums1[i];\n                i--;\n            } else {\n                nums1[w] = nums2[j];\n                j--;\n            }\n            w--;\n        }\n    }\n};",
+  "tier": "crafted"
+}

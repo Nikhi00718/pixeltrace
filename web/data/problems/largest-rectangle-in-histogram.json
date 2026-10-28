@@ -1,0 +1,99 @@
+{
+  "id": 84,
+  "slug": "largest-rectangle-in-histogram",
+  "title": "Largest Rectangle in Histogram",
+  "difficulty": "Hard",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "The Billboard Under the Skyline",
+    "text": "A billboard must fit under a row of towers. The tower stack keeps towers in rising height; when a shorter tower arrives, every taller one is popped and measures the widest billboard it could support.",
+    "goal": "Return the area of the largest rectangle under the towers."
+  },
+  "spec": {
+    "method": "largestRectangleArea",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "heights"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          5,
+          6,
+          2,
+          3
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "args": [
+        [
+          2,
+          4
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          6,
+          2,
+          5,
+          4,
+          5,
+          1,
+          6
+        ]
+      ],
+      "expected": 12
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "heights",
+        "label": "towers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "stack",
+            "var": "st",
+            "label": "rising towers (index)"
+          },
+          {
+            "kind": "values",
+            "vars": [
+              "h",
+              "w",
+              "best"
+            ],
+            "weight": 2
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int largestRectangleArea(vector<int>& heights) {\n        stack<int> st;\n        int best = 0, n = heights.size();\n        for (int i = 0; i <= n; i++) {\n            int cur = i == n ? 0 : heights[i];\n            while (!st.empty() && heights[st.top()] >= cur) {\n                int h = heights[st.top()];\n                st.pop();\n                int w = st.empty() ? i : i - st.top() - 1;\n                best = max(best, h * w);\n            }\n            st.push(i);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

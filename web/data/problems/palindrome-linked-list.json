@@ -1,0 +1,84 @@
+{
+  "id": 234,
+  "slug": "palindrome-linked-list",
+  "title": "Palindrome Linked List",
+  "difficulty": "Easy",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers",
+    "stack"
+  ],
+  "story": {
+    "title": "The Mirror Train",
+    "text": "Is the train the same from both ends? A hare and a tortoise find the middle, the back half is turned around, then two inspectors walk in from both ends comparing cars.",
+    "goal": "Return true if the values read the same forwards and backwards."
+  },
+  "spec": {
+    "method": "isPalindrome",
+    "ret": "bool",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "slow",
+          "fast",
+          "prev",
+          "a",
+          "b"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isPalindrome(ListNode* head) {\n        ListNode* slow = head;\n        ListNode* fast = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n        ListNode* prev = nullptr;\n        while (slow) {\n            ListNode* nxt = slow->next;\n            slow->next = prev;\n            prev = slow;\n            slow = nxt;\n        }\n        ListNode* a = head;\n        ListNode* b = prev;\n        while (b) {\n            if (a->val != b->val) return false;\n            a = a->next;\n            b = b->next;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

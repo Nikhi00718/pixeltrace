@@ -1,0 +1,92 @@
+{
+  "id": 112,
+  "slug": "path-sum",
+  "title": "Path Sum",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "The Exact-Weight Basket",
+    "text": "A picker climbs from the top to a leaf, adding each fruit's weight to a basket. They want a path whose basket weighs exactly the target; each branch is asked for what is still missing.",
+    "goal": "Return true if some root-to-leaf path adds up to targetSum."
+  },
+  "spec": {
+    "method": "hasPathSum",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "targetSum"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          4,
+          8,
+          11,
+          null,
+          13,
+          4,
+          7,
+          2,
+          null,
+          null,
+          null,
+          1
+        ],
+        22
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        5
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [],
+        0
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "root"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "targetSum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool hasPathSum(TreeNode* root, int targetSum) {\n        if (!root) return false;\n        if (!root->left && !root->right) return root->val == targetSum;\n        return hasPathSum(root->left, targetSum - root->val) || hasPathSum(root->right, targetSum - root->val);\n    }\n};",
+  "tier": "crafted"
+}

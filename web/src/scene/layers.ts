@@ -592,6 +592,7 @@ const treeLayer: Maker = (def, ctx) => {
   const rootName = def.var ?? "root";
   const from = def.from ?? "outer";
   const pointers = (def.pointers ?? []) as string[];
+  const owned = new Set<string>(); // nodes that have hung from this tree's root at some point
   const layouts = steps.map((step) => {
     const root = resolve(step, rootName, from);
     const place = new Map<string, { ord: number; depth: number }>();
@@ -605,7 +606,9 @@ const treeLayer: Maker = (def, ctx) => {
       visit(step.nodes[a].right, d + 1);
     };
     if (isPtr(root)) visit(root.$p, 0);
-    const loose = Object.keys(step.nodes).filter((a) => !place.has(a) && ("left" in step.nodes[a] || "right" in step.nodes[a]));
+    for (const a of place.keys()) owned.add(a);
+    // detached nodes of this tree only, so a second tree on screen doesn't show up here
+    const loose = Object.keys(step.nodes).filter((a) => owned.has(a) && !place.has(a));
     return { place, loose, n: ord };
   });
   const maxN = Math.max(1, ...layouts.map((l) => l.n));
