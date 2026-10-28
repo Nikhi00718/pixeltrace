@@ -1,0 +1,118 @@
+{
+  "id": 40,
+  "slug": "combination-sum-ii",
+  "title": "Combination Sum II",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "backtracking"
+  ],
+  "story": {
+    "title": "Exact Change, Each Coin Once",
+    "text": "This time each coin can be used once, and some coins are twins. Sorted, the shopkeeper skips a twin at the same door so no combination repeats, and stops early once coins get too big.",
+    "goal": "Return every unique combination that adds up to target (any order)."
+  },
+  "spec": {
+    "method": "combinationSum2",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<int>&",
+        "candidates"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "compare": "unordered-deep",
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          1,
+          2,
+          7,
+          6,
+          1,
+          5
+        ],
+        8
+      ],
+      "expected": [
+        [
+          1,
+          1,
+          6
+        ],
+        [
+          1,
+          2,
+          5
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          6
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          5,
+          2,
+          1,
+          2
+        ],
+        5
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          5
+        ]
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "candidates",
+        "label": "coins (sorted)",
+        "pointers": [
+          "start",
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "path",
+        "label": "bag",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "remain"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> res;\n    vector<int> path;\n    void go(vector<int>& candidates, int start, int remain) {\n        if (remain == 0) {\n            res.push_back(path);\n            return;\n        }\n        for (int i = start; i < (int)candidates.size(); i++) {\n            if (i > start && candidates[i] == candidates[i - 1]) continue;\n            if (candidates[i] > remain) break;\n            path.push_back(candidates[i]);\n            go(candidates, i + 1, remain - candidates[i]);\n            path.pop_back();\n        }\n    }\n    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {\n        sort(candidates.begin(), candidates.end());\n        go(candidates, 0, target);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

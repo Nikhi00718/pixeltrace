@@ -1,0 +1,64 @@
+{
+  "id": 441,
+  "slug": "arranging-coins",
+  "title": "Arranging Coins",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "math",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Coin Staircase",
+    "text": "Coins are stacked into a staircase: 1 in the first row, 2 in the next, and so on. A guard binary-searches how many full rows fit, since k rows need k(k+1)/2 coins.",
+    "goal": "Return the number of complete rows."
+  },
+  "spec": {
+    "method": "arrangeCoins",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        5
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        1804289383
+      ],
+      "expected": 60070
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "lo",
+          "mid",
+          "hi",
+          "need"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int arrangeCoins(int n) {\n        long long lo = 0, hi = n;\n        while (lo < hi) {\n            long long mid = (lo + hi + 1) / 2;\n            long long need = mid * (mid + 1) / 2;\n            if (need <= n) lo = mid;\n            else hi = mid - 1;\n        }\n        return lo;\n    }\n};",
+  "tier": "crafted"
+}

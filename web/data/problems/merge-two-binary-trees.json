@@ -1,0 +1,104 @@
+{
+  "id": 617,
+  "slug": "merge-two-binary-trees",
+  "title": "Merge Two Binary Trees",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bfs"
+  ],
+  "story": {
+    "title": "Grafting Two Orchards",
+    "text": "Two orchards are laid on top of each other. Where both have a fruit, the weights add up on the first tree; where only the second has a branch, it is grafted onto the first.",
+    "goal": "Return the merged tree."
+  },
+  "spec": {
+    "method": "mergeTrees",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "TreeNode*",
+        "root1"
+      ],
+      [
+        "TreeNode*",
+        "root2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          2,
+          5
+        ],
+        [
+          2,
+          1,
+          3,
+          null,
+          4,
+          null,
+          7
+        ]
+      ],
+      "expected": [
+        3,
+        4,
+        5,
+        5,
+        4,
+        null,
+        7
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        2,
+        2
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "tree",
+            "var": "root1",
+            "pointers": [
+              "root1"
+            ],
+            "label": "orchard 1"
+          },
+          {
+            "kind": "tree",
+            "var": "root2",
+            "pointers": [
+              "root2"
+            ],
+            "label": "orchard 2"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {\n        if (!root1) return root2;\n        if (!root2) return root1;\n        root1->val += root2->val;\n        root1->left = mergeTrees(root1->left, root2->left);\n        root1->right = mergeTrees(root1->right, root2->right);\n        return root1;\n    }\n};",
+  "tier": "crafted"
+}

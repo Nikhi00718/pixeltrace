@@ -1,0 +1,134 @@
+{
+  "id": 1926,
+  "slug": "nearest-exit-from-entrance-in-maze",
+  "title": "Nearest Exit from Entrance in Maze",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "bfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "Escape the Hedge Maze",
+    "text": "You start inside a hedge maze (+ are hedges). Footsteps spread outward one ring at a time; the first open tile on the border (other than where you started) is the nearest exit.",
+    "goal": "Return the fewest steps to an exit, or -1."
+  },
+  "spec": {
+    "method": "nearestExit",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<char>>&",
+        "maze"
+      ],
+      [
+        "vector<int>&",
+        "entrance"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            "+",
+            "+",
+            ".",
+            "+"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            "+"
+          ],
+          [
+            "+",
+            "+",
+            "+",
+            "."
+          ]
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          [
+            "+",
+            "+",
+            "+"
+          ],
+          [
+            ".",
+            ".",
+            "."
+          ],
+          [
+            "+",
+            "+",
+            "+"
+          ]
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            ".",
+            "+"
+          ]
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "maze",
+        "palette": "board",
+        "label": "hedge maze",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "frontier (r,c)"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "steps"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int nearestExit(vector<vector<char>>& maze, vector<int>& entrance) {\n        int m = maze.size(), n = maze[0].size();\n        queue<pair<int, int>> q;\n        q.push({entrance[0], entrance[1]});\n        maze[entrance[0]][entrance[1]] = '+';\n        int dr[4] = {1, -1, 0, 0}, dc[4] = {0, 0, 1, -1};\n        int steps = 0;\n        while (!q.empty()) {\n            steps++;\n            int sz = q.size();\n            for (int k = 0; k < sz; k++) {\n                auto [r, c] = q.front();\n                q.pop();\n                for (int d = 0; d < 4; d++) {\n                    int nr = r + dr[d], nc = c + dc[d];\n                    if (nr < 0 || nc < 0 || nr >= m || nc >= n || maze[nr][nc] == '+') continue;\n                    if (nr == 0 || nc == 0 || nr == m - 1 || nc == n - 1) return steps;\n                    maze[nr][nc] = '+';\n                    q.push({nr, nc});\n                }\n            }\n        }\n        return -1;\n    }\n};",
+  "tier": "crafted"
+}

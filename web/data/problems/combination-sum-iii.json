@@ -1,0 +1,99 @@
+{
+  "id": 216,
+  "slug": "combination-sum-iii",
+  "title": "Combination Sum III",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "backtracking"
+  ],
+  "story": {
+    "title": "Nine Numbered Tiles",
+    "text": "Tiles numbered 1 to 9 can each be used once. Pick exactly k of them adding up to n: at each door try the next tile, go deeper, then put it back.",
+    "goal": "Return every set of k distinct digits summing to n (any order)."
+  },
+  "spec": {
+    "method": "combinationSum3",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "int",
+        "k"
+      ],
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "compare": "unordered-deep",
+  "tests": [
+    {
+      "args": [
+        3,
+        7
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        3,
+        9
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          6
+        ],
+        [
+          1,
+          3,
+          5
+        ],
+        [
+          2,
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        4,
+        1
+      ],
+      "expected": []
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "path",
+        "label": "tiles picked",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "start",
+          "x",
+          "remain",
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> res;\n    vector<int> path;\n    void go(int start, int remain, int k) {\n        if ((int)path.size() == k) {\n            if (remain == 0) res.push_back(path);\n            return;\n        }\n        for (int x = start; x <= 9 && x <= remain; x++) {\n            path.push_back(x);\n            go(x + 1, remain - x, k);\n            path.pop_back();\n        }\n    }\n    vector<vector<int>> combinationSum3(int k, int n) {\n        go(1, n, k);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

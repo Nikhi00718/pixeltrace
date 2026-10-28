@@ -1,0 +1,94 @@
+{
+  "id": 1493,
+  "slug": "longest-subarray-of-1s-after-deleting-one-element",
+  "title": "Longest Subarray of 1's After Deleting One Element",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "story": {
+    "title": "One Broken Lamp",
+    "text": "A row of lamps has some broken ones (0). You must pull out exactly one lamp. The window may hold at most one broken lamp; its length minus the pulled lamp is the lit stretch.",
+    "goal": "Return the longest run of 1s after deleting one element."
+  },
+  "spec": {
+    "method": "longestSubarray",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "lamps",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "zeros",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestSubarray(vector<int>& nums) {\n        int l = 0, zeros = 0, best = 0;\n        for (int r = 0; r < (int)nums.size(); r++) {\n            if (nums[r] == 0) zeros++;\n            while (zeros > 1) {\n                if (nums[l] == 0) zeros--;\n                l++;\n            }\n            best = max(best, r - l);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

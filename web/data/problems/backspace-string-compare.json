@@ -1,0 +1,87 @@
+{
+  "id": 844,
+  "slug": "backspace-string-compare",
+  "title": "Backspace String Compare",
+  "difficulty": "Easy",
+  "world": "stack",
+  "tags": [
+    "two-pointers",
+    "string",
+    "stack",
+    "simulation"
+  ],
+  "story": {
+    "title": "Two Clumsy Typists",
+    "text": "Two typists hit # whenever they make a mistake, which erases the last letter. Each builds a stack of the letters that survive, and the two stacks are compared.",
+    "goal": "Return true if both end up with the same text."
+  },
+  "spec": {
+    "method": "backspaceCompare",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "t"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "ab#c",
+        "ad#c"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "ab##",
+        "c#d#"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "a#c",
+        "b"
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "text",
+        "label": "keys typed",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "out",
+        "label": "letters kept"
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "values",
+            "vars": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string build(string& text) {\n        string out;\n        for (int i = 0; i < (int)text.size(); i++) {\n            if (text[i] == '#') {\n                if (!out.empty()) out.pop_back();\n            } else {\n                out.push_back(text[i]);\n            }\n        }\n        return out;\n    }\n    bool backspaceCompare(string s, string t) {\n        string a = build(s);\n        string b = build(t);\n        return a == b;\n    }\n};",
+  "tier": "crafted"
+}

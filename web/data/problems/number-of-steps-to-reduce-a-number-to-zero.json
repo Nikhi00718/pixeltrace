@@ -1,0 +1,61 @@
+{
+  "id": 1342,
+  "slug": "number-of-steps-to-reduce-a-number-to-zero",
+  "title": "Number of Steps to Reduce a Number to Zero",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Dimming the Lamps",
+    "text": "If the last lamp is lit, switch it off (subtract 1); otherwise shift every lamp one place right (halve). Count the moves until the row is dark.",
+    "goal": "Return the number of steps to reach zero."
+  },
+  "spec": {
+    "method": "numberOfSteps",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "num"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        14
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        123
+      ],
+      "expected": 12
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "num",
+          "steps"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numberOfSteps(int num) {\n        int steps = 0;\n        while (num > 0) {\n            if (num & 1) num--;\n            else num >>= 1;\n            steps++;\n        }\n        return steps;\n    }\n};",
+  "tier": "crafted"
+}

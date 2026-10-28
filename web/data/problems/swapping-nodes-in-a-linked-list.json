@@ -1,0 +1,100 @@
+{
+  "id": 1721,
+  "slug": "swapping-nodes-in-a-linked-list",
+  "title": "Swapping Nodes in a Linked List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "Swapping the Cargo",
+    "text": "The cargo of the k-th car from the front and the k-th from the back must trade places. A scout walks k cars ahead; when it hits the end, a second walker is on the k-th from the back.",
+    "goal": "Swap the values of the two nodes and return the train."
+  },
+  "spec": {
+    "method": "swapNodes",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        4,
+        3,
+        2,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          7,
+          9,
+          6,
+          6,
+          7,
+          8,
+          3,
+          0,
+          9,
+          5
+        ],
+        5
+      ],
+      "expected": [
+        7,
+        9,
+        6,
+        6,
+        8,
+        7,
+        3,
+        0,
+        9,
+        5
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "first",
+          "scout",
+          "second"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* swapNodes(ListNode* head, int k) {\n        ListNode* first = head;\n        for (int s = 1; s < k; s++) first = first->next;\n        ListNode* scout = first;\n        ListNode* second = head;\n        while (scout->next) {\n            scout = scout->next;\n            second = second->next;\n        }\n        swap(first->val, second->val);\n        return head;\n    }\n};",
+  "tier": "crafted"
+}

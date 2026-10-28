@@ -1,0 +1,96 @@
+{
+  "id": 203,
+  "slug": "remove-linked-list-elements",
+  "title": "Remove Linked List Elements",
+  "difficulty": "Easy",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "recursion"
+  ],
+  "story": {
+    "title": "Unhooking the Bad Cars",
+    "text": "Every car carrying the banned cargo must go. A worker walks from a dummy engine, and whenever the next car is banned, couples straight past it.",
+    "goal": "Remove every node with value val and return the train."
+  },
+  "spec": {
+    "method": "removeElements",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ],
+      [
+        "int",
+        "val"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          6,
+          3,
+          4,
+          5,
+          6
+        ],
+        6
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "args": [
+        [],
+        1
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        [
+          7,
+          7,
+          7,
+          7
+        ],
+        7
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "cur"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "val"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* removeElements(ListNode* head, int val) {\n        ListNode* dummy = new ListNode(0, head);\n        ListNode* cur = dummy;\n        while (cur->next) {\n            if (cur->next->val == val) cur->next = cur->next->next;\n            else cur = cur->next;\n        }\n        return dummy->next;\n    }\n};",
+  "tier": "crafted"
+}

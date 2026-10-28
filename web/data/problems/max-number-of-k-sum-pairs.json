@@ -1,0 +1,115 @@
+{
+  "id": 1679,
+  "slug": "max-number-of-k-sum-pairs",
+  "title": "Max Number of K-Sum Pairs",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "sorting"
+  ],
+  "story": {
+    "title": "Packing Pairs of Crates",
+    "text": "Crates are shipped in pairs that must weigh exactly k. On the sorted dock, two dockhands at the ends pair up matching crates and step in; too light, the left moves; too heavy, the right moves.",
+    "goal": "Return how many pairs summing to k can be removed."
+  },
+  "spec": {
+    "method": "maxOperations",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        5
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          3,
+          1,
+          3,
+          4,
+          3
+        ],
+        6
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          2,
+          5,
+          4,
+          4,
+          1,
+          3,
+          4,
+          4,
+          1,
+          4,
+          4,
+          1,
+          2,
+          1,
+          2,
+          2,
+          3,
+          2,
+          4,
+          2
+        ],
+        3
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 0,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "sorted crates",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "ops"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxOperations(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int l = 0, r = nums.size() - 1, ops = 0;\n        while (l < r) {\n            int s = nums[l] + nums[r];\n            if (s == k) {\n                ops++;\n                l++;\n                r--;\n            } else if (s < k) {\n                l++;\n            } else {\n                r--;\n            }\n        }\n        return ops;\n    }\n};",
+  "tier": "crafted"
+}

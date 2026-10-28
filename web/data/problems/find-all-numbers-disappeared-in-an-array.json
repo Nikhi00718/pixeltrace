@@ -1,0 +1,79 @@
+{
+  "id": 448,
+  "slug": "find-all-numbers-disappeared-in-an-array",
+  "title": "Find All Numbers Disappeared in an Array",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "The Roll Call",
+    "text": "Badges 1..n should all be present. For every badge seen, the clerk flips the crate at that number's position to negative. Crates left positive mark the badges nobody brought.",
+    "goal": "Return every number in 1..n that is missing."
+  },
+  "spec": {
+    "method": "findDisappearedNumbers",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          3,
+          2,
+          7,
+          8,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": [
+        5,
+        6
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          1
+        ]
+      ],
+      "expected": [
+        2
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "crates",
+        "pointers": [
+          "i",
+          "j"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "missing",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> findDisappearedNumbers(vector<int>& nums) {\n        for (int i = 0; i < (int)nums.size(); i++) {\n            int j = abs(nums[i]) - 1;\n            if (nums[j] > 0) nums[j] = -nums[j];\n        }\n        vector<int> res;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (nums[i] > 0) res.push_back(i + 1);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,78 @@
+{
+  "id": 2558,
+  "slug": "take-gifts-from-the-richest-pile",
+  "title": "Take Gifts From the Richest Pile",
+  "difficulty": "Easy",
+  "world": "heap",
+  "tags": [
+    "array",
+    "heap",
+    "simulation"
+  ],
+  "story": {
+    "title": "Robin Hood's Rounds",
+    "text": "Every second, Robin takes from the richest pile, leaving only the square root of it behind. A pyramid keeps the richest pile on top.",
+    "goal": "Return how many gifts are left after k seconds."
+  },
+  "spec": {
+    "method": "pickGifts",
+    "ret": "long long",
+    "params": [
+      [
+        "vector<int>&",
+        "gifts"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          25,
+          64,
+          9,
+          4,
+          100
+        ],
+        4
+      ],
+      "expected": 29
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          1
+        ],
+        4
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "piles (richest on top)"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "top",
+          "left"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    long long pickGifts(vector<int>& gifts, int k) {\n        priority_queue<int> pq(gifts.begin(), gifts.end());\n        while (k-- > 0) {\n            int top = pq.top();\n            pq.pop();\n            pq.push((int)sqrt(top));\n        }\n        long long left = 0;\n        while (!pq.empty()) {\n            left += pq.top();\n            pq.pop();\n        }\n        return left;\n    }\n};",
+  "tier": "crafted"
+}

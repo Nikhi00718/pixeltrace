@@ -1,0 +1,63 @@
+{
+  "id": 1137,
+  "slug": "n-th-tribonacci-number",
+  "title": "N-th Tribonacci Number",
+  "difficulty": "Easy",
+  "world": "dp",
+  "tags": [
+    "math",
+    "dynamic-programming",
+    "memoization"
+  ],
+  "story": {
+    "title": "The Three-Step Frog",
+    "text": "This frog's stair count is the sum of the three stairs below it. The farmer chalks each stair as the frog climbs.",
+    "goal": "Return T(n), where T(0)=0, T(1)=1, T(2)=1."
+  },
+  "spec": {
+    "method": "tribonacci",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        4
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        25
+      ],
+      "expected": 1389537
+    },
+    {
+      "args": [
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "t",
+        "label": "stairs",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int tribonacci(int n) {\n        vector<int> t(max(n + 1, 3), 0);\n        t[1] = 1;\n        t[2] = 1;\n        for (int i = 3; i <= n; i++) t[i] = t[i - 1] + t[i - 2] + t[i - 3];\n        return t[n];\n    }\n};",
+  "tier": "crafted"
+}

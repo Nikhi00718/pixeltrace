@@ -17,6 +17,7 @@ import problems_src_2  # noqa: E402,F401  (registers the second batch into P)
 import problems_src_3  # noqa: E402,F401
 import problems_src_4  # noqa: E402,F401
 import problems_src_5  # noqa: E402,F401
+import problems_src_6  # noqa: E402,F401
 
 OUT = ROOT / "web" / "data" / "problems"
 

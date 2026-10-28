@@ -1,0 +1,78 @@
+{
+  "id": 1480,
+  "slug": "running-sum-of-1d-array",
+  "title": "Running Sum of 1d Array",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "The Piggy Bank Ledger",
+    "text": "Each day's savings are written on a crate. A clerk walks the row and rewrites every crate with the total saved up to and including that day.",
+    "goal": "Return the running totals."
+  },
+  "spec": {
+    "method": "runningSum",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        1,
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          1,
+          2,
+          10,
+          1
+        ]
+      ],
+      "expected": [
+        3,
+        4,
+        6,
+        16,
+        17
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "savings",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> runningSum(vector<int>& nums) {\n        for (int i = 1; i < (int)nums.size(); i++) nums[i] += nums[i - 1];\n        return nums;\n    }\n};",
+  "tier": "crafted"
+}

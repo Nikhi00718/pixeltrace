@@ -1,0 +1,85 @@
+{
+  "id": 518,
+  "slug": "coin-change-ii",
+  "title": "Coin Change II",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "How Many Ways to Pay",
+    "text": "The ledger counts the ways to make every amount. Coins are added one type at a time; each amount gains the ways to make the amount one coin smaller.",
+    "goal": "Return the number of combinations that make up amount."
+  },
+  "spec": {
+    "method": "change",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "amount"
+      ],
+      [
+        "vector<int>&",
+        "coins"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        5,
+        [
+          1,
+          2,
+          5
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        3,
+        [
+          2
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        10,
+        [
+          10
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "coins",
+        "label": "coin types",
+        "pointers": [
+          "c"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "ways",
+        "label": "ways to make each amount",
+        "style": "tiles",
+        "pointers": [
+          "a"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int change(int amount, vector<int>& coins) {\n        vector<unsigned long long> ways(amount + 1, 0);\n        ways[0] = 1;\n        for (int c = 0; c < (int)coins.size(); c++) {\n            for (int a = coins[c]; a <= amount; a++) ways[a] += ways[a - coins[c]];\n        }\n        return ways[amount];\n    }\n};",
+  "tier": "crafted"
+}

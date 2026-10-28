@@ -1,0 +1,96 @@
+{
+  "id": 881,
+  "slug": "boats-to-save-people",
+  "title": "Boats to Save People",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Rescue Boats",
+    "text": "Each boat holds two people up to a weight limit. Sorted by weight, the heaviest waiting person always gets a boat, and takes the lightest along if they fit.",
+    "goal": "Return the fewest boats needed."
+  },
+  "spec": {
+    "method": "numRescueBoats",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "people"
+      ],
+      [
+        "int",
+        "limit"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        3
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          2,
+          1
+        ],
+        3
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          3,
+          5,
+          3,
+          4
+        ],
+        5
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "people",
+        "label": "waiting (sorted)",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "limit",
+          "boats"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numRescueBoats(vector<int>& people, int limit) {\n        sort(people.begin(), people.end());\n        int l = 0, r = people.size() - 1, boats = 0;\n        while (l <= r) {\n            if (people[l] + people[r] <= limit) l++;\n            r--;\n            boats++;\n        }\n        return boats;\n    }\n};",
+  "tier": "crafted"
+}

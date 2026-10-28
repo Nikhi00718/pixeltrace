@@ -1,0 +1,99 @@
+{
+  "id": 946,
+  "slug": "validate-stack-sequences",
+  "title": "Validate Stack Sequences",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "simulation"
+  ],
+  "story": {
+    "title": "Can the Crane Do It?",
+    "text": "A crane stacks crates in the pushed order. After each push it lifts off as many crates as possible while the top crate is the next one the popped order expects.",
+    "goal": "Return true if the popped order is possible with one stack."
+  },
+  "spec": {
+    "method": "validateStackSequences",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "pushed"
+      ],
+      [
+        "vector<int>&",
+        "popped"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          4,
+          5,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          4,
+          3,
+          5,
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "pushed",
+        "label": "arrives",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "popped",
+        "label": "must leave",
+        "pointers": [
+          "j"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "crane stack"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {\n        stack<int> st;\n        int j = 0;\n        for (int i = 0; i < (int)pushed.size(); i++) {\n            st.push(pushed[i]);\n            while (!st.empty() && st.top() == popped[j]) {\n                st.pop();\n                j++;\n            }\n        }\n        return st.empty();\n    }\n};",
+  "tier": "crafted"
+}

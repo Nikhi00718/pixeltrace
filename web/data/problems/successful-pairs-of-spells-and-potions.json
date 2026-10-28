@@ -1,0 +1,116 @@
+{
+  "id": 2300,
+  "slug": "successful-pairs-of-spells-and-potions",
+  "title": "Successful Pairs of Spells and Potions",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Potion Shelf",
+    "text": "Potions are sorted by strength. For each spell, a guard binary-searches the shelf for the weakest potion that still reaches the needed power; everything to its right works too.",
+    "goal": "For each spell, return how many potions make a successful pair."
+  },
+  "spec": {
+    "method": "successfulPairs",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "spells"
+      ],
+      [
+        "vector<int>&",
+        "potions"
+      ],
+      [
+        "long long",
+        "success"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          1,
+          3
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        7
+      ],
+      "expected": [
+        4,
+        0,
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          1,
+          2
+        ],
+        [
+          8,
+          5,
+          8
+        ],
+        16
+      ],
+      "expected": [
+        2,
+        0,
+        2
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "spells",
+        "label": "spells",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "potions",
+        "label": "potion shelf (sorted)",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ],
+        "windowExclusive": true
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "pairs",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {\n        sort(potions.begin(), potions.end());\n        int m = potions.size();\n        vector<int> res;\n        for (int i = 0; i < (int)spells.size(); i++) {\n            int lo = 0, hi = m;\n            while (lo < hi) {\n                int mid = (lo + hi) / 2;\n                if ((long long)spells[i] * potions[mid] >= success) hi = mid;\n                else lo = mid + 1;\n            }\n            res.push_back(m - lo);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}
