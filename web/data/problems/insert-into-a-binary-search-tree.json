@@ -1,0 +1,109 @@
+{
+  "id": 701,
+  "slug": "insert-into-a-binary-search-tree",
+  "title": "Insert into a Binary Search Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "bst"
+  ],
+  "story": {
+    "title": "Planting a New Fruit",
+    "text": "A new fruit must hang where a search for it would look. The gardener walks down, going left for smaller and right for bigger, and grafts it onto the first empty branch.",
+    "goal": "Insert val into the BST and return the root."
+  },
+  "spec": {
+    "method": "insertIntoBST",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "val"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          7,
+          1,
+          3
+        ],
+        5
+      ],
+      "expected": [
+        4,
+        2,
+        7,
+        1,
+        3,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          40,
+          20,
+          60,
+          10,
+          30,
+          50,
+          70
+        ],
+        25
+      ],
+      "expected": [
+        40,
+        20,
+        60,
+        10,
+        30,
+        50,
+        70,
+        null,
+        null,
+        25
+      ]
+    },
+    {
+      "args": [
+        [],
+        5
+      ],
+      "expected": [
+        5
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "cur"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "val"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    TreeNode* insertIntoBST(TreeNode* root, int val) {\n        if (!root) return new TreeNode(val);\n        TreeNode* cur = root;\n        while (true) {\n            if (val < cur->val) {\n                if (!cur->left) {\n                    cur->left = new TreeNode(val);\n                    break;\n                }\n                cur = cur->left;\n            } else {\n                if (!cur->right) {\n                    cur->right = new TreeNode(val);\n                    break;\n                }\n                cur = cur->right;\n            }\n        }\n        return root;\n    }\n};",
+  "tier": "crafted"
+}

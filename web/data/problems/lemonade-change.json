@@ -1,0 +1,90 @@
+{
+  "id": 860,
+  "slug": "lemonade-change",
+  "title": "Lemonade Change",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "story": {
+    "title": "The Lemonade Stand Till",
+    "text": "Lemonade costs 5. Customers pay with 5, 10 or 20 notes and the till starts empty. For change, the seller always hands back a 10 first if they can, keeping 5s for later.",
+    "goal": "Return true if every customer can get correct change."
+  },
+  "spec": {
+    "method": "lemonadeChange",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "bills"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          5,
+          5,
+          10,
+          20
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          5,
+          5,
+          10,
+          10,
+          20
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          5,
+          5,
+          10,
+          20,
+          5,
+          5,
+          5,
+          20
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "bills",
+        "label": "customers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "five",
+          "ten"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool lemonadeChange(vector<int>& bills) {\n        int five = 0, ten = 0;\n        for (int i = 0; i < (int)bills.size(); i++) {\n            if (bills[i] == 5) {\n                five++;\n            } else if (bills[i] == 10) {\n                if (five == 0) return false;\n                five--;\n                ten++;\n            } else {\n                if (ten > 0 && five > 0) {\n                    ten--;\n                    five--;\n                } else if (five >= 3) {\n                    five -= 3;\n                } else {\n                    return false;\n                }\n            }\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

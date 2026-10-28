@@ -1,0 +1,82 @@
+{
+  "id": 1768,
+  "slug": "merge-strings-alternately",
+  "title": "Merge Strings Alternately",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Zipping Two Banners",
+    "text": "Two banners are stitched into one, taking a letter from each in turn. When one banner runs out, the rest of the other is sewn on the end.",
+    "goal": "Return the merged string."
+  },
+  "spec": {
+    "method": "mergeAlternately",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "word1"
+      ],
+      [
+        "string",
+        "word2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abc",
+        "pqr"
+      ],
+      "expected": "apbqcr"
+    },
+    {
+      "args": [
+        "ab",
+        "pqrs"
+      ],
+      "expected": "apbqrs"
+    },
+    {
+      "args": [
+        "abcd",
+        "pq"
+      ],
+      "expected": "apbqcd"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "word1",
+        "label": "banner 1",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "word2",
+        "label": "banner 2",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "res",
+        "label": "stitched"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string mergeAlternately(string word1, string word2) {\n        string res;\n        int n = max(word1.size(), word2.size());\n        for (int i = 0; i < n; i++) {\n            if (i < (int)word1.size()) res.push_back(word1[i]);\n            if (i < (int)word2.size()) res.push_back(word2[i]);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

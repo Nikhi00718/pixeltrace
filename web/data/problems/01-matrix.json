@@ -1,0 +1,131 @@
+{
+  "id": 542,
+  "slug": "01-matrix",
+  "title": "01 Matrix",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "bfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "Distance to the Nearest Well",
+    "text": "Every well (0) sends out water carriers at once. Each round they step one tile further, writing on every dry tile they reach how many steps it is from the nearest well.",
+    "goal": "Return the distance from every cell to the nearest 0."
+  },
+  "spec": {
+    "method": "updateMatrix",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "mat"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "dist",
+        "palette": "dp",
+        "label": "steps to a well",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "carriers (r,c)"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {\n        int m = mat.size(), n = mat[0].size();\n        vector<vector<int>> dist(m, vector<int>(n, -1));\n        queue<pair<int, int>> q;\n        for (int r = 0; r < m; r++)\n            for (int c = 0; c < n; c++)\n                if (mat[r][c] == 0) {\n                    dist[r][c] = 0;\n                    q.push({r, c});\n                }\n        int dr[4] = {1, -1, 0, 0}, dc[4] = {0, 0, 1, -1};\n        while (!q.empty()) {\n            auto [r, c] = q.front();\n            q.pop();\n            for (int d = 0; d < 4; d++) {\n                int nr = r + dr[d], nc = c + dc[d];\n                if (nr < 0 || nc < 0 || nr >= m || nc >= n || dist[nr][nc] != -1) continue;\n                dist[nr][nc] = dist[r][c] + 1;\n                q.push({nr, nc});\n            }\n        }\n        return dist;\n    }\n};",
+  "tier": "crafted"
+}

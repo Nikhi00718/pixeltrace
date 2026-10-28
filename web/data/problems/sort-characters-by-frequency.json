@@ -1,0 +1,75 @@
+{
+  "id": 451,
+  "slug": "sort-characters-by-frequency",
+  "title": "Sort Characters By Frequency",
+  "difficulty": "Medium",
+  "world": "heap",
+  "tags": [
+    "hash-table",
+    "string",
+    "sorting",
+    "heap",
+    "counting"
+  ],
+  "story": {
+    "title": "The Most Popular Letters",
+    "text": "Letter tiles are counted into lockers, then a pyramid with the most common letter on top hands out tiles: all copies of the top letter go first, then the next.",
+    "goal": "Return the string sorted by how often each letter appears, most frequent first."
+  },
+  "spec": {
+    "method": "frequencySort",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "zzzyyx"
+      ],
+      "expected": "zzzyyx"
+    },
+    {
+      "args": [
+        "abbccc"
+      ],
+      "expected": "cccbba"
+    },
+    {
+      "args": [
+        "aabbbbc"
+      ],
+      "expected": "bbbbaac"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "letter counts"
+      },
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "pyramid [count,letter]"
+      },
+      {
+        "kind": "string",
+        "var": "res",
+        "label": "sorted"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string frequencySort(string s) {\n        map<char, int> cnt;\n        for (char c : s) cnt[c]++;\n        priority_queue<pair<int, char>> pq;\n        for (auto& [c, f] : cnt) pq.push({f, c});\n        string res;\n        while (!pq.empty()) {\n            auto [f, c] = pq.top();\n            pq.pop();\n            res += string(f, c);\n        }\n        return res;\n    }\n};",
+  "hints": [
+    "Any order of equally frequent letters is accepted on LeetCode; the tests here have no ties."
+  ],
+  "tier": "crafted"
+}

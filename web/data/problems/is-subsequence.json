@@ -1,0 +1,77 @@
+{
+  "id": 392,
+  "slug": "is-subsequence",
+  "title": "Is Subsequence",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Spotting the Secret Word",
+    "text": "A secret word is hidden in a long letter, in order but with other letters between. One finger points at the next secret letter needed, the other reads along the letter.",
+    "goal": "Return true if s appears in t in order (not necessarily together)."
+  },
+  "spec": {
+    "method": "isSubsequence",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "t"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abc",
+        "ahbgdc"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "axc",
+        "ahbgdc"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "",
+        "abc"
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "secret",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "t",
+        "label": "letter",
+        "pointers": [
+          "j"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isSubsequence(string s, string t) {\n        int i = 0;\n        for (int j = 0; j < (int)t.size() && i < (int)s.size(); j++) {\n            if (s[i] == t[j]) i++;\n        }\n        return i == (int)s.size();\n    }\n};",
+  "tier": "crafted"
+}

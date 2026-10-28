@@ -1,0 +1,66 @@
+{
+  "id": 9,
+  "slug": "palindrome-number",
+  "title": "Palindrome Number",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math"
+  ],
+  "story": {
+    "title": "The Mirror Odometer",
+    "text": "Does the odometer read the same backwards? Peel digits off the right end and build the reversed half; when the halves meet, compare them.",
+    "goal": "Return true if x is a palindrome."
+  },
+  "spec": {
+    "method": "isPalindrome",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "x"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        121
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        -121
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        10
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        1234321
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "x",
+          "rev"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isPalindrome(int x) {\n        if (x < 0 || (x % 10 == 0 && x != 0)) return false;\n        int rev = 0;\n        while (x > rev) {\n            rev = rev * 10 + x % 10;\n            x /= 10;\n        }\n        return x == rev || x == rev / 10;\n    }\n};",
+  "tier": "crafted"
+}

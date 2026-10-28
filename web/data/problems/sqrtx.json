@@ -1,0 +1,64 @@
+{
+  "id": 69,
+  "slug": "sqrtx",
+  "title": "Sqrt(x)",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "math",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Square Garden",
+    "text": "A gardener wants the largest square plot that fits x tiles. They guess a side length in the middle of the possible range and halve the range depending on whether the square fits.",
+    "goal": "Return the integer square root of x (rounded down)."
+  },
+  "spec": {
+    "method": "mySqrt",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "x"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        4
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        2147395599
+      ],
+      "expected": 46339
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "x",
+          "lo",
+          "mid",
+          "hi",
+          "ans"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int mySqrt(int x) {\n        long long lo = 0, hi = x, ans = 0;\n        while (lo <= hi) {\n            long long mid = (lo + hi) / 2;\n            if (mid * mid <= x) {\n                ans = mid;\n                lo = mid + 1;\n            } else {\n                hi = mid - 1;\n            }\n        }\n        return ans;\n    }\n};",
+  "tier": "crafted"
+}

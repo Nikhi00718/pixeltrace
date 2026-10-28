@@ -1,0 +1,84 @@
+{
+  "id": 643,
+  "slug": "maximum-average-subarray-i",
+  "title": "Maximum Average Subarray I",
+  "difficulty": "Easy",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "sliding-window"
+  ],
+  "story": {
+    "title": "The Best Week of Sales",
+    "text": "A shop's daily sales are on the wall. A frame exactly k days wide slides along; each step adds the new day and drops the oldest, remembering the best total.",
+    "goal": "Return the largest average over any k consecutive days."
+  },
+  "spec": {
+    "method": "findMaxAverage",
+    "ret": "double",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "compare": "float",
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          12,
+          -5,
+          -6,
+          50,
+          3
+        ],
+        4
+      ],
+      "expected": 12.75
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        1
+      ],
+      "expected": 5.0
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "daily sales",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "sum",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    double findMaxAverage(vector<int>& nums, int k) {\n        int sum = 0;\n        for (int r = 0; r < k; r++) sum += nums[r];\n        int best = sum;\n        for (int r = k; r < (int)nums.size(); r++) {\n            int l = r - k + 1;\n            sum += nums[r] - nums[l - 1];\n            best = max(best, sum);\n        }\n        return (double)best / k;\n    }\n};",
+  "tier": "crafted"
+}

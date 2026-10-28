@@ -1,0 +1,149 @@
+{
+  "id": 73,
+  "slug": "set-matrix-zeroes",
+  "title": "Set Matrix Zeroes",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Blight Spreads",
+    "text": "Any blighted plot (0) ruins its whole row and column. An inspector first notes which rows and columns are blighted, then a second pass clears every plot in them.",
+    "goal": "Set every row and column containing a 0 to all zeroes, in place."
+  },
+  "spec": {
+    "method": "setZeroes",
+    "ret": "void",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "matrix"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1,
+            2,
+            0
+          ],
+          [
+            3,
+            4,
+            5,
+            2
+          ],
+          [
+            1,
+            3,
+            1,
+            5
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4,
+          5,
+          0
+        ],
+        [
+          0,
+          3,
+          1,
+          0
+        ]
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "matrix",
+        "palette": "dp",
+        "label": "field",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "array",
+            "var": "row",
+            "label": "blighted rows",
+            "style": "tiles"
+          },
+          {
+            "kind": "array",
+            "var": "col",
+            "label": "blighted cols",
+            "style": "tiles"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void setZeroes(vector<vector<int>>& matrix) {\n        int m = matrix.size(), n = matrix[0].size();\n        vector<bool> row(m, false), col(n, false);\n        for (int i = 0; i < m; i++)\n            for (int j = 0; j < n; j++)\n                if (matrix[i][j] == 0) {\n                    row[i] = true;\n                    col[j] = true;\n                }\n        for (int i = 0; i < m; i++)\n            for (int j = 0; j < n; j++)\n                if (row[i] || col[j]) matrix[i][j] = 0;\n    }\n};",
+  "tier": "crafted"
+}

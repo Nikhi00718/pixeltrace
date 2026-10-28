@@ -1,0 +1,117 @@
+{
+  "id": 1020,
+  "slug": "number-of-enclaves",
+  "title": "Number of Enclaves",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "bfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "Landlocked Fields",
+    "text": "Fields touching the map's edge can walk off the map. A surveyor floods inward from every edge field and marks everything reachable; whatever land is left unmarked is landlocked.",
+    "goal": "Return the number of land cells that cannot walk off the edge."
+  },
+  "spec": {
+    "method": "numEnclaves",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "islands",
+        "label": "map",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void sink(vector<vector<int>>& grid, int r, int c) {\n        if (r < 0 || c < 0 || r >= (int)grid.size() || c >= (int)grid[0].size() || grid[r][c] != 1) return;\n        grid[r][c] = 2;\n        sink(grid, r + 1, c);\n        sink(grid, r - 1, c);\n        sink(grid, r, c + 1);\n        sink(grid, r, c - 1);\n    }\n    int numEnclaves(vector<vector<int>>& grid) {\n        int m = grid.size(), n = grid[0].size();\n        for (int r = 0; r < m; r++)\n            for (int c = 0; c < n; c++)\n                if (r == 0 || c == 0 || r == m - 1 || c == n - 1) sink(grid, r, c);\n        int count = 0;\n        for (int r = 0; r < m; r++)\n            for (int c = 0; c < n; c++)\n                if (grid[r][c] == 1) count++;\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

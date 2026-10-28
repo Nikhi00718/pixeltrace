@@ -1,0 +1,99 @@
+{
+  "id": 61,
+  "slug": "rotate-list",
+  "title": "Rotate List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "Moving the Last Cars to the Front",
+    "text": "The last k cars must move to the front. A worker counts the train, couples the caboose to the engine to make a loop, then walks to the new end and uncouples there.",
+    "goal": "Rotate the list right by k places."
+  },
+  "spec": {
+    "method": "rotateRight",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": [
+        4,
+        5,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          2
+        ],
+        4
+      ],
+      "expected": [
+        2,
+        0,
+        1
+      ]
+    },
+    {
+      "args": [
+        [],
+        1
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "tail",
+          "newTail"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* rotateRight(ListNode* head, int k) {\n        if (!head) return head;\n        int n = 1;\n        ListNode* tail = head;\n        while (tail->next) {\n            tail = tail->next;\n            n++;\n        }\n        k %= n;\n        if (k == 0) return head;\n        tail->next = head;\n        ListNode* newTail = head;\n        for (int s = 0; s < n - k - 1; s++) newTail = newTail->next;\n        head = newTail->next;\n        newTail->next = nullptr;\n        return head;\n    }\n};",
+  "tier": "crafted"
+}

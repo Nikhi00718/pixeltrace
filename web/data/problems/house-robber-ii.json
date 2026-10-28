@@ -1,0 +1,100 @@
+{
+  "id": 213,
+  "slug": "house-robber-ii",
+  "title": "House Robber II",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Fox and the Circle of Henhouses",
+    "text": "This time the henhouses stand in a circle, so the first and last are neighbours. The fox plans two raids: one skipping the last house and one skipping the first, and keeps the better.",
+    "goal": "Return the most eggs the fox can take without hitting two neighbours."
+  },
+  "spec": {
+    "method": "rob",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          3,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          200,
+          3,
+          140,
+          20,
+          10
+        ]
+      ],
+      "expected": 340
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "henhouses (circle)",
+        "pointers": [
+          "lo",
+          "i",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "take",
+          "skip"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int line(vector<int>& nums, int lo, int hi) {\n        int take = 0, skip = 0;\n        for (int i = lo; i <= hi; i++) {\n            int nt = skip + nums[i];\n            skip = max(skip, take);\n            take = nt;\n        }\n        return max(take, skip);\n    }\n    int rob(vector<int>& nums) {\n        int n = nums.size();\n        if (n == 1) return nums[0];\n        return max(line(nums, 0, n - 2), line(nums, 1, n - 1));\n    }\n};",
+  "tier": "crafted"
+}

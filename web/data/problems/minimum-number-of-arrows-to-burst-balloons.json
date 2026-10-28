@@ -1,0 +1,122 @@
+{
+  "id": 452,
+  "slug": "minimum-number-of-arrows-to-burst-balloons",
+  "title": "Minimum Number of Arrows to Burst Balloons",
+  "difficulty": "Medium",
+  "world": "intervals",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Balloon Festival",
+    "text": "Balloons stretch across ranges of the sky. Sorted by where they end, an archer shoots at the end of the first unburst balloon, popping every balloon that covers that spot.",
+    "goal": "Return the fewest arrows needed to burst every balloon."
+  },
+  "spec": {
+    "method": "findMinArrowShots",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "points"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            10,
+            16
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            7,
+            12
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            7,
+            8
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "intervals",
+        "vars": [
+          "points"
+        ],
+        "pointers": [
+          "i"
+        ],
+        "label": "balloons"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "arrow",
+          "arrows"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findMinArrowShots(vector<vector<int>>& points) {\n        sort(points.begin(), points.end(), [](const vector<int>& a, const vector<int>& b) { return a[1] < b[1]; });\n        int arrows = 1;\n        long long arrow = points[0][1];\n        for (int i = 1; i < (int)points.size(); i++) {\n            if (points[i][0] > arrow) {\n                arrows++;\n                arrow = points[i][1];\n            }\n        }\n        return arrows;\n    }\n};",
+  "tier": "crafted"
+}

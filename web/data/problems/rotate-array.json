@@ -1,0 +1,94 @@
+{
+  "id": 189,
+  "slug": "rotate-array",
+  "title": "Rotate Array",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "math",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "The Conveyor Belt Shift",
+    "text": "Crates on a looped conveyor must shift k places to the right. The trick: flip the whole row, then flip the first k crates and the rest separately; two workers swap from both ends each time.",
+    "goal": "Rotate the array right by k steps in place."
+  },
+  "spec": {
+    "method": "rotate",
+    "ret": "void",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        3
+      ],
+      "expected": [
+        5,
+        6,
+        7,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          -1,
+          -100,
+          3,
+          99
+        ],
+        2
+      ],
+      "expected": [
+        3,
+        99,
+        -1,
+        -100
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "conveyor",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void flip(vector<int>& nums, int l, int r) {\n        while (l < r) {\n            swap(nums[l], nums[r]);\n            l++;\n            r--;\n        }\n    }\n    void rotate(vector<int>& nums, int k) {\n        int n = nums.size();\n        k %= n;\n        flip(nums, 0, n - 1);\n        flip(nums, 0, k - 1);\n        flip(nums, k, n - 1);\n    }\n};",
+  "tier": "crafted"
+}

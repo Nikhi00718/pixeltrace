@@ -1,0 +1,74 @@
+{
+  "id": 680,
+  "slug": "valid-palindrome-ii",
+  "title": "Valid Palindrome II",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string",
+    "greedy"
+  ],
+  "story": {
+    "title": "One Loose Tile",
+    "text": "Two inspectors walk the bridge from both ends. They are allowed to pull up one bad tile: at the first mismatch they try skipping the left tile, and if that fails, the right one.",
+    "goal": "Return true if the string can be a palindrome after deleting at most one character."
+  },
+  "spec": {
+    "method": "validPalindrome",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "aba"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "abca"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "abc"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "deeee"
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "bridge",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool check(string& s, int l, int r) {\n        while (l < r) {\n            if (s[l] != s[r]) return false;\n            l++;\n            r--;\n        }\n        return true;\n    }\n    bool validPalindrome(string s) {\n        int l = 0, r = s.size() - 1;\n        while (l < r) {\n            if (s[l] != s[r]) return check(s, l + 1, r) || check(s, l, r - 1);\n            l++;\n            r--;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

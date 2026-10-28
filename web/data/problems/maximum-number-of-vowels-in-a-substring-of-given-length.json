@@ -1,0 +1,81 @@
+{
+  "id": 1456,
+  "slug": "maximum-number-of-vowels-in-a-substring-of-given-length",
+  "title": "Maximum Number of Vowels in a Substring of Given Length",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "string",
+    "sliding-window"
+  ],
+  "story": {
+    "title": "The Singing Window",
+    "text": "A window k letters wide slides along a song's lyrics, counting the vowels inside. Each step the new letter comes in and the oldest goes out.",
+    "goal": "Return the most vowels any window of length k holds."
+  },
+  "spec": {
+    "method": "maxVowels",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abciiidef",
+        3
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "aeiou",
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        "leetcode",
+        3
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "lyrics",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "cnt",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool vowel(char c) {\n        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';\n    }\n    int maxVowels(string s, int k) {\n        int cnt = 0, best = 0;\n        for (int r = 0; r < (int)s.size(); r++) {\n            if (vowel(s[r])) cnt++;\n            int l = r - k + 1;\n            if (l > 0 && vowel(s[l - 1])) cnt--;\n            if (l >= 0) best = max(best, cnt);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

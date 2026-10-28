@@ -1,0 +1,104 @@
+{
+  "id": 1011,
+  "slug": "capacity-to-ship-packages-within-d-days",
+  "title": "Capacity To Ship Packages Within D Days",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Smallest Ferry",
+    "text": "Parcels must cross the river in order within a number of days. The harbour master guesses a ferry size, loads parcels day by day to see how many days it takes, and halves the range of sizes.",
+    "goal": "Return the smallest ferry capacity that ships everything in time."
+  },
+  "spec": {
+    "method": "shipWithinDays",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "weights"
+      ],
+      [
+        "int",
+        "days"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        5
+      ],
+      "expected": 15
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          2,
+          4,
+          1,
+          4
+        ],
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          1,
+          1
+        ],
+        4
+      ],
+      "expected": 3
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "weights",
+        "label": "parcels",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "lo",
+          "mid",
+          "hi",
+          "need",
+          "load",
+          "days"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int shipWithinDays(vector<int>& weights, int days) {\n        int lo = *max_element(weights.begin(), weights.end());\n        int hi = accumulate(weights.begin(), weights.end(), 0);\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            int need = 1, load = 0;\n            for (int i = 0; i < (int)weights.size(); i++) {\n                if (load + weights[i] > mid) {\n                    need++;\n                    load = 0;\n                }\n                load += weights[i];\n            }\n            if (need <= days) hi = mid;\n            else lo = mid + 1;\n        }\n        return lo;\n    }\n};",
+  "tier": "crafted"
+}
