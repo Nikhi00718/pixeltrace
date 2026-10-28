@@ -1,0 +1,71 @@
+{
+  "id": 1189,
+  "slug": "maximum-number-of-balloons",
+  "title": "Maximum Number of Balloons",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "story": {
+    "title": "Spelling BALLOON",
+    "text": "Letter tiles are counted into lockers. Each copy of the word needs one b, a and n, and two l and o; the scarcest letter decides how many words you can spell.",
+    "goal": "Return how many times \"balloon\" can be formed."
+  },
+  "spec": {
+    "method": "maxNumberOfBalloons",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "text"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "nlaebolko"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "loonbalxballpoon"
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        "leetcode"
+      ],
+      "expected": 0
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "text",
+        "label": "tiles"
+      },
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "letter counts"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxNumberOfBalloons(string text) {\n        map<char, int> cnt;\n        for (char c : text) cnt[c]++;\n        int best = min({cnt['b'], cnt['a'], cnt['n']});\n        best = min({best, cnt['l'] / 2, cnt['o'] / 2});\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,69 @@
+{
+  "id": 279,
+  "slug": "perfect-squares",
+  "title": "Perfect Squares",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "math",
+    "dynamic-programming",
+    "bfs"
+  ],
+  "story": {
+    "title": "Square Paving Stones",
+    "text": "A path is paved with square stones (1, 4, 9, \u2026). The ledger records the fewest stones for every length, trying each square stone as the last one laid.",
+    "goal": "Return the least number of perfect squares summing to n."
+  },
+  "spec": {
+    "method": "numSquares",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        12
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        13
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "fewest stones per length",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "s"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numSquares(int n) {\n        vector<int> dp(n + 1, INT_MAX);\n        dp[0] = 0;\n        for (int i = 1; i <= n; i++) {\n            for (int s = 1; s * s <= i; s++) dp[i] = min(dp[i], dp[i - s * s] + 1);\n        }\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

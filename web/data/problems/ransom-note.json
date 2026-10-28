@@ -1,0 +1,75 @@
+{
+  "id": 383,
+  "slug": "ransom-note",
+  "title": "Ransom Note",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "story": {
+    "title": "Cutting Letters from the Magazine",
+    "text": "Every letter cut from the magazine goes into the lockers. Then each letter of the note takes one from its locker; an empty locker means the note can't be made.",
+    "goal": "Return true if the note can be built from the magazine's letters."
+  },
+  "spec": {
+    "method": "canConstruct",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "ransomNote"
+      ],
+      [
+        "string",
+        "magazine"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "a",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "aa",
+        "ab"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "aab",
+        "baa"
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "ransomNote",
+        "label": "note",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "letters available"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool canConstruct(string ransomNote, string magazine) {\n        map<char, int> cnt;\n        for (char c : magazine) cnt[c]++;\n        for (int i = 0; i < (int)ransomNote.size(); i++) {\n            if (--cnt[ransomNote[i]] < 0) return false;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

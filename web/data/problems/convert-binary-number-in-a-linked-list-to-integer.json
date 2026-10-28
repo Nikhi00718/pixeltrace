@@ -1,0 +1,92 @@
+{
+  "id": 1290,
+  "slug": "convert-binary-number-in-a-linked-list-to-integer",
+  "title": "Convert Binary Number in a Linked List to Integer",
+  "difficulty": "Easy",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "math"
+  ],
+  "story": {
+    "title": "Reading the Signal Train",
+    "text": "Each car carries one bit, most significant first. A clerk walks the train, doubling the running number and adding each car's bit.",
+    "goal": "Return the number the bits spell."
+  },
+  "spec": {
+    "method": "getDecimalValue",
+    "ret": "int",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "expected": 18880
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "cur"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "signal train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "value"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int getDecimalValue(ListNode* head) {\n        int value = 0;\n        for (ListNode* cur = head; cur; cur = cur->next) value = value * 2 + cur->val;\n        return value;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,116 @@
+{
+  "id": 113,
+  "slug": "path-sum-ii",
+  "title": "Path Sum II",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "backtracking",
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Every Exact-Weight Basket",
+    "text": "This time the picker writes down every root-to-leaf path whose basket weighs exactly the target. They add each fruit to the basket going down and take it out coming back up.",
+    "goal": "Return all root-to-leaf paths that sum to targetSum (any order)."
+  },
+  "spec": {
+    "method": "pathSum",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "targetSum"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          4,
+          8,
+          11,
+          null,
+          13,
+          4,
+          7,
+          2,
+          null,
+          null,
+          5,
+          1
+        ],
+        22
+      ],
+      "expected": [
+        [
+          5,
+          4,
+          11,
+          2
+        ],
+        [
+          5,
+          8,
+          4,
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        5
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "array",
+        "var": "path",
+        "label": "basket",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "remain"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> res;\n    vector<int> path;\n    void walk(TreeNode* node, int remain) {\n        if (!node) return;\n        path.push_back(node->val);\n        remain -= node->val;\n        if (!node->left && !node->right && remain == 0) res.push_back(path);\n        walk(node->left, remain);\n        walk(node->right, remain);\n        path.pop_back();\n    }\n    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {\n        walk(root, targetSum);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,101 @@
+{
+  "id": 1475,
+  "slug": "final-prices-with-a-special-discount-in-a-shop",
+  "title": "Final Prices With a Special Discount in a Shop",
+  "difficulty": "Easy",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "The Next Cheaper Item",
+    "text": "Each item is discounted by the price of the next item to its right that costs no more. Items still waiting for their discount sit on a tower until a cheap enough item arrives.",
+    "goal": "Return the final prices after discounts."
+  },
+  "spec": {
+    "method": "finalPrices",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "prices"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          8,
+          4,
+          6,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        4,
+        2,
+        4,
+        2,
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          10,
+          1,
+          1,
+          6
+        ]
+      ],
+      "expected": [
+        9,
+        0,
+        1,
+        6
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "prices",
+        "label": "prices",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "waiting (index)"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> finalPrices(vector<int>& prices) {\n        stack<int> st;\n        for (int i = 0; i < (int)prices.size(); i++) {\n            while (!st.empty() && prices[st.top()] >= prices[i]) {\n                prices[st.top()] -= prices[i];\n                st.pop();\n            }\n            st.push(i);\n        }\n        return prices;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,91 @@
+{
+  "id": 86,
+  "slug": "partition-list",
+  "title": "Partition List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "Light Cars to the Front",
+    "text": "Cars lighter than x go to a front train, the rest to a back train, each keeping its order. Two couplers build the trains, then the back train is hooked behind the front one.",
+    "goal": "Return the partitioned train."
+  },
+  "spec": {
+    "method": "partition",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ],
+      [
+        "int",
+        "x"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          4,
+          3,
+          2,
+          5,
+          2
+        ],
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        2,
+        4,
+        3,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          1
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "lowTail",
+          "highTail"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "yard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* partition(ListNode* head, int x) {\n        ListNode* low = new ListNode(0);\n        ListNode* high = new ListNode(0);\n        ListNode* lowTail = low;\n        ListNode* highTail = high;\n        while (head) {\n            if (head->val < x) {\n                lowTail->next = head;\n                lowTail = head;\n            } else {\n                highTail->next = head;\n                highTail = head;\n            }\n            head = head->next;\n        }\n        highTail->next = nullptr;\n        lowTail->next = high->next;\n        return low->next;\n    }\n};",
+  "tier": "crafted"
+}

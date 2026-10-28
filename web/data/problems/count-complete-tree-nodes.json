@@ -1,0 +1,82 @@
+{
+  "id": 222,
+  "slug": "count-complete-tree-nodes",
+  "title": "Count Complete Tree Nodes",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "binary-search",
+    "bit-manipulation",
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Counting the Fruit",
+    "text": "A squirrel visits every fruit: each fruit reports one for itself plus whatever its two branches report.",
+    "goal": "Return the number of nodes."
+  },
+  "spec": {
+    "method": "countNodes",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "root"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int countNodes(TreeNode* root) {\n        if (!root) return 0;\n        int l = countNodes(root->left);\n        int r = countNodes(root->right);\n        return 1 + l + r;\n    }\n};",
+  "hints": [
+    "There is an O(log\u00b2 n) trick using the tree's completeness: compare the leftmost and rightmost depths."
+  ],
+  "tier": "crafted"
+}

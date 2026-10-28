@@ -1,0 +1,107 @@
+{
+  "id": 463,
+  "slug": "island-perimeter",
+  "title": "Island Perimeter",
+  "difficulty": "Easy",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "bfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "Fencing the Island",
+    "text": "Every land tile has four sides of fence. Each time two land tiles touch, the fence between them comes down on both sides, so subtract two.",
+    "goal": "Return the island's perimeter."
+  },
+  "spec": {
+    "method": "islandPerimeter",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 16
+    },
+    {
+      "args": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "islands",
+        "label": "island",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "fence"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int islandPerimeter(vector<vector<int>>& grid) {\n        int fence = 0;\n        for (int r = 0; r < (int)grid.size(); r++) {\n            for (int c = 0; c < (int)grid[0].size(); c++) {\n                if (!grid[r][c]) continue;\n                fence += 4;\n                if (r > 0 && grid[r - 1][c]) fence -= 2;\n                if (c > 0 && grid[r][c - 1]) fence -= 2;\n            }\n        }\n        return fence;\n    }\n};",
+  "tier": "crafted"
+}

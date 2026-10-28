@@ -1,0 +1,120 @@
+{
+  "id": 1094,
+  "slug": "car-pooling",
+  "title": "Car Pooling",
+  "difficulty": "Medium",
+  "world": "intervals",
+  "tags": [
+    "array",
+    "sorting",
+    "heap",
+    "simulation",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "The Shuttle Bus",
+    "text": "Each trip boards some passengers at one stop and drops them at another. Lockers note how many get on or off at each stop; driving along, the bus adds them up and checks it never overflows.",
+    "goal": "Return true if all trips fit within capacity."
+  },
+  "spec": {
+    "method": "carPooling",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "trips"
+      ],
+      [
+        "int",
+        "capacity"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            5
+          ],
+          [
+            3,
+            3,
+            7
+          ]
+        ],
+        4
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            5
+          ],
+          [
+            3,
+            3,
+            7
+          ]
+        ],
+        5
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          [
+            3,
+            2,
+            7
+          ],
+          [
+            3,
+            7,
+            9
+          ],
+          [
+            8,
+            3,
+            9
+          ]
+        ],
+        11
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "trips",
+        "label": "trips [people, from, to]",
+        "style": "tiles"
+      },
+      {
+        "kind": "map",
+        "var": "change",
+        "label": "change at stop"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "onboard",
+          "capacity"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool carPooling(vector<vector<int>>& trips, int capacity) {\n        map<int, int> change;\n        for (auto& t : trips) {\n            change[t[1]] += t[0];\n            change[t[2]] -= t[0];\n        }\n        int onboard = 0;\n        for (auto& [stop, d] : change) {\n            onboard += d;\n            if (onboard > capacity) return false;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

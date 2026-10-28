@@ -1,0 +1,92 @@
+{
+  "id": 290,
+  "slug": "word-pattern",
+  "title": "Word Pattern",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "The Secret Code Book",
+    "text": "Each pattern letter must stand for exactly one word and each word for one letter. Two locker walls keep the code in both directions; any clash breaks it.",
+    "goal": "Return true if s follows the same pattern."
+  },
+  "spec": {
+    "method": "wordPattern",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "pattern"
+      ],
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abba",
+        "dog cat cat dog"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "abba",
+        "dog cat cat fish"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "aaaa",
+        "dog cat cat dog"
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "pattern",
+        "label": "pattern",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "words",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "map",
+            "var": "pw",
+            "label": "letter \u2192 word"
+          },
+          {
+            "kind": "map",
+            "var": "wp",
+            "label": "word \u2192 letter"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool wordPattern(string pattern, string s) {\n        vector<string> words;\n        string cur;\n        for (char c : s) {\n            if (c == ' ') {\n                words.push_back(cur);\n                cur.clear();\n            } else {\n                cur.push_back(c);\n            }\n        }\n        words.push_back(cur);\n        if (words.size() != pattern.size()) return false;\n        map<char, string> pw;\n        map<string, char> wp;\n        for (int i = 0; i < (int)pattern.size(); i++) {\n            char p = pattern[i];\n            string& w = words[i];\n            if (pw.count(p) && pw[p] != w) return false;\n            if (wp.count(w) && wp[w] != p) return false;\n            pw[p] = w;\n            wp[w] = p;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

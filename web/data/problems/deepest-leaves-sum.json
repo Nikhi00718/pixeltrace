@@ -1,0 +1,97 @@
+{
+  "id": 1302,
+  "slug": "deepest-leaves-sum",
+  "title": "Deepest Leaves Sum",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "bfs",
+    "dfs"
+  ],
+  "story": {
+    "title": "The Lowest Row's Harvest",
+    "text": "Pickers harvest row by row, weighing each row's basket. Each new row's basket replaces the last one, so the final basket is the deepest row.",
+    "goal": "Return the sum of the values on the deepest level."
+  },
+  "spec": {
+    "method": "deepestLeavesSum",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          null,
+          6,
+          7,
+          null,
+          null,
+          null,
+          null,
+          8
+        ]
+      ],
+      "expected": 15
+    },
+    {
+      "args": [
+        [
+          6,
+          7,
+          8,
+          2,
+          7,
+          1,
+          3,
+          9,
+          null,
+          1,
+          4,
+          null,
+          null,
+          null,
+          5
+        ]
+      ],
+      "expected": 19
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "pickers"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int deepestLeavesSum(TreeNode* root) {\n        queue<TreeNode*> q;\n        q.push(root);\n        int sum = 0;\n        while (!q.empty()) {\n            int sz = q.size();\n            sum = 0;\n            for (int k = 0; k < sz; k++) {\n                TreeNode* node = q.front();\n                q.pop();\n                sum += node->val;\n                if (node->left) q.push(node->left);\n                if (node->right) q.push(node->right);\n            }\n        }\n        return sum;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,86 @@
+{
+  "id": 377,
+  "slug": "combination-sum-iv",
+  "title": "Combination Sum IV",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Counting Every Order",
+    "text": "Here different orders count as different ways. The ledger fills each amount by trying every coin as the last one dropped in, adding the ways to make the rest.",
+    "goal": "Return the number of ordered combinations that add up to target."
+  },
+  "spec": {
+    "method": "combinationSum4",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        4
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          9
+        ],
+        3
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        10
+      ],
+      "expected": 89
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "coins",
+        "pointers": [
+          "c"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "ways",
+        "label": "ways per amount",
+        "style": "tiles",
+        "pointers": [
+          "a"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int combinationSum4(vector<int>& nums, int target) {\n        vector<unsigned long long> ways(target + 1, 0);\n        ways[0] = 1;\n        for (int a = 1; a <= target; a++) {\n            for (int c = 0; c < (int)nums.size(); c++) {\n                if (nums[c] <= a) ways[a] += ways[a - nums[c]];\n            }\n        }\n        return ways[target];\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,112 @@
+{
+  "id": 904,
+  "slug": "fruit-into-baskets",
+  "title": "Fruit Into Baskets",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "hash-table",
+    "sliding-window"
+  ],
+  "story": {
+    "title": "Two Baskets Only",
+    "text": "Walking along a row of trees you may carry only two kinds of fruit. The picking window grows to the right; a third kind makes the left edge drop trees until only two kinds remain.",
+    "goal": "Return the most fruit you can pick."
+  },
+  "spec": {
+    "method": "totalFruit",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "fruits"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          1
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          2,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          2,
+          2
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          3,
+          3,
+          3,
+          1,
+          2,
+          1,
+          1,
+          2,
+          3,
+          3,
+          4
+        ]
+      ],
+      "expected": 5
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "fruits",
+        "label": "trees",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "basket",
+        "label": "baskets"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int totalFruit(vector<int>& fruits) {\n        map<int, int> basket;\n        int l = 0, best = 0;\n        for (int r = 0; r < (int)fruits.size(); r++) {\n            basket[fruits[r]]++;\n            while (basket.size() > 2) {\n                if (--basket[fruits[l]] == 0) basket.erase(fruits[l]);\n                l++;\n            }\n            best = max(best, r - l + 1);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

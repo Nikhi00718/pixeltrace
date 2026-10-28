@@ -1,0 +1,67 @@
+{
+  "id": 693,
+  "slug": "binary-number-with-alternating-bits",
+  "title": "Binary Number with Alternating Bits",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "The Blinking Lamp Row",
+    "text": "Do the lamps alternate on, off, on\u2026? Read the last lamp, shift right, and compare it with the next one; two neighbours the same breaks the pattern.",
+    "goal": "Return true if n's bits alternate."
+  },
+  "spec": {
+    "method": "hasAlternatingBits",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        5
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        7
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        11
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        170
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "last",
+          "bit"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool hasAlternatingBits(int n) {\n        int last = n & 1;\n        n >>= 1;\n        while (n) {\n            int bit = n & 1;\n            if (bit == last) return false;\n            last = bit;\n            n >>= 1;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

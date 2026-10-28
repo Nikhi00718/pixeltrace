@@ -1,0 +1,105 @@
+{
+  "id": 1029,
+  "slug": "two-city-scheduling",
+  "title": "Two City Scheduling",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Splitting the Interviewers",
+    "text": "Half the candidates must fly to city A and half to city B. Sort them by how much cheaper A is than B; the first half go to A and the rest to B.",
+    "goal": "Return the minimum total flight cost."
+  },
+  "spec": {
+    "method": "twoCitySchedCost",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "costs"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            10,
+            20
+          ],
+          [
+            30,
+            200
+          ],
+          [
+            400,
+            50
+          ],
+          [
+            30,
+            20
+          ]
+        ]
+      ],
+      "expected": 110
+    },
+    {
+      "args": [
+        [
+          [
+            259,
+            770
+          ],
+          [
+            448,
+            54
+          ],
+          [
+            926,
+            667
+          ],
+          [
+            184,
+            139
+          ],
+          [
+            840,
+            118
+          ],
+          [
+            577,
+            469
+          ]
+        ]
+      ],
+      "expected": 1859
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "costs",
+        "label": "candidates [A, B] (sorted)",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int twoCitySchedCost(vector<vector<int>>& costs) {\n        sort(costs.begin(), costs.end(), [](const vector<int>& a, const vector<int>& b) { return a[0] - a[1] < b[0] - b[1]; });\n        int n = costs.size() / 2, total = 0;\n        for (int i = 0; i < 2 * n; i++) total += i < n ? costs[i][0] : costs[i][1];\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

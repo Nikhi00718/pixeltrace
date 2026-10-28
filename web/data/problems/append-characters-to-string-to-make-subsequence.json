@@ -1,0 +1,77 @@
+{
+  "id": 2486,
+  "slug": "append-characters-to-string-to-make-subsequence",
+  "title": "Append Characters to String to Make Subsequence",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string",
+    "greedy"
+  ],
+  "story": {
+    "title": "Finishing the Secret Word",
+    "text": "Read along s, matching as much of t in order as possible. Whatever part of t is left unmatched has to be glued onto the end.",
+    "goal": "Return how many characters must be appended to s so t is a subsequence."
+  },
+  "spec": {
+    "method": "appendCharacters",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "t"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "coaching",
+        "coding"
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        "abcde",
+        "a"
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        "z",
+        "abcde"
+      ],
+      "expected": 5
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "s",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "t",
+        "label": "t",
+        "pointers": [
+          "j"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int appendCharacters(string s, string t) {\n        int j = 0;\n        for (int i = 0; i < (int)s.size() && j < (int)t.size(); i++) {\n            if (s[i] == t[j]) j++;\n        }\n        return t.size() - j;\n    }\n};",
+  "tier": "crafted"
+}

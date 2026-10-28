@@ -1,0 +1,121 @@
+{
+  "id": 130,
+  "slug": "surrounded-regions",
+  "title": "Surrounded Regions",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "bfs",
+    "union-find",
+    "matrix"
+  ],
+  "story": {
+    "title": "Capturing the Trapped Camps",
+    "text": "O camps touching the board's edge are safe, and so is anything connected to them. Scouts flood from every edge camp marking safe ones; every camp left unmarked is captured and turned to X.",
+    "goal": "Capture every O region not connected to the border, in place."
+  },
+  "spec": {
+    "method": "solve",
+    "ret": "void",
+    "params": [
+      [
+        "vector<vector<char>>&",
+        "board"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            "X",
+            "X",
+            "X",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "X",
+            "O",
+            "X"
+          ],
+          [
+            "X",
+            "O",
+            "X",
+            "X"
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "X",
+          "X",
+          "X"
+        ],
+        [
+          "X",
+          "O",
+          "X",
+          "X"
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            "X"
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          "X"
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "board",
+        "palette": "board",
+        "label": "board",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void mark(vector<vector<char>>& board, int r, int c) {\n        if (r < 0 || c < 0 || r >= (int)board.size() || c >= (int)board[0].size() || board[r][c] != 'O') return;\n        board[r][c] = '#';\n        mark(board, r + 1, c);\n        mark(board, r - 1, c);\n        mark(board, r, c + 1);\n        mark(board, r, c - 1);\n    }\n    void solve(vector<vector<char>>& board) {\n        int m = board.size(), n = board[0].size();\n        for (int r = 0; r < m; r++)\n            for (int c = 0; c < n; c++)\n                if (r == 0 || c == 0 || r == m - 1 || c == n - 1) mark(board, r, c);\n        for (int r = 0; r < m; r++)\n            for (int c = 0; c < n; c++)\n                board[r][c] = board[r][c] == '#' ? 'O' : 'X';\n    }\n};",
+  "tier": "crafted"
+}

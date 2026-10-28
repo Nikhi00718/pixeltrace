@@ -1,0 +1,100 @@
+{
+  "id": 1351,
+  "slug": "count-negative-numbers-in-a-sorted-matrix",
+  "title": "Count Negative Numbers in a Sorted Matrix",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Staircase Walk",
+    "text": "Rows and columns both decrease. Start in the bottom-left corner: a negative tile means the rest of that row is negative too, so count it and go up; otherwise step right.",
+    "goal": "Return how many negative numbers the grid holds."
+  },
+  "spec": {
+    "method": "countNegatives",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            4,
+            3,
+            2,
+            -1
+          ],
+          [
+            3,
+            2,
+            1,
+            -1
+          ],
+          [
+            1,
+            1,
+            -1,
+            -2
+          ],
+          [
+            -1,
+            -1,
+            -2,
+            -3
+          ]
+        ]
+      ],
+      "expected": 8
+    },
+    {
+      "args": [
+        [
+          [
+            3,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "dp",
+        "label": "grid",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int countNegatives(vector<vector<int>>& grid) {\n        int m = grid.size(), n = grid[0].size();\n        int r = m - 1, c = 0, count = 0;\n        while (r >= 0 && c < n) {\n            if (grid[r][c] < 0) {\n                count += n - c;\n                r--;\n            } else {\n                c++;\n            }\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,99 @@
+{
+  "id": 1838,
+  "slug": "frequency-of-the-most-frequent-element",
+  "title": "Frequency of the Most Frequent Element",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "binary-search",
+    "greedy",
+    "sliding-window",
+    "sorting",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "Levelling Up the Towers",
+    "text": "You may add at most k bricks in total. On the sorted towers, the beam tries to raise every tower in the window to the tallest one on its right edge; if that needs more than k bricks, the left edge moves up.",
+    "goal": "Return the largest number of equal towers you can make."
+  },
+  "spec": {
+    "method": "maxFrequency",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          4
+        ],
+        5
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          4,
+          8,
+          13
+        ],
+        5
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          3,
+          9,
+          6
+        ],
+        2
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "towers (sorted)",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "sum",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxFrequency(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        long long sum = 0;\n        int l = 0, best = 0;\n        for (int r = 0; r < (int)nums.size(); r++) {\n            sum += nums[r];\n            while ((long long)nums[r] * (r - l + 1) - sum > k) {\n                sum -= nums[l];\n                l++;\n            }\n            best = max(best, r - l + 1);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

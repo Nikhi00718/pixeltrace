@@ -1,0 +1,82 @@
+{
+  "id": 131,
+  "slug": "palindrome-partitioning",
+  "title": "Palindrome Partitioning",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "string",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "story": {
+    "title": "Cutting the Ribbon into Mirrors",
+    "text": "A ribbon must be cut so every piece reads the same both ways. At each door the cutter tries every palindrome piece starting at the current position, goes deeper, then tapes it back.",
+    "goal": "Return every way to cut s into palindromes (any order)."
+  },
+  "spec": {
+    "method": "partition",
+    "ret": "vector<vector<string>>",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        "aab"
+      ],
+      "expected": [
+        [
+          "a",
+          "a",
+          "b"
+        ],
+        [
+          "aa",
+          "b"
+        ]
+      ]
+    },
+    {
+      "args": [
+        "a"
+      ],
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "ribbon",
+        "pointers": [
+          "start",
+          "end"
+        ],
+        "window": [
+          "start",
+          "end"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "path",
+        "label": "pieces",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<string>> res;\n    vector<string> path;\n    bool mirror(string& s, int l, int r) {\n        while (l < r) {\n            if (s[l] != s[r]) return false;\n            l++;\n            r--;\n        }\n        return true;\n    }\n    void go(string& s, int start) {\n        if (start == (int)s.size()) {\n            res.push_back(path);\n            return;\n        }\n        for (int end = start; end < (int)s.size(); end++) {\n            if (!mirror(s, start, end)) continue;\n            path.push_back(s.substr(start, end - start + 1));\n            go(s, end + 1);\n            path.pop_back();\n        }\n    }\n    vector<vector<string>> partition(string s) {\n        go(s, 0);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}
