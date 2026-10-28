@@ -260,7 +260,7 @@ def scalar(x):
     return x is None or isinstance(x, (int, float, bool, str)) or (isinstance(x, dict) and "$c" in x)
 
 
-def frame_vars(frame, line, nodes, full, seen_addr):
+def frame_vars(frame, line, nodes, full, seen_addr, decl_ready):
     out = {}
     try:
         block = frame.block()
@@ -272,7 +272,9 @@ def frame_vars(frame, line, nodes, full, seen_addr):
                 continue
             if sym.name in out or sym.name.startswith("__"):
                 continue
-            if not sym.is_argument and sym.line > line:
+            # gdb stops before a line runs, so a local declared on this line is uninitialised
+            # until the line has run once in this call (one-line loops revisit it)
+            if not sym.is_argument and (sym.line > line or (sym.line == line and not decl_ready)):
                 continue
             try:
                 val = sym.value(frame)
@@ -311,6 +313,18 @@ def frame_vars(frame, line, nodes, full, seen_addr):
     return out
 
 
+# Per call (depth, frame base): pcs already stopped at, lines already finished, and the last line.
+calls = {}
+prev_depth = [0]
+
+
+def frame_key(frame, depth):
+    try:
+        return (depth, int(frame.read_register("rbp")))
+    except Exception:
+        return (depth, 0)
+
+
 def snapshot():
     try:
         frame = gdb.newest_frame()
@@ -334,25 +348,110 @@ def snapshot():
     for i, f in enumerate(frames):
         line = f.find_sal().line
         full = i == 0 or i == last
-        stack.append({"fn": fn_name(f), "line": line, "vars": frame_vars(f, line, nodes, full, seen_addr)})
+        ready = False
+        if i == last:
+            key = frame_key(f, i)
+            if len(frames) > prev_depth[0] or key not in calls:
+                calls[key] = {"pcs": set(), "done": set(), "last": None}
+            c = calls[key]
+            pc = f.pc()
+            if c["last"] is not None and c["last"] != line:
+                c["done"].add(c["last"])
+            # a declaration on this line has fully run once we left the line, or looped back to a pc
+            ready = line in c["done"] or pc in c["pcs"]
+            c["pcs"].add(pc)
+            c["last"] = line
+        stack.append({"fn": fn_name(f), "line": line, "vars": frame_vars(f, line, nodes, full, seen_addr, ready)})
+    prev_depth[0] = len(frames)
     return {"line": stack[-1]["line"], "fn": stack[-1]["fn"], "stack": stack, "nodes": nodes}
 
 
 # ---------------------------------------------------------------- main loop
 
 
-def main():
+JUMP_RE = re.compile(r"(?<![a-z])j[a-z]+\s+(0x[0-9a-f]+)")
+
+
+def is_entry(pc):
+    """Function entry points: arguments are not stored yet before the prologue runs."""
+    try:
+        blk = gdb.block_for_pc(pc)
+        while blk is not None and blk.function is None:
+            blk = blk.superblock
+        return blk is not None and blk.start == pc
+    except RuntimeError:
+        return False
+
+
+def set_breakpoints():
+    """Break on every line-table address of the solution, plus the back-edge target of any loop that
+    lives inside a single line (gcc gives those no rows of their own). Needs a non-PIE binary and a
+    started inferior (for the disassembler)."""
+    table = None
     for n in range(1, SRC_LINES + 1):
         try:
-            gdb.execute(f"break {SRC}:{n}", to_string=True)
+            for sal in gdb.decode_line(f"{SRC}:{n}")[1] or []:
+                if sal.symtab is not None and sal.symtab.filename.endswith(SRC):
+                    table = sal.symtab.linetable()
+                    break
+        except gdb.error:
+            continue
+        if table is not None:
+            break
+    if table is None:
+        for n in range(1, SRC_LINES + 1):
+            try:
+                gdb.execute(f"break {SRC}:{n}", to_string=True)
+            except gdb.error:
+                pass
+        return
+    rows = sorted({(e.pc, e.line) for e in table if e.pc and 0 < e.line <= SRC_LINES})
+    pcs = set()
+    arch = gdb.selected_inferior().architecture()
+    first = {}  # (function start, line) -> lowest pc; later rows of a line are cleanup/epilogue paths
+    for pc, line in rows:
+        try:
+            blk = gdb.block_for_pc(pc)
+            while blk is not None and blk.function is None:
+                blk = blk.superblock
+            fn = blk.start if blk is not None else 0
+        except RuntimeError:
+            fn = 0
+        first.setdefault((fn, line), pc)
+    keep = set(first.values())
+    for k, (pc, line) in enumerate(rows):
+        if is_entry(pc):
+            continue
+        if pc in keep:
+            pcs.add(pc)
+        end = rows[k + 1][0] if k + 1 < len(rows) else pc
+        if end - pc <= 4 or end - pc > 600:
+            continue
+        try:
+            for insn in arch.disassemble(pc, end - 1):
+                m = JUMP_RE.search(insn["asm"])
+                if m:
+                    target = int(m.group(1), 16)
+                    if pc <= target < insn["addr"]:
+                        pcs.add(target)
+        except gdb.error:
+            pass
+    for pc in sorted(pcs):
+        try:
+            gdb.execute(f"break *{pc:#x}", to_string=True)
         except gdb.error:
             pass
 
+
+def main():
     steps = []
     end = {"kind": "exit", "code": None}
     truncated = False
     try:
-        gdb.execute("run", to_string=True)
+        gdb.execute("starti", to_string=True)
+        set_breakpoints()
+        events["stop"] = None
+        gdb.execute("continue", to_string=True)
     except gdb.error as e:
         end = {"kind": "error", "message": str(e)}
 

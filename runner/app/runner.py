@@ -41,7 +41,7 @@ def compile_program(work: Path, code: str, spec: dict, tests: list[dict]) -> dic
     (work / "solution.cpp").write_text(code)
     (work / "main.cpp").write_text(build_main(spec, tests))
     cmd = [
-        CXX, "-std=c++17", "-O0", "-g", "-fno-omit-frame-pointer",
+        CXX, "-std=c++17", "-O0", "-g", "-fno-omit-frame-pointer", "-no-pie",
         "-D_GLIBCXX_ASSERTIONS", "-fdiagnostics-color=never",
         "-o", "prog", "main.cpp",
     ]

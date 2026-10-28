@@ -27,6 +27,7 @@ Scene engine (canvas) ◄─ trace + the problem's scene definition
 | `scripts/build_problems.py` | Compiles every reference, fills/checks expected outputs, writes the JSON |
 | `scripts/generate.py` | Drafts situation files for the rest of the catalog with Claude, validates them on the runner |
 | `scripts/make_samples.py` | Sample traces for `/playground` |
+| `scripts/validate_runner.py` | Runs every reference on the live runner and checks the trace covers every mapped variable |
 
 ## Run it locally
 
@@ -44,6 +45,22 @@ npm --prefix web run dev
 
 Open http://localhost:3000. The web app finds the runner at `RUNNER_URL` (default `http://127.0.0.1:8765`).
 `/playground` replays any trace JSON with any scene definition — use it to author new scenes.
+
+## Playing
+
+- The home page is a world map: click an island to walk there and see its levels. Progress is kept in your browser.
+- In a level, hover any sprite to see the variable and value it stands for; click it to pin it in the narrator bubble.
+- The owl narrates each step (`l++ → 3`, `push 5 onto st`, `node 3.next now points to node 2`).
+- Each line shows how often it ran (`×12`). Click a line number to jump to the next time it runs.
+- The timeline is coloured by call depth and red where the program crashed; click or drag to scrub.
+- Keys: `←` `→` step, `space` play, `Home`/`End`, `Ctrl+Enter` run.
+
+## How the tracer stops
+
+gdb breaks on the first address of every line in the solution, skipping function entry (arguments are not
+stored yet), plus the back-edge target of any loop written on a single line, so `for (...) dp[i] = ...;`
+still stops once per iteration. Binaries are built with `-no-pie` so those addresses are fixed. A local
+declared on the current line is hidden until that line has run once in the call.
 
 ## Adding problems
 

@@ -1,6 +1,7 @@
 services:
   runner:
     build: ./runner
+    restart: unless-stopped
     ports:
       - "8765:8000"
     environment:

@@ -8,7 +8,7 @@ import { previewTrace } from "@/lib/preview";
 import { markOpened, markSolved } from "@/lib/progress";
 import { setSound, sfx, soundPref } from "@/lib/sound";
 import type { Problem, RunResponse, Trace } from "@/lib/types";
-import { pretty } from "@/lib/values";
+import { isPtr, pretty } from "@/lib/values";
 import type { Ent } from "@/scene/layers";
 import SceneCanvas from "./SceneCanvas";
 import Timeline from "./Timeline";
@@ -49,6 +49,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
   const monacoRef = useRef<Monaco | null>(null);
   const decoRef = useRef<string[]>([]);
   const traceRef = useRef(trace);
+  const restored = useRef(false);
   const stepRef = useRef(step);
 
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
   }, [problem.slug]);
 
   useEffect(() => {
+    if (!restored.current) return; // don't overwrite saved code with the starter before it is restored
     try {
       localStorage.setItem(storageKey, code);
     } catch {}
@@ -103,12 +105,25 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
         options: { isWholeLine: true, className: cur?.error ? "line-crash" : "line-active", glyphMarginClassName: cur?.error ? "glyph-crash" : "glyph-here" },
       });
     }
+    const model = ed.getModel();
     for (const [ln, n] of hits) {
+      if (!model || ln > model.getLineCount()) continue;
+      const endCol = model.getLineMaxColumn(ln);
       decos.push({
-        range: new m.Range(ln, 1, ln, 1),
-        options: { after: { content: `  ×${n}`, inlineClassName: ln === focusLine ? "hit-count focus" : "hit-count" } },
+        range: new m.Range(ln, endCol, ln, endCol),
+        options: { afterContentClassName: `hit-count hit-${Math.min(n, 999)}${ln === focusLine ? " focus" : ""}` },
       });
     }
+    // Monaco cannot put per-line text in afterContent, so each count gets its own tiny CSS rule.
+    let style = document.getElementById("hit-styles");
+    if (!style) {
+      style = document.createElement("style");
+      style.id = "hit-styles";
+      document.head.appendChild(style);
+    }
+    style.textContent = [...new Set([...hits.values()].map((n) => Math.min(n, 999)))]
+      .map((n) => `.hit-${n}::after{content:"  ×${n}"}`)
+      .join(" ");
     decoRef.current = ed.deltaDecorations(decoRef.current, decos);
     if (line) ed.revealLineInCenterIfOutsideViewport(line);
   }, [cur, isPreview, hits, focusLine]);
@@ -213,6 +228,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
       const saved = localStorage.getItem(storageKey);
       if (saved) setCode(saved);
     } catch {}
+    restored.current = true;
     setSoundState(soundPref());
     setSound(soundPref());
     ed.addCommand(m.KeyMod.CtrlCmd | m.KeyCode.Enter, () => document.getElementById("run-btn")?.click());
@@ -565,7 +581,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
                       return (
                         <tr key={k} className={changed ? "changed" : ""}>
                           <td className="vn">{k}</td>
-                          <td className="vv">{pretty(v)}</td>
+                          <td className="vv">{isPtr(v) && cur.nodes[v.$p] ? `→ node ${pretty(cur.nodes[v.$p].val)}` : pretty(v)}</td>
                         </tr>
                       );
                     })}

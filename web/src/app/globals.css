@@ -193,8 +193,8 @@ pre.code { background: #0d0e16; padding: 10px; overflow: auto; font-size: 12px; 
 .line-crash { background: rgba(239, 71, 111, 0.35); }
 .glyph-here { background: var(--accent); clip-path: polygon(20% 15%, 85% 50%, 20% 85%); margin-left: 3px; }
 .glyph-crash { background: var(--bad); clip-path: polygon(50% 0, 100% 100%, 0 100%); margin-left: 3px; }
-.hit-count { color: #5c6191 !important; font-style: italic; font-size: 11px; }
-.hit-count.focus { color: var(--accent2) !important; font-weight: bold; }
+.hit-count::after { color: #6b70a3; font-style: italic; font-size: 11px; white-space: pre; }
+.hit-count.focus::after { color: var(--accent2); font-weight: bold; }
 
 .stage { padding: 6px; position: relative; overflow: hidden; flex-shrink: 0; background: #0d0e16; }
 .stage.shake { animation: shake .35s steps(6) 1; }
@@ -280,7 +280,7 @@ pre.code { background: #0d0e16; padding: 10px; overflow: auto; font-size: 12px; 
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
 @keyframes march { to { background-position: 28px 0; } }
 @keyframes fall { to { transform: translateY(420px) rotate(360deg); } }
-@keyframes type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes type { from { transform: translateX(-6px); } }
 @keyframes flash { from { background: rgba(245,197,66,.6); } }
 
 @media (prefers-reduced-motion: reduce) {
