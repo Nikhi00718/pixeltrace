@@ -1,0 +1,108 @@
+{
+  "id": 1004,
+  "slug": "max-consecutive-ones-iii",
+  "title": "Max Consecutive Ones III",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "binary-search",
+    "sliding-window",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "Patching the Road",
+    "text": "A road crew may patch at most k potholes (0s). Their work zone stretches forward; once it holds more than k potholes, the back of the zone moves up past the oldest pothole.",
+    "goal": "Return the longest stretch of smooth road possible."
+  },
+  "spec": {
+    "method": "longestOnes",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        2
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        3
+      ],
+      "expected": 10
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "road",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "zeros",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestOnes(vector<int>& nums, int k) {\n        int l = 0, zeros = 0, best = 0;\n        for (int r = 0; r < (int)nums.size(); r++) {\n            if (nums[r] == 0) zeros++;\n            while (zeros > k) {\n                if (nums[l] == 0) zeros--;\n                l++;\n            }\n            best = max(best, r - l + 1);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

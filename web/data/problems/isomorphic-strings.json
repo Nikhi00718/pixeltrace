@@ -1,0 +1,92 @@
+{
+  "id": 205,
+  "slug": "isomorphic-strings",
+  "title": "Isomorphic Strings",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "The Cipher Wheel",
+    "text": "Two messages might be the same text in a letter-for-letter cipher. Two locker walls record the cipher in both directions; any letter that would need two different partners breaks it.",
+    "goal": "Return true if s can be turned into t by a one-to-one letter swap."
+  },
+  "spec": {
+    "method": "isIsomorphic",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "t"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "egg",
+        "add"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "foo",
+        "bar"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "paper",
+        "title"
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "message s",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "t",
+        "label": "message t",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "map",
+            "var": "st",
+            "label": "s \u2192 t"
+          },
+          {
+            "kind": "map",
+            "var": "ts",
+            "label": "t \u2192 s"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isIsomorphic(string s, string t) {\n        map<char, char> st, ts;\n        for (int i = 0; i < (int)s.size(); i++) {\n            char a = s[i], b = t[i];\n            if (st.count(a) && st[a] != b) return false;\n            if (ts.count(b) && ts[b] != a) return false;\n            st[a] = b;\n            ts[b] = a;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

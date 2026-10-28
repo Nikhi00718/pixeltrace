@@ -1,0 +1,96 @@
+{
+  "id": 90,
+  "slug": "subsets-ii",
+  "title": "Subsets II",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "backtracking",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Packing with Twins",
+    "text": "Some items in the cupboard are identical twins. Sorted side by side, the packer only tries a twin at a door if the first copy was tried at that same door, so no bag is packed twice.",
+    "goal": "Return every distinct subset (any order)."
+  },
+  "spec": {
+    "method": "subsetsWithDup",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "compare": "unordered-deep",
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2
+        ]
+      ],
+      "expected": [
+        [],
+        [
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        [],
+        [
+          0
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "items (sorted)",
+        "pointers": [
+          "start",
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "path",
+        "label": "bag",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> res;\n    vector<int> path;\n    void go(vector<int>& nums, int start) {\n        res.push_back(path);\n        for (int i = start; i < (int)nums.size(); i++) {\n            if (i > start && nums[i] == nums[i - 1]) continue;\n            path.push_back(nums[i]);\n            go(nums, i + 1);\n            path.pop_back();\n        }\n    }\n    vector<vector<int>> subsetsWithDup(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        go(nums, 0);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

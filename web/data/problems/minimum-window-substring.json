@@ -1,0 +1,97 @@
+{
+  "id": 76,
+  "slug": "minimum-window-substring",
+  "title": "Minimum Window Substring",
+  "difficulty": "Hard",
+  "world": "sliding-window",
+  "tags": [
+    "hash-table",
+    "string",
+    "sliding-window"
+  ],
+  "story": {
+    "title": "The Shortest Shopping Trip",
+    "text": "A shopper needs every item on a list from a row of stalls. The trip grows right until the basket covers the list, then shrinks from the left while it still does, remembering the shortest trip.",
+    "goal": "Return the shortest stretch of s containing every letter of t (with counts), or an empty string."
+  },
+  "spec": {
+    "method": "minWindow",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "t"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "ADOBECODEBANC",
+        "ABC"
+      ],
+      "expected": "BANC"
+    },
+    {
+      "args": [
+        "a",
+        "a"
+      ],
+      "expected": "a"
+    },
+    {
+      "args": [
+        "a",
+        "aa"
+      ],
+      "expected": ""
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "stalls",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "map",
+            "var": "need",
+            "label": "shopping list"
+          },
+          {
+            "kind": "map",
+            "var": "win",
+            "label": "basket"
+          }
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "have",
+          "required",
+          "bestLen"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string minWindow(string s, string t) {\n        map<char, int> need, win;\n        for (char c : t) need[c]++;\n        int required = need.size(), have = 0, l = 0, bestLen = INT_MAX, bestL = 0;\n        for (int r = 0; r < (int)s.size(); r++) {\n            char c = s[r];\n            win[c]++;\n            if (need.count(c) && win[c] == need[c]) have++;\n            while (have == required) {\n                if (r - l + 1 < bestLen) {\n                    bestLen = r - l + 1;\n                    bestL = l;\n                }\n                char d = s[l];\n                win[d]--;\n                if (need.count(d) && win[d] < need[d]) have--;\n                l++;\n            }\n        }\n        return bestLen == INT_MAX ? \"\" : s.substr(bestL, bestLen);\n    }\n};",
+  "tier": "crafted"
+}

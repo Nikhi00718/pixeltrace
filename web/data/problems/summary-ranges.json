@@ -1,0 +1,95 @@
+{
+  "id": 228,
+  "slug": "summary-ranges",
+  "title": "Summary Ranges",
+  "difficulty": "Easy",
+  "world": "intervals",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "Booking Blocks",
+    "text": "A diary lists booked days in order. A clerk groups consecutive days into blocks like \"2->4\" and writes single days on their own.",
+    "goal": "Return the smallest list of ranges covering every number."
+  },
+  "spec": {
+    "method": "summaryRanges",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          1,
+          2,
+          4,
+          5,
+          7
+        ]
+      ],
+      "expected": [
+        "0->2",
+        "4->5",
+        "7"
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          2,
+          3,
+          4,
+          6,
+          8,
+          9
+        ]
+      ],
+      "expected": [
+        "0",
+        "2->4",
+        "6",
+        "8->9"
+      ]
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "booked days",
+        "pointers": [
+          "start",
+          "i"
+        ],
+        "window": [
+          "start",
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "blocks",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> summaryRanges(vector<int>& nums) {\n        vector<string> res;\n        int n = nums.size();\n        for (int i = 0; i < n; i++) {\n            int start = i;\n            while (i + 1 < n && nums[i + 1] == nums[i] + 1) i++;\n            if (start == i) res.push_back(to_string(nums[i]));\n            else res.push_back(to_string(nums[start]) + \"->\" + to_string(nums[i]));\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

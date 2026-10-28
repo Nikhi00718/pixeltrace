@@ -1,0 +1,83 @@
+{
+  "id": 152,
+  "slug": "maximum-product-subarray",
+  "title": "Maximum Product Subarray",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Multiplying Chests",
+    "text": "Chests multiply your gold, and negative ones flip it to debt. The explorer tracks both the best and the worst running product, since a second negative chest can turn the worst into the best.",
+    "goal": "Return the largest product of any contiguous run of chests."
+  },
+  "spec": {
+    "method": "maxProduct",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          3,
+          -2,
+          4
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          -2,
+          0,
+          -1
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          -2,
+          3,
+          -4
+        ]
+      ],
+      "expected": 24
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "chests",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "hi",
+          "lo",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxProduct(vector<int>& nums) {\n        int hi = nums[0], lo = nums[0], best = nums[0];\n        for (int i = 1; i < (int)nums.size(); i++) {\n            int x = nums[i];\n            if (x < 0) swap(hi, lo);\n            hi = max(x, hi * x);\n            lo = min(x, lo * x);\n            best = max(best, hi);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

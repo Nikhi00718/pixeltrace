@@ -1,0 +1,80 @@
+{
+  "id": 763,
+  "slug": "partition-labels",
+  "title": "Partition Labels",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "hash-table",
+    "two-pointers",
+    "string",
+    "greedy"
+  ],
+  "story": {
+    "title": "Cutting the Ribbon",
+    "text": "A ribbon of letters must be cut so each letter appears in only one piece. Lockers remember where each letter last appears; a cutter walks along stretching the piece to the furthest last-appearance, and cuts when they reach it.",
+    "goal": "Return the sizes of the pieces, left to right."
+  },
+  "spec": {
+    "method": "partitionLabels",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "ababcbacadefegdehijhklij"
+      ],
+      "expected": [
+        9,
+        7,
+        8
+      ]
+    },
+    {
+      "args": [
+        "eccbbbbdec"
+      ],
+      "expected": [
+        10
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "ribbon",
+        "pointers": [
+          "start",
+          "i",
+          "end"
+        ],
+        "window": [
+          "start",
+          "end"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "last",
+        "label": "last seen at"
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "pieces",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> partitionLabels(string s) {\n        map<char, int> last;\n        for (int i = 0; i < (int)s.size(); i++) last[s[i]] = i;\n        vector<int> res;\n        int start = 0, end = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            end = max(end, last[s[i]]);\n            if (i == end) {\n                res.push_back(end - start + 1);\n                start = i + 1;\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

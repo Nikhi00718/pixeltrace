@@ -1,0 +1,112 @@
+{
+  "id": 735,
+  "slug": "asteroid-collision",
+  "title": "Asteroid Collision",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Asteroid Belt",
+    "text": "Asteroids drift right (positive) or left (negative). A tower holds the survivors; each left-mover smashes into right-movers on top of the tower until one side is gone.",
+    "goal": "Return the asteroids left after every collision."
+  },
+  "spec": {
+    "method": "asteroidCollision",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "asteroids"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          10,
+          -5
+        ]
+      ],
+      "expected": [
+        5,
+        10
+      ]
+    },
+    {
+      "args": [
+        [
+          8,
+          -8
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        [
+          10,
+          2,
+          -5
+        ]
+      ],
+      "expected": [
+        10
+      ]
+    },
+    {
+      "args": [
+        [
+          -2,
+          -1,
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        -2,
+        -1,
+        1,
+        2
+      ]
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "asteroids",
+        "label": "belt",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "stack",
+            "var": "st",
+            "label": "survivors"
+          },
+          {
+            "kind": "values",
+            "vars": [
+              "a",
+              "alive"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> asteroidCollision(vector<int>& asteroids) {\n        vector<int> st;\n        for (int i = 0; i < (int)asteroids.size(); i++) {\n            int a = asteroids[i];\n            bool alive = true;\n            while (alive && a < 0 && !st.empty() && st.back() > 0) {\n                if (st.back() < -a) {\n                    st.pop_back();\n                } else {\n                    if (st.back() == -a) st.pop_back();\n                    alive = false;\n                }\n            }\n            if (alive) st.push_back(a);\n        }\n        return st;\n    }\n};",
+  "tier": "crafted"
+}

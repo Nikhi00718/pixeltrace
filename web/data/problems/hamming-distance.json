@@ -1,0 +1,69 @@
+{
+  "id": 461,
+  "slug": "hamming-distance",
+  "title": "Hamming Distance",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Two Lamp Rows",
+    "text": "Two rows of lamps show two numbers. XOR lights only the lamps where the rows disagree; then switch those off one at a time and count.",
+    "goal": "Return how many bit positions differ between x and y."
+  },
+  "spec": {
+    "method": "hammingDistance",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "x"
+      ],
+      [
+        "int",
+        "y"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        1,
+        4
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        3,
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        93,
+        73
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "x",
+          "y",
+          "diff",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int hammingDistance(int x, int y) {\n        int diff = x ^ y, count = 0;\n        while (diff) {\n            diff &= diff - 1;\n            count++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

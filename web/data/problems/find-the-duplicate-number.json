@@ -1,0 +1,87 @@
+{
+  "id": 287,
+  "slug": "find-the-duplicate-number",
+  "title": "Find the Duplicate Number",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "The Loop in the Signposts",
+    "text": "Each crate's number points to another crate. Following the signposts must eventually loop, and the loop's entrance is the duplicate. A tortoise and a hare race to find the loop, then walk in step to its entrance.",
+    "goal": "Return the number that appears twice, without changing the array."
+  },
+  "spec": {
+    "method": "findDuplicate",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          4,
+          2,
+          2
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          3,
+          1,
+          3,
+          4,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          2,
+          5,
+          9,
+          6,
+          9,
+          3,
+          8,
+          9,
+          7,
+          1
+        ]
+      ],
+      "expected": 9
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "signpost crates",
+        "pointers": [
+          "slow",
+          "fast"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findDuplicate(vector<int>& nums) {\n        int slow = nums[0], fast = nums[nums[0]];\n        while (slow != fast) {\n            slow = nums[slow];\n            fast = nums[nums[fast]];\n        }\n        slow = 0;\n        while (slow != fast) {\n            slow = nums[slow];\n            fast = nums[fast];\n        }\n        return slow;\n    }\n};",
+  "tier": "crafted"
+}

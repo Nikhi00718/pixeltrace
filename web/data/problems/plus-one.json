@@ -1,0 +1,88 @@
+{
+  "id": 66,
+  "slug": "plus-one",
+  "title": "Plus One",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "math"
+  ],
+  "story": {
+    "title": "The Turnstile Counter",
+    "text": "A turnstile shows a number as a row of digit wheels. One more visitor: the last wheel clicks up, and every 9 that rolls over to 0 passes the carry to the wheel on its left.",
+    "goal": "Return the digits after adding one."
+  },
+  "spec": {
+    "method": "plusOne",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "digits"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          4,
+          3,
+          9,
+          9
+        ]
+      ],
+      "expected": [
+        4,
+        4,
+        0,
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          9,
+          9
+        ]
+      ],
+      "expected": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "digits",
+        "label": "wheels",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> plusOne(vector<int>& digits) {\n        for (int i = digits.size() - 1; i >= 0; i--) {\n            if (digits[i] < 9) {\n                digits[i]++;\n                return digits;\n            }\n            digits[i] = 0;\n        }\n        digits.insert(digits.begin(), 1);\n        return digits;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,102 @@
+{
+  "id": 572,
+  "slug": "subtree-of-another-tree",
+  "title": "Subtree of Another Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "string-matching"
+  ],
+  "story": {
+    "title": "The Grafted Branch",
+    "text": "A gardener holds a small cutting and wants to know if the big orchard already has a branch exactly like it. At every fruit they hold the cutting against the branch below and compare.",
+    "goal": "Return true if subRoot appears somewhere in root as a whole subtree."
+  },
+  "spec": {
+    "method": "isSubtree",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "TreeNode*",
+        "subRoot"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          4,
+          5,
+          1,
+          2
+        ],
+        [
+          4,
+          1,
+          2
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          3,
+          4,
+          5,
+          1,
+          2,
+          null,
+          null,
+          null,
+          null,
+          0
+        ],
+        [
+          4,
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "tree",
+            "var": "root",
+            "pointers": [
+              "root",
+              "a"
+            ],
+            "label": "orchard",
+            "weight": 2
+          },
+          {
+            "kind": "tree",
+            "var": "subRoot",
+            "pointers": [
+              "b"
+            ],
+            "label": "cutting"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool same(TreeNode* a, TreeNode* b) {\n        if (!a && !b) return true;\n        if (!a || !b || a->val != b->val) return false;\n        return same(a->left, b->left) && same(a->right, b->right);\n    }\n    bool isSubtree(TreeNode* root, TreeNode* subRoot) {\n        if (!root) return false;\n        if (same(root, subRoot)) return true;\n        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);\n    }\n};",
+  "tier": "crafted"
+}

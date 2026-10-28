@@ -1,0 +1,109 @@
+{
+  "id": 92,
+  "slug": "reverse-linked-list-ii",
+  "title": "Reverse Linked List II",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list"
+  ],
+  "story": {
+    "title": "Turning Part of the Train",
+    "text": "Only the cars between positions left and right must face the other way. A brakeman parks just before the section and keeps pulling the next car to the front of it until the whole section is turned.",
+    "goal": "Reverse the cars from position left to right and return the train."
+  },
+  "spec": {
+    "method": "reverseBetween",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ],
+      [
+        "int",
+        "left"
+      ],
+      [
+        "int",
+        "right"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2,
+        4
+      ],
+      "expected": [
+        1,
+        4,
+        3,
+        2,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        1,
+        1
+      ],
+      "expected": [
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          5
+        ],
+        1,
+        2
+      ],
+      "expected": [
+        5,
+        3
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "prev",
+          "cur",
+          "nxt"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "left",
+          "right",
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* reverseBetween(ListNode* head, int left, int right) {\n        ListNode* dummy = new ListNode(0, head);\n        ListNode* prev = dummy;\n        for (int k = 1; k < left; k++) prev = prev->next;\n        ListNode* cur = prev->next;\n        for (int k = 0; k < right - left; k++) {\n            ListNode* nxt = cur->next;\n            cur->next = nxt->next;\n            nxt->next = prev->next;\n            prev->next = nxt;\n        }\n        return dummy->next;\n    }\n};",
+  "tier": "crafted"
+}

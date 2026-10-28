@@ -1,0 +1,147 @@
+{
+  "id": 1971,
+  "slug": "find-if-path-exists-in-graph",
+  "title": "Find if Path Exists in Graph",
+  "difficulty": "Easy",
+  "world": "graphs",
+  "tags": [
+    "graph",
+    "bfs",
+    "dfs",
+    "union-find"
+  ],
+  "story": {
+    "title": "Can the Messenger Get Through?",
+    "text": "Towns are joined by two-way roads. A messenger leaves the source town; every town they reach sends riders down each unvisited road, and green towns have been reached.",
+    "goal": "Return true if the destination can be reached from the source."
+  },
+  "spec": {
+    "method": "validPath",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "n"
+      ],
+      [
+        "vector<vector<int>>&",
+        "edges"
+      ],
+      [
+        "int",
+        "source"
+      ],
+      [
+        "int",
+        "destination"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        0,
+        2
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        6,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        0,
+        5
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        6,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        0,
+        5
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "graph",
+        "edges": "edges",
+        "n": "n",
+        "state": "seen",
+        "pointers": [
+          "u"
+        ],
+        "label": "towns"
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "messengers"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {\n        vector<vector<int>> adj(n);\n        for (auto& e : edges) {\n            adj[e[0]].push_back(e[1]);\n            adj[e[1]].push_back(e[0]);\n        }\n        vector<int> seen(n, 0);\n        queue<int> q;\n        q.push(source);\n        seen[source] = 2;\n        while (!q.empty()) {\n            int u = q.front();\n            q.pop();\n            if (u == destination) return true;\n            for (int v : adj[u]) {\n                if (!seen[v]) {\n                    seen[v] = 2;\n                    q.push(v);\n                }\n            }\n        }\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

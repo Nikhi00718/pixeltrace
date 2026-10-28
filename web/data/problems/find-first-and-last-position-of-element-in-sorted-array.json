@@ -1,0 +1,98 @@
+{
+  "id": 34,
+  "slug": "find-first-and-last-position-of-element-in-sorted-array",
+  "title": "Find First and Last Position of Element in Sorted Array",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Twin Guards",
+    "text": "The same treasure may fill several chests in a row. One guard searches for the first chest that is not smaller than the target, another for the first chest bigger than it.",
+    "goal": "Return the first and last index of target, or [-1, -1]."
+  },
+  "spec": {
+    "method": "searchRange",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          7,
+          7,
+          8,
+          8,
+          10
+        ],
+        8
+      ],
+      "expected": [
+        3,
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          7,
+          7,
+          8,
+          8,
+          10
+        ],
+        6
+      ],
+      "expected": [
+        -1,
+        -1
+      ]
+    },
+    {
+      "args": [
+        [],
+        0
+      ],
+      "expected": [
+        -1,
+        -1
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "chests",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ],
+        "windowExclusive": true
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int firstAtLeast(vector<int>& nums, int target) {\n        int lo = 0, hi = nums.size();\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            if (nums[mid] < target) lo = mid + 1;\n            else hi = mid;\n        }\n        return lo;\n    }\n    vector<int> searchRange(vector<int>& nums, int target) {\n        int a = firstAtLeast(nums, target);\n        if (a == (int)nums.size() || nums[a] != target) return {-1, -1};\n        int b = firstAtLeast(nums, target + 1) - 1;\n        return {a, b};\n    }\n};",
+  "tier": "crafted"
+}

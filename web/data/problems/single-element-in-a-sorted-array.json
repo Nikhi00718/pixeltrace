@@ -1,0 +1,79 @@
+{
+  "id": 540,
+  "slug": "single-element-in-a-sorted-array",
+  "title": "Single Element in a Sorted Array",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Missing Pair",
+    "text": "Sorted shoes come in pairs, except one lonely shoe. Before it, every pair starts at an even position; after it, pairs start at odd ones. The guard checks which side of the break the middle pair is on.",
+    "goal": "Return the value that appears only once."
+  },
+  "spec": {
+    "method": "singleNonDuplicate",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          2,
+          3,
+          3,
+          4,
+          4,
+          8,
+          8
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          3,
+          3,
+          7,
+          7,
+          10,
+          11,
+          11
+        ]
+      ],
+      "expected": 10
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "shoes",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int singleNonDuplicate(vector<int>& nums) {\n        int lo = 0, hi = nums.size() - 1;\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            if (mid % 2 == 1) mid--;\n            if (nums[mid] == nums[mid + 1]) lo = mid + 2;\n            else hi = mid;\n        }\n        return nums[lo];\n    }\n};",
+  "tier": "crafted"
+}

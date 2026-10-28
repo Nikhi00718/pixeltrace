@@ -1,0 +1,85 @@
+{
+  "id": 1448,
+  "slug": "count-good-nodes-in-binary-tree",
+  "title": "Count Good Nodes in Binary Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bfs"
+  ],
+  "story": {
+    "title": "Fruit with a Clear View",
+    "text": "A fruit is good if nothing on the path from the top is heavier. A squirrel climbs down carrying the heaviest weight seen so far and counts every fruit at least that heavy.",
+    "goal": "Return the number of good nodes."
+  },
+  "spec": {
+    "method": "goodNodes",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          1,
+          4,
+          3,
+          null,
+          1,
+          5
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          3,
+          3,
+          null,
+          4,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int count = 0;\n    void walk(TreeNode* node, int best) {\n        if (!node) return;\n        if (node->val >= best) count++;\n        best = max(best, node->val);\n        walk(node->left, best);\n        walk(node->right, best);\n    }\n    int goodNodes(TreeNode* root) {\n        walk(root, INT_MIN);\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

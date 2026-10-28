@@ -1,0 +1,61 @@
+{
+  "id": 2390,
+  "slug": "removing-stars-from-a-string",
+  "title": "Removing Stars From a String",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Eraser Stamps",
+    "text": "A typist stacks letters as they type; every star is an eraser stamp that knocks the last letter off the stack.",
+    "goal": "Return what is left after every star erases a letter."
+  },
+  "spec": {
+    "method": "removeStars",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "leet**cod*e"
+      ],
+      "expected": "lecoe"
+    },
+    {
+      "args": [
+        "erase*****"
+      ],
+      "expected": ""
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "typed keys",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "res",
+        "label": "letters kept"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string removeStars(string s) {\n        string res;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '*') res.pop_back();\n            else res.push_back(s[i]);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

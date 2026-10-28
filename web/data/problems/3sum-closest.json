@@ -1,0 +1,102 @@
+{
+  "id": 16,
+  "slug": "3sum-closest",
+  "title": "3Sum Closest",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "story": {
+    "title": "Nearly Balanced",
+    "text": "On a sorted dock a foreman picks one crate, then two dockhands squeeze inward looking for the pair that brings the three crates closest to the target weight.",
+    "goal": "Return the sum of three crates closest to target."
+  },
+  "spec": {
+    "method": "threeSumClosest",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          -1,
+          2,
+          1,
+          -4
+        ],
+        1
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          0
+        ],
+        1
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          4,
+          0,
+          5,
+          -5,
+          3,
+          3,
+          0,
+          -4,
+          -5
+        ],
+        -2
+      ],
+      "expected": -2
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "sorted crates",
+        "pointers": [
+          "i",
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "target",
+          "sum",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int threeSumClosest(vector<int>& nums, int target) {\n        sort(nums.begin(), nums.end());\n        int best = nums[0] + nums[1] + nums[2];\n        for (int i = 0; i < (int)nums.size() - 2; i++) {\n            int l = i + 1, r = nums.size() - 1;\n            while (l < r) {\n                int sum = nums[i] + nums[l] + nums[r];\n                if (abs(sum - target) < abs(best - target)) best = sum;\n                if (sum < target) l++;\n                else if (sum > target) r--;\n                else return sum;\n            }\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

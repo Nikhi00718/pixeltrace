@@ -1,0 +1,89 @@
+{
+  "id": 118,
+  "slug": "pascals-triangle",
+  "title": "Pascal's Triangle",
+  "difficulty": "Easy",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Stacked Hay Bales",
+    "text": "Hay bales are stacked in a triangle. Every bale's number is the sum of the two bales it rests on, and the edges are always 1.",
+    "goal": "Return the first numRows rows of the triangle."
+  },
+  "spec": {
+    "method": "generate",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "int",
+        "numRows"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        5
+      ],
+      "expected": [
+        [
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          3,
+          1
+        ],
+        [
+          1,
+          4,
+          6,
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "res",
+        "palette": "dp",
+        "label": "hay stack",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> generate(int numRows) {\n        vector<vector<int>> res;\n        for (int i = 0; i < numRows; i++) {\n            res.push_back(vector<int>(i + 1, 1));\n            for (int j = 1; j < i; j++) res[i][j] = res[i - 1][j - 1] + res[i - 1][j];\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

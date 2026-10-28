@@ -1,0 +1,86 @@
+{
+  "id": 14,
+  "slug": "longest-common-prefix",
+  "title": "Longest Common Prefix",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "string",
+    "trie"
+  ],
+  "story": {
+    "title": "The Shared Family Name",
+    "text": "Several scrolls start with the same family name. A clerk reads the first scroll letter by letter and checks every other scroll at the same position, stopping at the first mismatch.",
+    "goal": "Return the longest prefix every word shares."
+  },
+  "spec": {
+    "method": "longestCommonPrefix",
+    "ret": "string",
+    "params": [
+      [
+        "vector<string>&",
+        "strs"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "flower",
+          "flow",
+          "flight"
+        ]
+      ],
+      "expected": "fl"
+    },
+    {
+      "args": [
+        [
+          "dog",
+          "racecar",
+          "car"
+        ]
+      ],
+      "expected": ""
+    },
+    {
+      "args": [
+        [
+          "interview",
+          "internet",
+          "interval"
+        ]
+      ],
+      "expected": "inter"
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "strs",
+        "label": "scrolls",
+        "style": "tiles",
+        "pointers": [
+          "j"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "prefix",
+        "label": "shared so far"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string longestCommonPrefix(vector<string>& strs) {\n        string prefix = \"\";\n        for (int i = 0; i < (int)strs[0].size(); i++) {\n            char c = strs[0][i];\n            for (int j = 1; j < (int)strs.size(); j++) {\n                if (i >= (int)strs[j].size() || strs[j][i] != c) return prefix;\n            }\n            prefix.push_back(c);\n        }\n        return prefix;\n    }\n};",
+  "tier": "crafted"
+}

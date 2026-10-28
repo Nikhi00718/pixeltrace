@@ -1,0 +1,112 @@
+{
+  "id": 1642,
+  "slug": "furthest-building-you-can-reach",
+  "title": "Furthest Building You Can Reach",
+  "difficulty": "Medium",
+  "world": "heap",
+  "tags": [
+    "array",
+    "greedy",
+    "heap"
+  ],
+  "story": {
+    "title": "Ladders for the Tallest Climbs",
+    "text": "A rooftop runner has some bricks and a few ladders. Every climb takes a ladder for now; when ladders run out, the smallest climb in the ladder pyramid is paid for with bricks instead.",
+    "goal": "Return the furthest building index reachable."
+  },
+  "spec": {
+    "method": "furthestBuilding",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "heights"
+      ],
+      [
+        "int",
+        "bricks"
+      ],
+      [
+        "int",
+        "ladders"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          7,
+          6,
+          9,
+          14,
+          12
+        ],
+        5,
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          4,
+          12,
+          2,
+          7,
+          3,
+          18,
+          20,
+          3,
+          19
+        ],
+        10,
+        2
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          14,
+          3,
+          19,
+          3
+        ],
+        17,
+        0
+      ],
+      "expected": 3
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "heights",
+        "label": "rooftops",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "climbs using ladders (smallest on top)"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "climb",
+          "bricks",
+          "ladders"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int furthestBuilding(vector<int>& heights, int bricks, int ladders) {\n        priority_queue<int, vector<int>, greater<int>> pq;\n        for (int i = 0; i + 1 < (int)heights.size(); i++) {\n            int climb = heights[i + 1] - heights[i];\n            if (climb <= 0) continue;\n            pq.push(climb);\n            if ((int)pq.size() > ladders) {\n                bricks -= pq.top();\n                pq.pop();\n                if (bricks < 0) return i;\n            }\n        }\n        return heights.size() - 1;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,75 @@
+{
+  "id": 13,
+  "slug": "roman-to-integer",
+  "title": "Roman to Integer",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "math",
+    "string"
+  ],
+  "story": {
+    "title": "The Old Stone Tablet",
+    "text": "A scholar reads Roman numerals off a tablet, looking each letter up in the lockers. A smaller letter standing before a bigger one is subtracted instead of added.",
+    "goal": "Return the number the numeral stands for."
+  },
+  "spec": {
+    "method": "romanToInt",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "III"
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "LVIII"
+      ],
+      "expected": 58
+    },
+    {
+      "args": [
+        "MCMXCIV"
+      ],
+      "expected": 1994
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "tablet",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "val",
+        "label": "letter values"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cur",
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int romanToInt(string s) {\n        map<char, int> val = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};\n        int total = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            int cur = val[s[i]];\n            if (i + 1 < (int)s.size() && cur < val[s[i + 1]]) total -= cur;\n            else total += cur;\n        }\n        return total;\n    }\n};",
+  "tier": "crafted"
+}
