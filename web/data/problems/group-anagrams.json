@@ -1,0 +1,110 @@
+{
+  "id": 49,
+  "slug": "group-anagrams",
+  "title": "Group Anagrams",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "string",
+    "hash-table",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Post Office Sorter",
+    "text": "Letters arrive with scrambled words. The sorter alphabetises each word to get its key, then drops the letter into the locker with that key. Words that are anagrams land in the same locker.",
+    "goal": "Return the groups of anagrams (any order)."
+  },
+  "spec": {
+    "method": "groupAnagrams",
+    "ret": "vector<vector<string>>",
+    "params": [
+      [
+        "vector<string>&",
+        "strs"
+      ]
+    ]
+  },
+  "compare": "unordered-deep",
+  "tests": [
+    {
+      "args": [
+        [
+          "eat",
+          "tea",
+          "tan",
+          "ate",
+          "nat",
+          "bat"
+        ]
+      ],
+      "expected": [
+        [
+          "bat"
+        ],
+        [
+          "eat",
+          "tea",
+          "ate"
+        ],
+        [
+          "tan",
+          "nat"
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          ""
+        ]
+      ],
+      "expected": [
+        [
+          ""
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          "a"
+        ]
+      ],
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "strs",
+        "label": "mail bag",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "key"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "groups",
+        "label": "sorting lockers",
+        "lookup": [
+          "key"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        map<string, vector<string>> groups;\n        for (int i = 0; i < (int)strs.size(); i++) {\n            string key = strs[i];\n            sort(key.begin(), key.end());\n            groups[key].push_back(strs[i]);\n        }\n        vector<vector<string>> res;\n        for (auto& [k, v] : groups) res.push_back(v);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

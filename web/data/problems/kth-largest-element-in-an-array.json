@@ -1,0 +1,90 @@
+{
+  "id": 215,
+  "slug": "kth-largest-element-in-an-array",
+  "title": "Kth Largest Element in an Array",
+  "difficulty": "Medium",
+  "world": "heap",
+  "tags": [
+    "array",
+    "heap",
+    "sorting"
+  ],
+  "story": {
+    "title": "The K-Fruit Pyramid",
+    "text": "A vendor keeps only the k heaviest fruits in a pyramid where the lightest sits on top. A heavier newcomer knocks the top fruit off.",
+    "goal": "Return the k-th largest value."
+  },
+  "spec": {
+    "method": "findKthLargest",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          2,
+          1,
+          5,
+          6,
+          4
+        ],
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          3,
+          1,
+          2,
+          4,
+          5,
+          5,
+          6
+        ],
+        4
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "fruit cart",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "pyramid (min on top)"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n        priority_queue<int, vector<int>, greater<int>> pq;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            pq.push(nums[i]);\n            if ((int)pq.size() > k) pq.pop();\n        }\n        return pq.top();\n    }\n};",
+  "tier": "crafted"
+}

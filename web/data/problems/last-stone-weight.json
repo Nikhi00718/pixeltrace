@@ -1,0 +1,69 @@
+{
+  "id": 1046,
+  "slug": "last-stone-weight",
+  "title": "Last Stone Weight",
+  "difficulty": "Easy",
+  "world": "heap",
+  "tags": [
+    "array",
+    "heap"
+  ],
+  "story": {
+    "title": "The Stone Smasher",
+    "text": "Stones sit in a pyramid with the heaviest on top. Each round the two heaviest are smashed; if they differ, the leftover chunk goes back into the pyramid.",
+    "goal": "Return the weight of the last stone (or 0)."
+  },
+  "spec": {
+    "method": "lastStoneWeight",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "stones"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          7,
+          4,
+          1,
+          8,
+          1
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "stone pyramid (max on top)",
+        "color": "#9a8c98"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "a",
+          "b"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int lastStoneWeight(vector<int>& stones) {\n        priority_queue<int> pq(stones.begin(), stones.end());\n        while (pq.size() > 1) {\n            int a = pq.top(); pq.pop();\n            int b = pq.top(); pq.pop();\n            if (a != b) pq.push(a - b);\n        }\n        return pq.empty() ? 0 : pq.top();\n    }\n};",
+  "tier": "crafted"
+}

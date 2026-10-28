@@ -1,0 +1,87 @@
+{
+  "id": 217,
+  "slug": "contains-duplicate",
+  "title": "Contains Duplicate",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "The Coat Check",
+    "text": "Guests hand their tickets to a coat-check clerk. The clerk keeps one locker per ticket number. If a guest shows up with a number that already has a locker, something is off.",
+    "goal": "Return true if any ticket number appears twice."
+  },
+  "spec": {
+    "method": "containsDuplicate",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          3,
+          3,
+          4,
+          3,
+          2,
+          4,
+          2
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "tickets",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "seen",
+        "label": "lockers"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool containsDuplicate(vector<int>& nums) {\n        unordered_set<int> seen;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (seen.count(nums[i])) return true;\n            seen.insert(nums[i]);\n        }\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

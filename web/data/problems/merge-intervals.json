@@ -1,0 +1,122 @@
+{
+  "id": 56,
+  "slug": "merge-intervals",
+  "title": "Merge Intervals",
+  "difficulty": "Medium",
+  "world": "intervals",
+  "tags": [
+    "array",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Booking Calendar",
+    "text": "Room bookings are sorted by start time. A clerk walks through them; any booking that starts before the last merged one ends gets folded into it.",
+    "goal": "Return the merged bookings."
+  },
+  "spec": {
+    "method": "merge",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "intervals"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            15,
+            18
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          6
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          15,
+          18
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            4,
+            7
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          7
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "intervals",
+        "vars": [
+          "intervals",
+          "res"
+        ],
+        "pointers": [
+          "i"
+        ],
+        "label": "calendar"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        sort(intervals.begin(), intervals.end());\n        vector<vector<int>> res;\n        for (int i = 0; i < (int)intervals.size(); i++) {\n            if (!res.empty() && intervals[i][0] <= res.back()[1]) {\n                res.back()[1] = max(res.back()[1], intervals[i][1]);\n            } else {\n                res.push_back(intervals[i]);\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

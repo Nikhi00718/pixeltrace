@@ -1,0 +1,80 @@
+{
+  "id": 136,
+  "slug": "single-number",
+  "title": "Single Number",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "array",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "The Lamp of Pairs",
+    "text": "Every number toggles the lamps of its bits. Pairs switch the same lamps twice and cancel out; only the lonely number leaves lamps lit.",
+    "goal": "Every value appears twice except one. Return it."
+  },
+  "spec": {
+    "method": "singleNumber",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          2,
+          1
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          4,
+          1,
+          2,
+          1,
+          2
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "numbers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        int x = 0;\n        for (int i = 0; i < (int)nums.size(); i++) x ^= nums[i];\n        return x;\n    }\n};",
+  "tier": "crafted"
+}

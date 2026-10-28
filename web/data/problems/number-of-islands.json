@@ -1,0 +1,126 @@
+{
+  "id": 200,
+  "slug": "number-of-islands",
+  "title": "Number of Islands",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "bfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "Charting the Archipelago",
+    "text": "A cartographer sails over a map of land (green) and sea (blue). Each time they land on unexplored ground they count a new island and walk all of it, marking footprints in the sand.",
+    "goal": "Return the number of islands."
+  },
+  "spec": {
+    "method": "numIslands",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<char>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            "1",
+            "1",
+            "1",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "0",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0"
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          [
+            "1",
+            "1",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "0",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "0",
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "0",
+            "0",
+            "0",
+            "1",
+            "1"
+          ]
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "islands",
+        "label": "sea chart",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void sink(vector<vector<char>>& grid, int r, int c) {\n        if (r < 0 || c < 0 || r >= (int)grid.size() || c >= (int)grid[0].size() || grid[r][c] != '1') return;\n        grid[r][c] = '#';\n        sink(grid, r + 1, c);\n        sink(grid, r - 1, c);\n        sink(grid, r, c + 1);\n        sink(grid, r, c - 1);\n    }\n    int numIslands(vector<vector<char>>& grid) {\n        int count = 0;\n        for (int r = 0; r < (int)grid.size(); r++) {\n            for (int c = 0; c < (int)grid[0].size(); c++) {\n                if (grid[r][c] == '1') {\n                    count++;\n                    sink(grid, r, c);\n                }\n            }\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,75 @@
+{
+  "id": 121,
+  "slug": "best-time-to-buy-and-sell-stock",
+  "title": "Best Time to Buy and Sell Stock",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "story": {
+    "title": "The Skyline Trader",
+    "text": "Each tower is a day's price. A trader walks the skyline remembering the lowest tower so far and checking how much they would earn selling at today's tower.",
+    "goal": "Return the best profit from one buy followed by one sell (or 0)."
+  },
+  "spec": {
+    "method": "maxProfit",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "prices"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          7,
+          1,
+          5,
+          3,
+          6,
+          4
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          7,
+          6,
+          4,
+          3,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "prices",
+        "label": "price towers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "minPrice",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        int minPrice = INT_MAX, best = 0;\n        for (int i = 0; i < (int)prices.size(); i++) {\n            minPrice = min(minPrice, prices[i]);\n            best = max(best, prices[i] - minPrice);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

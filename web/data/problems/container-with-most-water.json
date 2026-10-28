@@ -1,0 +1,81 @@
+{
+  "id": 11,
+  "slug": "container-with-most-water",
+  "title": "Container With Most Water",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "greedy"
+  ],
+  "story": {
+    "title": "The Reservoir Walls",
+    "text": "Walls of different heights stand in a valley. Two engineers stand on the outermost walls; the water they can hold is limited by the shorter wall, so the shorter one always moves inward.",
+    "goal": "Return the largest amount of water any two walls can hold."
+  },
+  "spec": {
+    "method": "maxArea",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "height"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          8,
+          6,
+          2,
+          5,
+          4,
+          8,
+          3,
+          7
+        ]
+      ],
+      "expected": 49
+    },
+    {
+      "args": [
+        [
+          1,
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "height",
+        "label": "walls",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "area",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        int l = 0, r = height.size() - 1, best = 0;\n        while (l < r) {\n            int area = min(height[l], height[r]) * (r - l);\n            best = max(best, area);\n            if (height[l] < height[r]) l++;\n            else r--;\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

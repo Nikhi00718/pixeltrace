@@ -1,0 +1,81 @@
+{
+  "id": 104,
+  "slug": "maximum-depth-of-binary-tree",
+  "title": "Maximum Depth of Binary Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "recursion"
+  ],
+  "story": {
+    "title": "How Tall Is the Apple Tree?",
+    "text": "A squirrel climbs to every fruit. At each fruit it asks both branches how deep they go, and reports one more than the deeper answer. Each question opens a new door in the call stack.",
+    "goal": "Return the number of fruits on the longest root-to-leaf path."
+  },
+  "spec": {
+    "method": "maxDepth",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          null,
+          2
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "root"
+        ],
+        "label": "apple tree"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxDepth(TreeNode* root) {\n        if (!root) return 0;\n        int l = maxDepth(root->left);\n        int r = maxDepth(root->right);\n        return 1 + max(l, r);\n    }\n};",
+  "tier": "crafted"
+}

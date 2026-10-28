@@ -1,0 +1,87 @@
+{
+  "id": 3,
+  "slug": "longest-substring-without-repeating-characters",
+  "title": "Longest Substring Without Repeating Characters",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "string",
+    "sliding-window",
+    "hash-table"
+  ],
+  "story": {
+    "title": "The Lighthouse Beam",
+    "text": "A lighthouse beam sweeps along a row of letter buoys. The beam keeps stretching right; when it lights a letter it already holds, its left edge jumps past the earlier copy.",
+    "goal": "Return the length of the longest stretch with no repeated letters."
+  },
+  "spec": {
+    "method": "lengthOfLongestSubstring",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abcabcbb"
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "bbbbb"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "pwwkew"
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "buoys",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "last",
+        "label": "last seen at",
+        "lookup": [
+          "c"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        map<char, int> last;\n        int l = 0, best = 0;\n        for (int r = 0; r < (int)s.size(); r++) {\n            char c = s[r];\n            if (last.count(c) && last[c] >= l) l = last[c] + 1;\n            last[c] = r;\n            best = max(best, r - l + 1);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

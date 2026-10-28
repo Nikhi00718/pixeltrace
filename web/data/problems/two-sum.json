@@ -1,0 +1,141 @@
+{
+  "id": 1,
+  "slug": "two-sum",
+  "title": "Two Sum",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "The Exact Change Market",
+    "text": "A shopper walks down a row of price crates. Each time they pick up a crate, they ask the locker wall: \"Has anyone stored the price I still need?\" Lockers are labelled by price and hold the crate's index.",
+    "goal": "Return the indices of the two crates whose prices add up to the target."
+  },
+  "legend": [
+    {
+      "sprite": "crates",
+      "meaning": "nums"
+    },
+    {
+      "sprite": "lockers",
+      "meaning": "seen: price \u2192 index"
+    },
+    {
+      "sprite": "i",
+      "meaning": "the shopper"
+    }
+  ],
+  "spec": {
+    "method": "twoSum",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          7,
+          11,
+          15
+        ],
+        9
+      ],
+      "expected": [
+        0,
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          4
+        ],
+        6
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          3
+        ],
+        6
+      ],
+      "expected": [
+        0,
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          1,
+          8,
+          3,
+          9,
+          4
+        ],
+        12
+      ],
+      "expected": [
+        3,
+        4
+      ]
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "price crates",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "seen",
+        "label": "locker wall",
+        "lookup": [
+          "need"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "target",
+          "need"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        unordered_map<int, int> seen;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            int need = target - nums[i];\n            if (seen.count(need)) return {seen[need], i};\n            seen[nums[i]] = i;\n        }\n        return {};\n    }\n};",
+  "hints": [
+    "For each number, the partner you need is target - nums[i].",
+    "Store what you've seen in a hash map."
+  ],
+  "tier": "crafted"
+}

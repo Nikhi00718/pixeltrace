@@ -1,0 +1,92 @@
+{
+  "id": 33,
+  "slug": "search-in-rotated-sorted-array",
+  "title": "Search in Rotated Sorted Array",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Turned Corridor",
+    "text": "Someone rotated the corridor of sorted chests. At every middle chest, one half is still in order; the guard checks whether the target lives in that ordered half.",
+    "goal": "Return the index of target, or -1."
+  },
+  "spec": {
+    "method": "search",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          4,
+          5,
+          6,
+          7,
+          0,
+          1,
+          2
+        ],
+        3
+      ],
+      "expected": -1
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        0
+      ],
+      "expected": -1
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "chests",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        int lo = 0, hi = nums.size() - 1;\n        while (lo <= hi) {\n            int mid = (lo + hi) / 2;\n            if (nums[mid] == target) return mid;\n            if (nums[lo] <= nums[mid]) {\n                if (nums[lo] <= target && target < nums[mid]) hi = mid - 1;\n                else lo = mid + 1;\n            } else {\n                if (nums[mid] < target && target <= nums[hi]) lo = mid + 1;\n                else hi = mid - 1;\n            }\n        }\n        return -1;\n    }\n};",
+  "tier": "crafted"
+}

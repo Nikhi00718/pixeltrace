@@ -1,0 +1,106 @@
+{
+  "id": 150,
+  "slug": "evaluate-reverse-polish-notation",
+  "title": "Evaluate Reverse Polish Notation",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "math"
+  ],
+  "story": {
+    "title": "The Calculator Tower",
+    "text": "Number tokens are stacked as blocks. An operator token pulls the top two blocks off, combines them, and puts the result back on top.",
+    "goal": "Return the value of the expression."
+  },
+  "spec": {
+    "method": "evalRPN",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "tokens"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "2",
+          "1",
+          "+",
+          "3",
+          "*"
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "args": [
+        [
+          "4",
+          "13",
+          "5",
+          "/",
+          "+"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          "10",
+          "6",
+          "9",
+          "3",
+          "+",
+          "-11",
+          "*",
+          "/",
+          "*",
+          "17",
+          "+",
+          "5",
+          "+"
+        ]
+      ],
+      "expected": 22
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "tokens",
+        "label": "tokens",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "stack",
+            "var": "st",
+            "label": "tower"
+          },
+          {
+            "kind": "values",
+            "vars": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int evalRPN(vector<string>& tokens) {\n        stack<long long> st;\n        for (int i = 0; i < (int)tokens.size(); i++) {\n            string& t = tokens[i];\n            if (t == \"+\" || t == \"-\" || t == \"*\" || t == \"/\") {\n                long long b = st.top(); st.pop();\n                long long a = st.top(); st.pop();\n                if (t == \"+\") st.push(a + b);\n                else if (t == \"-\") st.push(a - b);\n                else if (t == \"*\") st.push(a * b);\n                else st.push(a / b);\n            } else {\n                st.push(stoll(t));\n            }\n        }\n        return st.top();\n    }\n};",
+  "tier": "crafted"
+}

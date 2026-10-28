@@ -1,0 +1,73 @@
+{
+  "id": 125,
+  "slug": "valid-palindrome",
+  "title": "Valid Palindrome",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "string",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "The Mirror Bridge",
+    "text": "Two inspectors walk in from both ends of a bridge of letter tiles, skipping anything that is not a letter or digit, and compare what they stand on (ignoring case).",
+    "goal": "Return true if the phrase reads the same both ways."
+  },
+  "spec": {
+    "method": "isPalindrome",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "A man, a plan, a canal: Panama"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "race a car"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        " "
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "No lemon, no melon"
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "bridge",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isPalindrome(string s) {\n        int l = 0, r = s.size() - 1;\n        while (l < r) {\n            while (l < r && !isalnum(s[l])) l++;\n            while (l < r && !isalnum(s[r])) r--;\n            if (tolower(s[l]) != tolower(s[r])) return false;\n            l++;\n            r--;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,90 @@
+{
+  "id": 35,
+  "slug": "search-insert-position",
+  "title": "Search Insert Position",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Library Shelf",
+    "text": "A librarian looks for where a new book belongs on a sorted shelf, halving the shelf each time.",
+    "goal": "Return the index of target, or where it would be inserted."
+  },
+  "spec": {
+    "method": "searchInsert",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          5,
+          6
+        ],
+        5
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          5,
+          6
+        ],
+        2
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          5,
+          6
+        ],
+        7
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "shelf",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ],
+        "windowExclusive": true
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int searchInsert(vector<int>& nums, int target) {\n        int lo = 0, hi = nums.size();\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            if (nums[mid] < target) lo = mid + 1;\n            else hi = mid;\n        }\n        return lo;\n    }\n};",
+  "tier": "crafted"
+}

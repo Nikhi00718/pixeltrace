@@ -1,0 +1,115 @@
+{
+  "id": 994,
+  "slug": "rotting-oranges",
+  "title": "Rotting Oranges",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "bfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Orange Crate Blight",
+    "text": "Rotten oranges (green) infect their fresh neighbours every minute. All the rotten ones queue at the gate and spread together, one wave per minute.",
+    "goal": "Return the minutes until no fresh orange is left, or -1 if some never rot."
+  },
+  "spec": {
+    "method": "orangesRotting",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": -1
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "oranges",
+        "label": "crate",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "rotten queue (r,c)"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "minutes",
+          "fresh"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int orangesRotting(vector<vector<int>>& grid) {\n        int R = grid.size(), C = grid[0].size(), fresh = 0, minutes = 0;\n        queue<pair<int, int>> q;\n        for (int r = 0; r < R; r++)\n            for (int c = 0; c < C; c++) {\n                if (grid[r][c] == 2) q.push({r, c});\n                if (grid[r][c] == 1) fresh++;\n            }\n        int dr[4] = {1, -1, 0, 0}, dc[4] = {0, 0, 1, -1};\n        while (!q.empty() && fresh > 0) {\n            int sz = q.size();\n            for (int k = 0; k < sz; k++) {\n                auto [r, c] = q.front();\n                q.pop();\n                for (int d = 0; d < 4; d++) {\n                    int nr = r + dr[d], nc = c + dc[d];\n                    if (nr < 0 || nc < 0 || nr >= R || nc >= C || grid[nr][nc] != 1) continue;\n                    grid[nr][nc] = 2;\n                    fresh--;\n                    q.push({nr, nc});\n                }\n            }\n            minutes++;\n        }\n        return fresh == 0 ? minutes : -1;\n    }\n};",
+  "tier": "crafted"
+}

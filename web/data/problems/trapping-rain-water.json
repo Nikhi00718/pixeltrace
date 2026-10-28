@@ -1,0 +1,95 @@
+{
+  "id": 42,
+  "slug": "trapping-rain-water",
+  "title": "Trapping Rain Water",
+  "difficulty": "Hard",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "stack"
+  ],
+  "story": {
+    "title": "Storm Over the Pixel City",
+    "text": "Rain falls on a row of brick towers. Two surveyors start at both ends, each remembering the tallest tower they have passed. The side with the shorter tallest tower is safe to settle: water there is that height minus the tower.",
+    "goal": "Return how many water tiles get trapped between the towers."
+  },
+  "legend": [
+    {
+      "sprite": "blue tiles",
+      "meaning": "water already settled behind the surveyors"
+    }
+  ],
+  "spec": {
+    "method": "trap",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "height"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          1,
+          0,
+          2,
+          1,
+          0,
+          1,
+          3,
+          2,
+          1,
+          2,
+          1
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          4,
+          2,
+          0,
+          3,
+          2,
+          5
+        ]
+      ],
+      "expected": 9
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "height",
+        "label": "towers",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "water": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "leftMax",
+          "rightMax",
+          "water"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int trap(vector<int>& height) {\n        int l = 0, r = height.size() - 1;\n        int leftMax = 0, rightMax = 0, water = 0;\n        while (l < r) {\n            if (height[l] < height[r]) {\n                leftMax = max(leftMax, height[l]);\n                water += leftMax - height[l];\n                l++;\n            } else {\n                rightMax = max(rightMax, height[r]);\n                water += rightMax - height[r];\n                r--;\n            }\n        }\n        return water;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,17 @@
+services:
+  runner:
+    build: ./runner
+    ports:
+      - "8765:8000"
+    environment:
+      ALLOW_ORIGINS: "http://localhost:3000"
+      RUNNER_SLOTS: "2"
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    mem_limit: 2g
+    pids_limit: 256
+    read_only: true
+    tmpfs:
+      - /tmp:size=512m,exec

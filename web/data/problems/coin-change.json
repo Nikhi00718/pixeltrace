@@ -1,0 +1,91 @@
+{
+  "id": 322,
+  "slug": "coin-change",
+  "title": "Coin Change",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "bfs"
+  ],
+  "story": {
+    "title": "The Vending Machine Ledger",
+    "text": "A vending machine fills a ledger: for every amount from 1 up, the fewest coins that make it, trying each coin as the last one dropped in.",
+    "goal": "Return the fewest coins for the amount, or -1."
+  },
+  "spec": {
+    "method": "coinChange",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "coins"
+      ],
+      [
+        "int",
+        "amount"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          5
+        ],
+        11
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          2
+        ],
+        3
+      ],
+      "expected": -1
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        0
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "coins",
+        "label": "coins",
+        "style": "tiles"
+      },
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "ledger (fewest coins per amount)",
+        "style": "tiles",
+        "pointers": [
+          "a"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "c",
+          "amount"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int coinChange(vector<int>& coins, int amount) {\n        const int INF = 1e9;\n        vector<int> dp(amount + 1, INF);\n        dp[0] = 0;\n        for (int a = 1; a <= amount; a++) {\n            for (int c : coins) {\n                if (c <= a && dp[a - c] + 1 < dp[a]) dp[a] = dp[a - c] + 1;\n            }\n        }\n        return dp[amount] >= INF ? -1 : dp[amount];\n    }\n};",
+  "tier": "crafted"
+}

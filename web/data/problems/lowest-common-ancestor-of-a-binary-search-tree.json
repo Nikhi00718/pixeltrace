@@ -1,0 +1,113 @@
+{
+  "id": 235,
+  "slug": "lowest-common-ancestor-of-a-binary-search-tree",
+  "title": "Lowest Common Ancestor of a Binary Search Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "bst"
+  ],
+  "story": {
+    "title": "Where Two Paths Split",
+    "text": "Two birds want to meet on the lowest branch above both of their fruits. Starting at the top, a scout moves left if both fruits are smaller, right if both are bigger, and stops where they split.",
+    "goal": "Return the value of the lowest common ancestor of p and q."
+  },
+  "spec": {
+    "method": "lowestCommonAncestor",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "p"
+      ],
+      [
+        "int",
+        "q"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          6,
+          2,
+          8,
+          0,
+          4,
+          7,
+          9,
+          null,
+          null,
+          3,
+          5
+        ],
+        2,
+        8
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          6,
+          2,
+          8,
+          0,
+          4,
+          7,
+          9,
+          null,
+          null,
+          3,
+          5
+        ],
+        3,
+        5
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          2,
+          1
+        ],
+        2,
+        1
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "cur"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "p",
+          "q"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int lowestCommonAncestor(TreeNode* root, int p, int q) {\n        TreeNode* cur = root;\n        while (cur) {\n            if (p < cur->val && q < cur->val) cur = cur->left;\n            else if (p > cur->val && q > cur->val) cur = cur->right;\n            else return cur->val;\n        }\n        return -1;\n    }\n};",
+  "hints": [
+    "LeetCode passes TreeNode* p and q; here they are the values, which is all the BST walk needs."
+  ],
+  "tier": "crafted"
+}

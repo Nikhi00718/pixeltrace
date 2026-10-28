@@ -1,0 +1,113 @@
+{
+  "id": 15,
+  "slug": "3sum",
+  "title": "3Sum",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "story": {
+    "title": "Three-Crate Balance",
+    "text": "After sorting the dock, a foreman stands on crate i and sends two dockhands to search the rest for a pair that balances the foreman's crate to exactly zero. Duplicate crates are skipped.",
+    "goal": "Return every unique triple of crates that sums to zero."
+  },
+  "spec": {
+    "method": "threeSum",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "compare": "unordered-deep",
+  "tests": [
+    {
+      "args": [
+        [
+          -1,
+          0,
+          1,
+          2,
+          -1,
+          -4
+        ]
+      ],
+      "expected": [
+        [
+          -1,
+          -1,
+          2
+        ],
+        [
+          -1,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          1
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "sorted crates",
+        "pointers": [
+          "i",
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "found",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        vector<vector<int>> res;\n        int n = nums.size();\n        for (int i = 0; i < n - 2; i++) {\n            if (i > 0 && nums[i] == nums[i - 1]) continue;\n            int l = i + 1, r = n - 1;\n            while (l < r) {\n                int sum = nums[i] + nums[l] + nums[r];\n                if (sum < 0) l++;\n                else if (sum > 0) r--;\n                else {\n                    res.push_back({nums[i], nums[l], nums[r]});\n                    while (l < r && nums[l] == nums[l + 1]) l++;\n                    while (l < r && nums[r] == nums[r - 1]) r--;\n                    l++;\n                    r--;\n                }\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

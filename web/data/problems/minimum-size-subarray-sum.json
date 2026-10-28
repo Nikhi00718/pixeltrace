@@ -1,0 +1,102 @@
+{
+  "id": 209,
+  "slug": "minimum-size-subarray-sum",
+  "title": "Minimum Size Subarray Sum",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "sliding-window",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "The Cargo Net",
+    "text": "A crane lowers a stretchy net over the dock. It grows to the right until the crates inside weigh at least the target, then squeezes from the left as long as it still holds enough.",
+    "goal": "Return the smallest number of adjacent crates weighing at least target (0 if impossible)."
+  },
+  "spec": {
+    "method": "minSubArrayLen",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "target"
+      ],
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        7,
+        [
+          2,
+          3,
+          1,
+          2,
+          4,
+          3
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        4,
+        [
+          1,
+          4,
+          4
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        11,
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "crates",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "target",
+          "sum",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minSubArrayLen(int target, vector<int>& nums) {\n        int l = 0, sum = 0, best = INT_MAX;\n        for (int r = 0; r < (int)nums.size(); r++) {\n            sum += nums[r];\n            while (sum >= target) {\n                best = min(best, r - l + 1);\n                sum -= nums[l];\n                l++;\n            }\n        }\n        return best == INT_MAX ? 0 : best;\n    }\n};",
+  "tier": "crafted"
+}

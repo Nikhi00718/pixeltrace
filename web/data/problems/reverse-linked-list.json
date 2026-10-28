@@ -1,0 +1,94 @@
+{
+  "id": 206,
+  "slug": "reverse-linked-list",
+  "title": "Reverse Linked List",
+  "difficulty": "Easy",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "recursion"
+  ],
+  "story": {
+    "title": "Turning the Train Around",
+    "text": "A train must leave the yard in the opposite direction. Three yard workers walk along it: prev holds the already-reversed part, curr unhooks its car and re-hooks it backwards, next remembers the rest.",
+    "goal": "Return the head of the reversed train."
+  },
+  "legend": [
+    {
+      "sprite": "cars",
+      "meaning": "ListNode"
+    },
+    {
+      "sprite": "purple loops",
+      "meaning": "links pointing backwards"
+    }
+  ],
+  "spec": {
+    "method": "reverseList",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        5,
+        4,
+        3,
+        2,
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        2,
+        1
+      ]
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "prev",
+          "curr",
+          "next"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        ListNode* prev = nullptr;\n        ListNode* curr = head;\n        while (curr) {\n            ListNode* next = curr->next;\n            curr->next = prev;\n            prev = curr;\n            curr = next;\n        }\n        return prev;\n    }\n};",
+  "tier": "crafted"
+}

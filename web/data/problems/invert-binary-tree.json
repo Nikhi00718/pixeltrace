@@ -1,0 +1,86 @@
+{
+  "id": 226,
+  "slug": "invert-binary-tree",
+  "title": "Invert Binary Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "recursion"
+  ],
+  "story": {
+    "title": "The Mirror Orchard",
+    "text": "A gardener visits each fruit and swaps its left and right branches, then does the same for both branches. Watch whole subtrees glide to the other side.",
+    "goal": "Return the mirrored tree."
+  },
+  "spec": {
+    "method": "invertTree",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          7,
+          1,
+          3,
+          6,
+          9
+        ]
+      ],
+      "expected": [
+        4,
+        7,
+        2,
+        9,
+        6,
+        3,
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        2,
+        3,
+        1
+      ]
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "root"
+        ],
+        "label": "orchard"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    TreeNode* invertTree(TreeNode* root) {\n        if (!root) return nullptr;\n        TreeNode* tmp = root->left;\n        root->left = root->right;\n        root->right = tmp;\n        invertTree(root->left);\n        invertTree(root->right);\n        return root;\n    }\n};",
+  "tier": "crafted"
+}

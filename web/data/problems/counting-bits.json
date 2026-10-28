@@ -1,0 +1,68 @@
+{
+  "id": 338,
+  "slug": "counting-bits",
+  "title": "Counting Bits",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "dynamic-programming",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Counting Lit Lamps",
+    "text": "For each number, the count of lit lamps equals the count for the number with its last lamp shifted away, plus that last lamp.",
+    "goal": "Return the number of 1 bits for every number from 0 to n."
+  },
+  "spec": {
+    "method": "countBits",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        2
+      ],
+      "expected": [
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "args": [
+        5
+      ],
+      "expected": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "ans",
+        "label": "lit lamps",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> countBits(int n) {\n        vector<int> ans(n + 1, 0);\n        for (int i = 1; i <= n; i++) ans[i] = ans[i >> 1] + (i & 1);\n        return ans;\n    }\n};",
+  "tier": "crafted"
+}

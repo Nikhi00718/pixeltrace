@@ -1,0 +1,97 @@
+{
+  "id": 19,
+  "slug": "remove-nth-node-from-end-of-list",
+  "title": "Remove Nth Node From End of List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "Dropping a Car",
+    "text": "The scout runs n cars ahead of the brakeman. When the scout reaches the end, the brakeman is standing right before the car to drop and unhooks it.",
+    "goal": "Remove the n-th car from the end and return the train."
+  },
+  "spec": {
+    "method": "removeNthFromEnd",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ],
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        1
+      ],
+      "expected": [
+        1
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "fast",
+          "slow"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* removeNthFromEnd(ListNode* head, int n) {\n        ListNode* dummy = new ListNode(0, head);\n        ListNode* fast = dummy;\n        ListNode* slow = dummy;\n        for (int k = 0; k <= n; k++) fast = fast->next;\n        while (fast) {\n            fast = fast->next;\n            slow = slow->next;\n        }\n        slow->next = slow->next->next;\n        return dummy->next;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,82 @@
+{
+  "id": 242,
+  "slug": "valid-anagram",
+  "title": "Valid Anagram",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "string",
+    "hash-table",
+    "counting"
+  ],
+  "story": {
+    "title": "The Letter Tile Swap",
+    "text": "Two scrabble racks arrive at the market. A clerk counts every tile from the first rack into lockers, then removes one count per tile from the second rack.",
+    "goal": "Return true if both racks hold exactly the same tiles."
+  },
+  "spec": {
+    "method": "isAnagram",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "t"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "anagram",
+        "nagaram"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "rat",
+        "car"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "ab",
+        "a"
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "rack s",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "t",
+        "label": "rack t",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "tile counts"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isAnagram(string s, string t) {\n        if (s.size() != t.size()) return false;\n        map<char, int> cnt;\n        for (int i = 0; i < (int)s.size(); i++) cnt[s[i]]++;\n        for (int i = 0; i < (int)t.size(); i++) {\n            if (--cnt[t[i]] < 0) return false;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,70 @@
+{
+  "id": 55,
+  "slug": "jump-game",
+  "title": "Jump Game",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Stepping Stones",
+    "text": "Each stone says how far you may jump from it. A hiker walks forward tracking the farthest stone reachable so far; if they ever stand beyond it, the river wins.",
+    "goal": "Return true if the last stone is reachable."
+  },
+  "spec": {
+    "method": "canJump",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          3,
+          1,
+          1,
+          4
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          1,
+          0,
+          4
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "stones",
+        "pointers": [
+          "i",
+          "reach"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool canJump(vector<int>& nums) {\n        int reach = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (i > reach) return false;\n            reach = max(reach, i + nums[i]);\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

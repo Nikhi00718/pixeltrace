@@ -1,0 +1,132 @@
+{
+  "id": 733,
+  "slug": "flood-fill",
+  "title": "Flood Fill",
+  "difficulty": "Easy",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Paint Bucket",
+    "text": "A painter tips a bucket on one tile. The paint runs to every neighbouring tile of the same old colour.",
+    "goal": "Return the picture after the fill."
+  },
+  "spec": {
+    "method": "floodFill",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "image"
+      ],
+      [
+        "int",
+        "sr"
+      ],
+      [
+        "int",
+        "sc"
+      ],
+      [
+        "int",
+        "color"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        1,
+        1,
+        2
+      ],
+      "expected": [
+        [
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        0,
+        0,
+        0
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "image",
+        "palette": "dp",
+        "label": "canvas",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void fill(vector<vector<int>>& image, int r, int c, int from, int to) {\n        if (r < 0 || c < 0 || r >= (int)image.size() || c >= (int)image[0].size() || image[r][c] != from) return;\n        image[r][c] = to;\n        fill(image, r + 1, c, from, to);\n        fill(image, r - 1, c, from, to);\n        fill(image, r, c + 1, from, to);\n        fill(image, r, c - 1, from, to);\n    }\n    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {\n        if (image[sr][sc] != color) fill(image, sr, sc, image[sr][sc], color);\n        return image;\n    }\n};",
+  "tier": "crafted"
+}

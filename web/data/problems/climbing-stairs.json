@@ -1,0 +1,69 @@
+{
+  "id": 70,
+  "slug": "climbing-stairs",
+  "title": "Climbing Stairs",
+  "difficulty": "Easy",
+  "world": "dp",
+  "tags": [
+    "dynamic-programming",
+    "math"
+  ],
+  "story": {
+    "title": "The Frog on the Barn Stairs",
+    "text": "A frog hops up the barn stairs one or two steps at a time. The farmer chalks on each stair how many ways the frog could have arrived there: the sum of the two stairs below.",
+    "goal": "Return the number of distinct ways to reach the top stair."
+  },
+  "spec": {
+    "method": "climbStairs",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        3
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": 34
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "stairs (ways)",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "n"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int climbStairs(int n) {\n        vector<int> dp(n + 1, 0);\n        dp[0] = 1;\n        dp[1] = 1;\n        for (int i = 2; i <= n; i++) dp[i] = dp[i - 1] + dp[i - 2];\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

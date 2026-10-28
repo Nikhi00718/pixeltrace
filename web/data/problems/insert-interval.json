@@ -1,0 +1,128 @@
+{
+  "id": 57,
+  "slug": "insert-interval",
+  "title": "Insert Interval",
+  "difficulty": "Medium",
+  "world": "intervals",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "Squeezing in a Meeting",
+    "text": "A new meeting must go into a sorted calendar. Meetings fully before it are copied, overlapping ones are swallowed into it, and the rest follow.",
+    "goal": "Return the calendar with the new meeting merged in."
+  },
+  "spec": {
+    "method": "insert",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "intervals"
+      ],
+      [
+        "vector<int>&",
+        "newInterval"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            6,
+            9
+          ]
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          5
+        ],
+        [
+          6,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            12,
+            16
+          ]
+        ],
+        [
+          4,
+          8
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          12,
+          16
+        ]
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "intervals",
+        "vars": [
+          "intervals",
+          "res"
+        ],
+        "pointers": [
+          "i"
+        ],
+        "label": "calendar"
+      },
+      {
+        "kind": "array",
+        "var": "newInterval",
+        "label": "new meeting",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        vector<vector<int>> res;\n        int i = 0, n = intervals.size();\n        while (i < n && intervals[i][1] < newInterval[0]) res.push_back(intervals[i++]);\n        while (i < n && intervals[i][0] <= newInterval[1]) {\n            newInterval[0] = min(newInterval[0], intervals[i][0]);\n            newInterval[1] = max(newInterval[1], intervals[i][1]);\n            i++;\n        }\n        res.push_back(newInterval);\n        while (i < n) res.push_back(intervals[i++]);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,80 @@
+{
+  "id": 876,
+  "slug": "middle-of-the-linked-list",
+  "title": "Middle of the Linked List",
+  "difficulty": "Easy",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "Tortoise and Hare on the Rails",
+    "text": "Two runners race along the train roof: the hare jumps two cars at a time, the tortoise one. When the hare runs out of train, the tortoise is in the middle.",
+    "goal": "Return the middle car (the second middle if there are two)."
+  },
+  "spec": {
+    "method": "middleNode",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      ],
+      "expected": [
+        4,
+        5,
+        6
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "slow",
+          "fast"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* middleNode(ListNode* head) {\n        ListNode* slow = head;\n        ListNode* fast = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n        return slow;\n    }\n};",
+  "tier": "crafted"
+}

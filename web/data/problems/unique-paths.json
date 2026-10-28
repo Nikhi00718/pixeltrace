@@ -1,0 +1,74 @@
+{
+  "id": 62,
+  "slug": "unique-paths",
+  "title": "Unique Paths",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "math",
+    "dynamic-programming",
+    "combinatorics"
+  ],
+  "story": {
+    "title": "The Robot Field",
+    "text": "A robot crosses a field moving only right or down. Each plot gets the number of routes into it: the plot above plus the plot to the left.",
+    "goal": "Return the number of routes to the bottom-right plot."
+  },
+  "spec": {
+    "method": "uniquePaths",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "m"
+      ],
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        3,
+        7
+      ],
+      "expected": 28
+    },
+    {
+      "args": [
+        3,
+        2
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        4,
+        4
+      ],
+      "expected": 20
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "dp",
+        "palette": "dp",
+        "label": "field",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int uniquePaths(int m, int n) {\n        vector<vector<int>> dp(m, vector<int>(n, 1));\n        for (int i = 1; i < m; i++)\n            for (int j = 1; j < n; j++)\n                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];\n        return dp[m - 1][n - 1];\n    }\n};",
+  "tier": "crafted"
+}
