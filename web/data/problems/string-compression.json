@@ -1,0 +1,94 @@
+{
+  "id": 443,
+  "slug": "string-compression",
+  "title": "String Compression",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Packing the Letter Tiles",
+    "text": "Runs of the same letter are packed as the letter followed by its count. A reader walks each run, and a writer packs the result into the front of the same row of tiles.",
+    "goal": "Compress in place and return the new length."
+  },
+  "spec": {
+    "method": "compress",
+    "ret": "int",
+    "params": [
+      [
+        "vector<char>&",
+        "chars"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "a",
+          "a",
+          "b",
+          "b",
+          "c",
+          "c",
+          "c"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          "a"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          "a",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b",
+          "b"
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "chars",
+        "label": "tiles",
+        "style": "letters",
+        "pointers": [
+          "w",
+          "i",
+          "j"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "run"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int compress(vector<char>& chars) {\n        int n = chars.size(), w = 0, i = 0;\n        while (i < n) {\n            int j = i;\n            while (j < n && chars[j] == chars[i]) j++;\n            chars[w++] = chars[i];\n            int run = j - i;\n            if (run > 1) {\n                string digits = to_string(run);\n                for (char d : digits) chars[w++] = d;\n            }\n            i = j;\n        }\n        return w;\n    }\n};",
+  "tier": "crafted"
+}

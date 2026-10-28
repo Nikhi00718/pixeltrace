@@ -1,0 +1,116 @@
+{
+  "id": 1557,
+  "slug": "minimum-number-of-vertices-to-reach-all-nodes",
+  "title": "Minimum Number of Vertices to Reach All Nodes",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "graph"
+  ],
+  "story": {
+    "title": "Where to Post the Heralds",
+    "text": "Roads are one-way. A town that no road leads into can only be reached by starting there, and those towns are enough to reach everything else.",
+    "goal": "Return every town with no incoming road."
+  },
+  "spec": {
+    "method": "findSmallestSetOfVertices",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "int",
+        "n"
+      ],
+      [
+        "vector<vector<int>>&",
+        "edges"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        6,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        3
+      ]
+    },
+    {
+      "args": [
+        5,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        2,
+        3
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "graph",
+        "edges": "edges",
+        "n": "n",
+        "directed": true,
+        "state": "indeg",
+        "label": "towns"
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "post heralds at",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {\n        vector<int> indeg(n, 0);\n        for (auto& e : edges) indeg[e[1]]++;\n        vector<int> res;\n        for (int v = 0; v < n; v++) {\n            if (indeg[v] == 0) res.push_back(v);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

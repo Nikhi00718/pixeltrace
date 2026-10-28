@@ -1,0 +1,61 @@
+{
+  "id": 345,
+  "slug": "reverse-vowels-of-a-string",
+  "title": "Reverse Vowels of a String",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "The Vowel Swap",
+    "text": "Two painters walk in from both ends of a sign, skipping consonants. Whenever both stand on a vowel, they swap tiles and step inward.",
+    "goal": "Reverse only the vowels of s."
+  },
+  "spec": {
+    "method": "reverseVowels",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "IceCreAm"
+      ],
+      "expected": "AceCreIm"
+    },
+    {
+      "args": [
+        "leetcode"
+      ],
+      "expected": "leotcede"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "sign",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool vowel(char c) {\n        c = tolower(c);\n        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';\n    }\n    string reverseVowels(string s) {\n        int l = 0, r = s.size() - 1;\n        while (l < r) {\n            if (!vowel(s[l])) l++;\n            else if (!vowel(s[r])) r--;\n            else {\n                swap(s[l], s[r]);\n                l++;\n                r--;\n            }\n        }\n        return s;\n    }\n};",
+  "tier": "crafted"
+}

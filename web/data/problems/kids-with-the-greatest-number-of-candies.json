@@ -1,0 +1,97 @@
+{
+  "id": 1431,
+  "slug": "kids-with-the-greatest-number-of-candies",
+  "title": "Kids With the Greatest Number of Candies",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "The Candy Bonus",
+    "text": "Each kid holds some candies. For every kid, imagine giving them all the extra candies: would they then have at least as many as the richest kid?",
+    "goal": "Return a true/false for each kid."
+  },
+  "spec": {
+    "method": "kidsWithCandies",
+    "ret": "vector<bool>",
+    "params": [
+      [
+        "vector<int>&",
+        "candies"
+      ],
+      [
+        "int",
+        "extraCandies"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          3,
+          5,
+          1,
+          3
+        ],
+        3
+      ],
+      "expected": [
+        true,
+        true,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "args": [
+        [
+          4,
+          2,
+          1,
+          1,
+          2
+        ],
+        1
+      ],
+      "expected": [
+        true,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "candies",
+        "label": "candies",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "could be richest?",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "most",
+          "extraCandies"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {\n        int most = *max_element(candies.begin(), candies.end());\n        vector<bool> res;\n        for (int i = 0; i < (int)candies.size(); i++) res.push_back(candies[i] + extraCandies >= most);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

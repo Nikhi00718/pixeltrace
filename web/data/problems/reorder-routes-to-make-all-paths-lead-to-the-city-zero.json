@@ -1,0 +1,125 @@
+{
+  "id": 1466,
+  "slug": "reorder-routes-to-make-all-paths-lead-to-the-city-zero",
+  "title": "Reorder Routes to Make All Paths Lead to the City Zero",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "dfs",
+    "bfs",
+    "graph"
+  ],
+  "story": {
+    "title": "Every Road to the Capital",
+    "text": "One-way roads connect the towns as a tree. A surveyor walks out from the capital along every road; any road pointing away from the capital has to be flipped.",
+    "goal": "Return the fewest roads to reverse so every town can reach town 0."
+  },
+  "spec": {
+    "method": "minReorder",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ],
+      [
+        "vector<vector<int>>&",
+        "connections"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        6,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        5,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "graph",
+        "edges": "connections",
+        "n": "n",
+        "directed": true,
+        "state": "seen",
+        "pointers": [
+          "u"
+        ],
+        "label": "towns"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "flips"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minReorder(int n, vector<vector<int>>& connections) {\n        vector<vector<pair<int, int>>> adj(n);\n        for (auto& c : connections) {\n            adj[c[0]].push_back({c[1], 1});\n            adj[c[1]].push_back({c[0], 0});\n        }\n        vector<int> seen(n, 0);\n        stack<int> st;\n        st.push(0);\n        seen[0] = 2;\n        int flips = 0;\n        while (!st.empty()) {\n            int u = st.top();\n            st.pop();\n            for (auto& [v, away] : adj[u]) {\n                if (seen[v]) continue;\n                seen[v] = 2;\n                flips += away;\n                st.push(v);\n            }\n        }\n        return flips;\n    }\n};",
+  "tier": "crafted"
+}

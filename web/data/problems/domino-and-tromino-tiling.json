@@ -1,0 +1,68 @@
+{
+  "id": 790,
+  "slug": "domino-and-tromino-tiling",
+  "title": "Domino and Tromino Tiling",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Tiling the Barn Floor",
+    "text": "A 2-wide barn floor is tiled with dominoes and L-shaped trominoes. The farmer chalks how many ways each length can be tiled: dp[i] = 2\u00b7dp[i-1] + dp[i-3].",
+    "goal": "Return the number of tilings of a 2 x n floor, modulo 1e9+7."
+  },
+  "spec": {
+    "method": "numTilings",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        3
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        30
+      ],
+      "expected": 312342182
+    },
+    {
+      "args": [
+        6
+      ],
+      "expected": 53
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "ways per length",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numTilings(int n) {\n        const long long MOD = 1000000007;\n        vector<long long> dp(max(n + 1, 4), 0);\n        dp[0] = 1;\n        dp[1] = 1;\n        dp[2] = 2;\n        for (int i = 3; i <= n; i++) dp[i] = (2 * dp[i - 1] + dp[i - 3]) % MOD;\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

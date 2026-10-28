@@ -1,0 +1,101 @@
+{
+  "id": 1372,
+  "slug": "longest-zigzag-path-in-a-binary-tree",
+  "title": "Longest ZigZag Path in a Binary Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Zigzagging Squirrel",
+    "text": "A squirrel likes to alternate: left, right, left\u2026 Going the same way twice resets the count. Every branch is told which way the squirrel arrived and how long its zigzag is so far.",
+    "goal": "Return the length of the longest zigzag path."
+  },
+  "spec": {
+    "method": "longestZigZag",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "wentLeft",
+          "len",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int best = 0;\n    void walk(TreeNode* node, bool wentLeft, int len) {\n        if (!node) return;\n        best = max(best, len);\n        if (wentLeft) {\n            walk(node->right, false, len + 1);\n            walk(node->left, true, 1);\n        } else {\n            walk(node->left, true, len + 1);\n            walk(node->right, false, 1);\n        }\n    }\n    int longestZigZag(TreeNode* root) {\n        walk(root->left, true, 1);\n        walk(root->right, false, 1);\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,78 @@
+{
+  "id": 1318,
+  "slug": "minimum-flips-to-make-a-or-b-equal-to-c",
+  "title": "Minimum Flips to Make a OR b Equal to c",
+  "difficulty": "Medium",
+  "world": "bits",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Three Lamp Rows",
+    "text": "Lamp rows a and b are OR-ed to light row c. Going lamp by lamp from the right: if c wants it off, every lit lamp in a and b must flip; if c wants it on and both are off, flip one.",
+    "goal": "Return the fewest bit flips in a and b so that a OR b == c."
+  },
+  "spec": {
+    "method": "minFlips",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "a"
+      ],
+      [
+        "int",
+        "b"
+      ],
+      [
+        "int",
+        "c"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        2,
+        6,
+        5
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        4,
+        2,
+        7
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        1,
+        2,
+        3
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "a",
+          "b",
+          "c",
+          "x",
+          "y",
+          "z",
+          "flips"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minFlips(int a, int b, int c) {\n        int flips = 0;\n        while (a || b || c) {\n            int x = a & 1, y = b & 1, z = c & 1;\n            if (z == 0) flips += x + y;\n            else if (x == 0 && y == 0) flips += 1;\n            a >>= 1;\n            b >>= 1;\n            c >>= 1;\n        }\n        return flips;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,110 @@
+{
+  "id": 450,
+  "slug": "delete-node-in-a-bst",
+  "title": "Delete Node in a BST",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "bst"
+  ],
+  "story": {
+    "title": "Removing a Fruit Carefully",
+    "text": "The gardener walks down to the fruit to remove. A leaf just drops off; a fruit with one branch is replaced by that branch; with two branches, it takes the value of the smallest fruit on its right and that one is removed instead.",
+    "goal": "Delete key from the BST and return the root."
+  },
+  "spec": {
+    "method": "deleteNode",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "key"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          7
+        ],
+        3
+      ],
+      "expected": [
+        5,
+        4,
+        6,
+        2,
+        null,
+        null,
+        7
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          7
+        ],
+        0
+      ],
+      "expected": [
+        5,
+        3,
+        6,
+        2,
+        4,
+        null,
+        7
+      ]
+    },
+    {
+      "args": [
+        [],
+        0
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "root",
+          "succ"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "key"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    TreeNode* deleteNode(TreeNode* root, int key) {\n        if (!root) return nullptr;\n        if (key < root->val) {\n            root->left = deleteNode(root->left, key);\n        } else if (key > root->val) {\n            root->right = deleteNode(root->right, key);\n        } else {\n            if (!root->left) return root->right;\n            if (!root->right) return root->left;\n            TreeNode* succ = root->right;\n            while (succ->left) succ = succ->left;\n            root->val = succ->val;\n            root->right = deleteNode(root->right, succ->val);\n        }\n        return root;\n    }\n};",
+  "hints": [
+    "LeetCode accepts any valid BST after deletion; these tests expect the in-order-successor approach."
+  ],
+  "tier": "crafted"
+}

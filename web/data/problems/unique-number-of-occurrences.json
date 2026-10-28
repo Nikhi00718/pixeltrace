@@ -1,0 +1,92 @@
+{
+  "id": 1207,
+  "slug": "unique-number-of-occurrences",
+  "title": "Unique Number of Occurrences",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "No Two Tallies Alike",
+    "text": "A teacher tallies how often each sticker shows up, then checks the tallies themselves: if two stickers have the same count, the rule is broken.",
+    "goal": "Return true if every value's count is different."
+  },
+  "spec": {
+    "method": "uniqueOccurrences",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          1,
+          1,
+          3
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          -3,
+          0,
+          1,
+          -3,
+          1,
+          1,
+          1,
+          -3,
+          10,
+          0
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "stickers"
+      },
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "tallies"
+      },
+      {
+        "kind": "set",
+        "var": "seen",
+        "label": "counts already used",
+        "lookup": [
+          "c"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool uniqueOccurrences(vector<int>& arr) {\n        map<int, int> cnt;\n        for (int x : arr) cnt[x]++;\n        set<int> seen;\n        for (auto& [v, c] : cnt) {\n            if (seen.count(c)) return false;\n            seen.insert(c);\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

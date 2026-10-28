@@ -1,0 +1,128 @@
+{
+  "id": 872,
+  "slug": "leaf-similar-trees",
+  "title": "Leaf-Similar Trees",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Comparing the Bottom Fruit",
+    "text": "Two orchards are leaf-similar if their bottom fruits, read left to right, are the same. A squirrel climbs each tree collecting its leaves into a basket, then the baskets are compared.",
+    "goal": "Return true if both trees have the same leaf sequence."
+  },
+  "spec": {
+    "method": "leafSimilar",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root1"
+      ],
+      [
+        "TreeNode*",
+        "root2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          9,
+          8,
+          null,
+          null,
+          7,
+          4
+        ],
+        [
+          3,
+          5,
+          1,
+          6,
+          7,
+          4,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          9,
+          8
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "tree",
+            "var": "root1",
+            "pointers": [
+              "node"
+            ],
+            "label": "orchard 1"
+          },
+          {
+            "kind": "tree",
+            "var": "root2",
+            "pointers": [
+              "node"
+            ],
+            "label": "orchard 2"
+          }
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "array",
+            "var": "a",
+            "label": "leaves 1",
+            "style": "tiles"
+          },
+          {
+            "kind": "array",
+            "var": "b",
+            "label": "leaves 2",
+            "style": "tiles"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void leaves(TreeNode* node, vector<int>& out) {\n        if (!node) return;\n        if (!node->left && !node->right) out.push_back(node->val);\n        leaves(node->left, out);\n        leaves(node->right, out);\n    }\n    bool leafSimilar(TreeNode* root1, TreeNode* root2) {\n        vector<int> a, b;\n        leaves(root1, a);\n        leaves(root2, b);\n        return a == b;\n    }\n};",
+  "tier": "crafted"
+}

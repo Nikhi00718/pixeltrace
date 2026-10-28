@@ -1,0 +1,89 @@
+{
+  "id": 2130,
+  "slug": "maximum-twin-sum-of-a-linked-list",
+  "title": "Maximum Twin Sum of a Linked List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers",
+    "stack"
+  ],
+  "story": {
+    "title": "Twin Cars",
+    "text": "Car i and car n-1-i are twins. Find the middle with a tortoise and hare, turn the back half around, then walk both halves together adding twins.",
+    "goal": "Return the largest twin sum."
+  },
+  "spec": {
+    "method": "pairSum",
+    "ret": "int",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          4,
+          2,
+          1
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          4,
+          2,
+          2,
+          3
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          1,
+          100000
+        ]
+      ],
+      "expected": 100001
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "slow",
+          "fast",
+          "prev",
+          "a",
+          "b"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int pairSum(ListNode* head) {\n        ListNode* slow = head;\n        ListNode* fast = head;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n        ListNode* prev = nullptr;\n        while (slow) {\n            ListNode* nxt = slow->next;\n            slow->next = prev;\n            prev = slow;\n            slow = nxt;\n        }\n        int best = 0;\n        ListNode* a = head;\n        ListNode* b = prev;\n        while (b) {\n            best = max(best, a->val + b->val);\n            a = a->next;\n            b = b->next;\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

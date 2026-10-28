@@ -1,0 +1,117 @@
+{
+  "id": 1268,
+  "slug": "search-suggestions-system",
+  "title": "Search Suggestions System",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "string",
+    "binary-search",
+    "trie",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Autocomplete Shelf",
+    "text": "Products are sorted on a shelf. As each letter is typed, a guard binary-searches for the first product starting with what has been typed so far and suggests up to three that match.",
+    "goal": "Return the suggestions after each typed letter."
+  },
+  "spec": {
+    "method": "suggestedProducts",
+    "ret": "vector<vector<string>>",
+    "params": [
+      [
+        "vector<string>&",
+        "products"
+      ],
+      [
+        "string",
+        "searchWord"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "mobile",
+          "mouse",
+          "moneypot",
+          "monitor",
+          "mousepad"
+        ],
+        "mouse"
+      ],
+      "expected": [
+        [
+          "mobile",
+          "moneypot",
+          "monitor"
+        ],
+        [
+          "mobile",
+          "moneypot",
+          "monitor"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ],
+        [
+          "mouse",
+          "mousepad"
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          "havana"
+        ],
+        "tatiana"
+      ],
+      "expected": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "products",
+        "label": "shelf (sorted)",
+        "style": "tiles",
+        "pointers": [
+          "lo",
+          "k"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "prefix"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "pick",
+        "label": "suggestions",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {\n        sort(products.begin(), products.end());\n        vector<vector<string>> res;\n        string prefix;\n        for (char c : searchWord) {\n            prefix += c;\n            int lo = lower_bound(products.begin(), products.end(), prefix) - products.begin();\n            vector<string> pick;\n            for (int k = lo; k < (int)products.size() && (int)pick.size() < 3; k++) {\n                if (products[k].compare(0, prefix.size(), prefix) != 0) break;\n                pick.push_back(products[k]);\n            }\n            res.push_back(pick);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

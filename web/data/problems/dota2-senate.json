@@ -1,0 +1,70 @@
+{
+  "id": 649,
+  "slug": "dota2-senate",
+  "title": "Dota2 Senate",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "string",
+    "greedy",
+    "queue"
+  ],
+  "story": {
+    "title": "The Senate Round Table",
+    "text": "Two parties wait in queues by seat number. Whoever sits earlier bans the other party's next senator and rejoins the back of the line for the next round; the party that runs out loses.",
+    "goal": "Return the winning party, \"Radiant\" or \"Dire\"."
+  },
+  "spec": {
+    "method": "predictPartyVictory",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "senate"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "RD"
+      ],
+      "expected": "Radiant"
+    },
+    {
+      "args": [
+        "RDD"
+      ],
+      "expected": "Dire"
+    },
+    {
+      "args": [
+        "DRRDRDRDRDDRDRDR"
+      ],
+      "expected": "Radiant"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "senate",
+        "label": "seats"
+      },
+      {
+        "kind": "queue",
+        "var": "r",
+        "label": "Radiant queue"
+      },
+      {
+        "kind": "queue",
+        "var": "d",
+        "label": "Dire queue"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string predictPartyVictory(string senate) {\n        int n = senate.size();\n        queue<int> r, d;\n        for (int i = 0; i < n; i++) {\n            if (senate[i] == 'R') r.push(i);\n            else d.push(i);\n        }\n        while (!r.empty() && !d.empty()) {\n            int a = r.front(), b = d.front();\n            r.pop();\n            d.pop();\n            if (a < b) r.push(a + n);\n            else d.push(b + n);\n        }\n        return r.empty() ? \"Dire\" : \"Radiant\";\n    }\n};",
+  "tier": "crafted"
+}

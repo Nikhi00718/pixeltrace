@@ -1,0 +1,96 @@
+{
+  "id": 605,
+  "slug": "can-place-flowers",
+  "title": "Can Place Flowers",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "story": {
+    "title": "Planting Without Crowding",
+    "text": "Flowers can't be planted next to each other. A gardener walks the bed and plants in every empty plot whose neighbours are both empty, as early as possible.",
+    "goal": "Return true if n new flowers fit."
+  },
+  "spec": {
+    "method": "canPlaceFlowers",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "flowerbed"
+      ],
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        1
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        2
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        3
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "flowerbed",
+        "label": "flower bed",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "n"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool canPlaceFlowers(vector<int>& flowerbed, int n) {\n        int m = flowerbed.size();\n        for (int i = 0; i < m && n > 0; i++) {\n            bool leftFree = i == 0 || flowerbed[i - 1] == 0;\n            bool rightFree = i == m - 1 || flowerbed[i + 1] == 0;\n            if (flowerbed[i] == 0 && leftFree && rightFree) {\n                flowerbed[i] = 1;\n                n--;\n            }\n        }\n        return n == 0;\n    }\n};",
+  "tier": "crafted"
+}

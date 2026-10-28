@@ -1,0 +1,115 @@
+{
+  "id": 2352,
+  "slug": "equal-row-and-column-pairs",
+  "title": "Equal Row and Column Pairs",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "matrix",
+    "simulation"
+  ],
+  "story": {
+    "title": "Matching Rows and Columns",
+    "text": "A tile mosaic is checked for rows that read exactly like some column. Every row is filed in the lockers; then each column is read top to bottom and looked up.",
+    "goal": "Return how many (row, column) pairs are equal."
+  },
+  "spec": {
+    "method": "equalPairs",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            3,
+            2,
+            1
+          ],
+          [
+            1,
+            7,
+            6
+          ],
+          [
+            2,
+            7,
+            7
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          [
+            3,
+            1,
+            2,
+            2
+          ],
+          [
+            1,
+            4,
+            4,
+            5
+          ],
+          [
+            2,
+            4,
+            2,
+            2
+          ],
+          [
+            2,
+            4,
+            2,
+            2
+          ]
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "dp",
+        "label": "mosaic",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "col",
+        "label": "column being read",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int equalPairs(vector<vector<int>>& grid) {\n        int n = grid.size(), count = 0;\n        map<vector<int>, int> rows;\n        for (int r = 0; r < n; r++) rows[grid[r]]++;\n        for (int c = 0; c < n; c++) {\n            vector<int> col;\n            for (int r = 0; r < n; r++) col.push_back(grid[r][c]);\n            if (rows.count(col)) count += rows[col];\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

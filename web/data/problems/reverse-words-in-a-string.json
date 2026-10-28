@@ -1,0 +1,80 @@
+{
+  "id": 151,
+  "slug": "reverse-words-in-a-string",
+  "title": "Reverse Words in a String",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Reading the Sign Backwards",
+    "text": "A messy sign has words with extra spaces between them. A reader picks out each word, files it on a shelf, then reads the shelf from the end, with single spaces between.",
+    "goal": "Return the words in reverse order, separated by single spaces."
+  },
+  "spec": {
+    "method": "reverseWords",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "the sky is blue"
+      ],
+      "expected": "blue is sky the"
+    },
+    {
+      "args": [
+        "  hello world  "
+      ],
+      "expected": "world hello"
+    },
+    {
+      "args": [
+        "a good   example"
+      ],
+      "expected": "example good a"
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "sign",
+        "pointers": [
+          "i",
+          "j"
+        ],
+        "window": [
+          "i",
+          "j"
+        ],
+        "windowExclusive": true
+      },
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "words found",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string reverseWords(string s) {\n        vector<string> words;\n        int n = s.size(), i = 0;\n        while (i < n) {\n            while (i < n && s[i] == ' ') i++;\n            if (i >= n) break;\n            int j = i;\n            while (j < n && s[j] != ' ') j++;\n            words.push_back(s.substr(i, j - i));\n            i = j;\n        }\n        string res;\n        for (int k = words.size() - 1; k >= 0; k--) {\n            res += words[k];\n            if (k) res += ' ';\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

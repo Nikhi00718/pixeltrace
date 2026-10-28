@@ -1,0 +1,95 @@
+{
+  "id": 1657,
+  "slug": "determine-if-two-strings-are-close",
+  "title": "Determine if Two Strings Are Close",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "string",
+    "sorting",
+    "counting"
+  ],
+  "story": {
+    "title": "Swap and Relabel",
+    "text": "You may swap letters around, or swap two letters' identities everywhere. So two words are close if they use the same set of letters, and the lists of letter counts match once sorted.",
+    "goal": "Return true if word1 can become word2."
+  },
+  "spec": {
+    "method": "closeStrings",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "word1"
+      ],
+      [
+        "string",
+        "word2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abc",
+        "bca"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "a",
+        "aa"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "cabbba",
+        "abbccc"
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "map",
+            "var": "a",
+            "label": "word1 counts"
+          },
+          {
+            "kind": "map",
+            "var": "b",
+            "label": "word2 counts"
+          }
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "array",
+            "var": "ca",
+            "label": "counts 1 (sorted)",
+            "style": "tiles"
+          },
+          {
+            "kind": "array",
+            "var": "cb",
+            "label": "counts 2 (sorted)",
+            "style": "tiles"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool closeStrings(string word1, string word2) {\n        map<char, int> a, b;\n        for (char c : word1) a[c]++;\n        for (char c : word2) b[c]++;\n        vector<int> ca, cb;\n        for (auto& [c, n] : a) {\n            if (!b.count(c)) return false;\n            ca.push_back(n);\n        }\n        for (auto& [c, n] : b) {\n            if (!a.count(c)) return false;\n            cb.push_back(n);\n        }\n        sort(ca.begin(), ca.end());\n        sort(cb.begin(), cb.end());\n        return ca == cb;\n    }\n};",
+  "tier": "crafted"
+}

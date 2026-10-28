@@ -1,0 +1,87 @@
+{
+  "id": 1161,
+  "slug": "maximum-level-sum-of-a-binary-tree",
+  "title": "Maximum Level Sum of a Binary Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "bfs"
+  ],
+  "story": {
+    "title": "The Heaviest Row",
+    "text": "Pickers harvest the orchard row by row and weigh each row's basket. The first row with the heaviest basket wins.",
+    "goal": "Return the smallest level number with the maximum sum."
+  },
+  "spec": {
+    "method": "maxLevelSum",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          7,
+          0,
+          7,
+          -8,
+          null,
+          null
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          989,
+          null,
+          10250,
+          98693,
+          -89388,
+          null,
+          null,
+          null,
+          -32127
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "pickers"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "level",
+          "sum",
+          "bestSum",
+          "bestLevel"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxLevelSum(TreeNode* root) {\n        queue<TreeNode*> q;\n        q.push(root);\n        int level = 0, bestLevel = 1;\n        long long bestSum = LLONG_MIN;\n        while (!q.empty()) {\n            level++;\n            int sz = q.size();\n            long long sum = 0;\n            for (int k = 0; k < sz; k++) {\n                TreeNode* node = q.front();\n                q.pop();\n                sum += node->val;\n                if (node->left) q.push(node->left);\n                if (node->right) q.push(node->right);\n            }\n            if (sum > bestSum) {\n                bestSum = sum;\n                bestLevel = level;\n            }\n        }\n        return bestLevel;\n    }\n};",
+  "tier": "crafted"
+}

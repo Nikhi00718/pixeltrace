@@ -1,0 +1,76 @@
+{
+  "id": 1732,
+  "slug": "find-the-highest-altitude",
+  "title": "Find the Highest Altitude",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "The Cyclist's Altimeter",
+    "text": "A cyclist starts at sea level. Each leg of the ride changes the height by some gain; the altimeter keeps the running height and the highest point reached.",
+    "goal": "Return the highest altitude reached."
+  },
+  "spec": {
+    "method": "largestAltitude",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "gain"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          -5,
+          1,
+          5,
+          0,
+          -7
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          -4,
+          -3,
+          -2,
+          -1,
+          4,
+          3,
+          2
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "gain",
+        "label": "legs",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "alt",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int largestAltitude(vector<int>& gain) {\n        int alt = 0, best = 0;\n        for (int i = 0; i < (int)gain.size(); i++) {\n            alt += gain[i];\n            best = max(best, alt);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

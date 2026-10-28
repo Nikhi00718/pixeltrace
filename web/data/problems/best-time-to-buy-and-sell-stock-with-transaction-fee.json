@@ -1,0 +1,84 @@
+{
+  "id": 714,
+  "slug": "best-time-to-buy-and-sell-stock-with-transaction-fee",
+  "title": "Best Time to Buy and Sell Stock with Transaction Fee",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "greedy"
+  ],
+  "story": {
+    "title": "Trading with a Toll",
+    "text": "Every sale costs a fee. Each day the trader tracks two purses: the best cash if not holding a share, and the best value if holding one, switching only when it pays.",
+    "goal": "Return the maximum profit."
+  },
+  "spec": {
+    "method": "maxProfit",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "prices"
+      ],
+      [
+        "int",
+        "fee"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          2,
+          8,
+          4,
+          9
+        ],
+        2
+      ],
+      "expected": 8
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          7,
+          5,
+          10,
+          3
+        ],
+        3
+      ],
+      "expected": 6
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "prices",
+        "label": "price towers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cash",
+          "hold",
+          "fee"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxProfit(vector<int>& prices, int fee) {\n        int cash = 0, hold = -prices[0];\n        for (int i = 1; i < (int)prices.size(); i++) {\n            cash = max(cash, hold + prices[i] - fee);\n            hold = max(hold, cash - prices[i]);\n        }\n        return cash;\n    }\n};",
+  "tier": "crafted"
+}
