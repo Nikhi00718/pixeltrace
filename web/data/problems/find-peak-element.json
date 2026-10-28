@@ -1,0 +1,86 @@
+{
+  "id": 162,
+  "slug": "find-peak-element",
+  "title": "Find Peak Element",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "Climbing to a Summit",
+    "text": "A hiker in fog only sees the step ahead. If the ground rises to the right, a summit must be that way; otherwise one is here or to the left. Halving the trail each time finds a peak fast.",
+    "goal": "Return the index of a peak (an element bigger than its neighbours)."
+  },
+  "spec": {
+    "method": "findPeakElement",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          5,
+          7,
+          6,
+          4,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          5
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "trail heights",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findPeakElement(vector<int>& nums) {\n        int lo = 0, hi = nums.size() - 1;\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            if (nums[mid] < nums[mid + 1]) lo = mid + 1;\n            else hi = mid;\n        }\n        return lo;\n    }\n};",
+  "hints": [
+    "Any peak is accepted on LeetCode; the tests here have a single peak so the answer is unique."
+  ],
+  "tier": "crafted"
+}

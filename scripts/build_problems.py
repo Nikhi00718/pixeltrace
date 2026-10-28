@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from app.runner import equal, run_request  # noqa: E402
 from problems_src import P  # noqa: E402
 import problems_src_2  # noqa: E402,F401  (registers the second batch into P)
+import problems_src_3  # noqa: E402,F401
 
 OUT = ROOT / "web" / "data" / "problems"
 

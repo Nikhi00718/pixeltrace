@@ -1,0 +1,87 @@
+{
+  "id": 64,
+  "slug": "minimum-path-sum",
+  "title": "Minimum Path Sum",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Cheapest Field Crossing",
+    "text": "Each plot charges a fee and the cart only rolls right or down. Plot by plot, the farmer overwrites each fee with the cheapest total to reach it.",
+    "goal": "Return the cheapest total from the top-left to the bottom-right plot."
+  },
+  "spec": {
+    "method": "minPathSum",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            3,
+            1
+          ],
+          [
+            1,
+            5,
+            1
+          ],
+          [
+            4,
+            2,
+            1
+          ]
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ]
+      ],
+      "expected": 12
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "dp",
+        "label": "field fees",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minPathSum(vector<vector<int>>& grid) {\n        int m = grid.size(), n = grid[0].size();\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (i == 0 && j == 0) continue;\n                int up = i > 0 ? grid[i - 1][j] : INT_MAX;\n                int left = j > 0 ? grid[i][j - 1] : INT_MAX;\n                grid[i][j] += min(up, left);\n            }\n        }\n        return grid[m - 1][n - 1];\n    }\n};",
+  "tier": "crafted"
+}

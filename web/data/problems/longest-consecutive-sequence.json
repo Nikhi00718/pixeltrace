@@ -1,0 +1,96 @@
+{
+  "id": 128,
+  "slug": "longest-consecutive-sequence",
+  "title": "Longest Consecutive Sequence",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "union-find"
+  ],
+  "story": {
+    "title": "Counting the House Numbers",
+    "text": "House numbers are scattered on a list. Every number goes into the lockers; then only numbers with no smaller neighbour start a walk up the street, counting how many houses follow in a row.",
+    "goal": "Return the length of the longest run of consecutive numbers."
+  },
+  "spec": {
+    "method": "longestConsecutive",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          100,
+          4,
+          200,
+          1,
+          3,
+          2
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          0,
+          3,
+          7,
+          2,
+          5,
+          8,
+          4,
+          6,
+          0,
+          1
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "house numbers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "seen",
+        "label": "lockers",
+        "lookup": [
+          "cur"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cur",
+          "len",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestConsecutive(vector<int>& nums) {\n        set<int> seen(nums.begin(), nums.end());\n        int best = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (seen.count(nums[i] - 1)) continue;\n            int cur = nums[i], len = 1;\n            while (seen.count(cur + 1)) {\n                cur++;\n                len++;\n            }\n            best = max(best, len);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

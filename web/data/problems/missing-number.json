@@ -1,0 +1,85 @@
+{
+  "id": 268,
+  "slug": "missing-number",
+  "title": "Missing Number",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "array",
+    "math",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "The Missing Lamp",
+    "text": "Lamps numbered 0..n should all be here, but one is missing. Toggle the lamps of every index and every number; pairs cancel out and only the missing number stays lit.",
+    "goal": "Return the number in 0..n that is not in the array."
+  },
+  "spec": {
+    "method": "missingNumber",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          0,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          9,
+          6,
+          4,
+          2,
+          3,
+          5,
+          7,
+          0,
+          1
+        ]
+      ],
+      "expected": 8
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "lamps found",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int missingNumber(vector<int>& nums) {\n        int n = nums.size(), x = n;\n        for (int i = 0; i < n; i++) x ^= i ^ nums[i];\n        return x;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,87 @@
+{
+  "id": 110,
+  "slug": "balanced-binary-tree",
+  "title": "Balanced Binary Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "The Leaning Tree Check",
+    "text": "A tree inspector climbs to every fruit and asks both branches how tall they are. If they differ by more than one anywhere, the tree is leaning and the answer -1 is passed all the way up.",
+    "goal": "Return true if every node's subtrees differ in height by at most one."
+  },
+  "spec": {
+    "method": "isBalanced",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          3,
+          3,
+          null,
+          null,
+          4,
+          4
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int height(TreeNode* node) {\n        if (!node) return 0;\n        int l = height(node->left);\n        if (l < 0) return -1;\n        int r = height(node->right);\n        if (r < 0 || abs(l - r) > 1) return -1;\n        return 1 + max(l, r);\n    }\n    bool isBalanced(TreeNode* root) {\n        return height(root) >= 0;\n    }\n};",
+  "tier": "crafted"
+}

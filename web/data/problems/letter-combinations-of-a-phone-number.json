@@ -1,0 +1,90 @@
+{
+  "id": 17,
+  "slug": "letter-combinations-of-a-phone-number",
+  "title": "Letter Combinations of a Phone Number",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "hash-table",
+    "string",
+    "backtracking"
+  ],
+  "story": {
+    "title": "The Old Keypad",
+    "text": "Each key on an old phone holds a few letters. Behind every door you pick one letter for the next digit, spell as far as you can, then step back out to try the next letter.",
+    "goal": "Return every word the digits could spell (any order)."
+  },
+  "spec": {
+    "method": "letterCombinations",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "string",
+        "digits"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        "23"
+      ],
+      "expected": [
+        "ad",
+        "ae",
+        "af",
+        "bd",
+        "be",
+        "bf",
+        "cd",
+        "ce",
+        "cf"
+      ]
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        "2"
+      ],
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "digits",
+        "label": "digits",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "path",
+          "keys"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "words",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> pad = {\"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"};\n    vector<string> res;\n    string path;\n    void go(string& digits, int i) {\n        if (i == (int)digits.size()) {\n            res.push_back(path);\n            return;\n        }\n        string keys = pad[digits[i] - '0'];\n        for (char c : keys) {\n            path.push_back(c);\n            go(digits, i + 1);\n            path.pop_back();\n        }\n    }\n    vector<string> letterCombinations(string digits) {\n        if (digits.empty()) return {};\n        go(digits, 0);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

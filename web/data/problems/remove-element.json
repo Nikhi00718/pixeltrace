@@ -1,0 +1,90 @@
+{
+  "id": 27,
+  "slug": "remove-element",
+  "title": "Remove Element",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "Clearing the Rotten Crates",
+    "text": "Crates marked with a bad number must go. A reader checks every crate; a writer keeps only the good ones, packing them to the front of the dock.",
+    "goal": "Return how many crates are left after removing every crate equal to val."
+  },
+  "spec": {
+    "method": "removeElement",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "val"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          2,
+          2,
+          3
+        ],
+        3
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          2,
+          2,
+          3,
+          0,
+          4,
+          2
+        ],
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [],
+        1
+      ],
+      "expected": 0
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "dock",
+        "pointers": [
+          "k",
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "val"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int removeElement(vector<int>& nums, int val) {\n        int k = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (nums[i] != val) {\n                nums[k] = nums[i];\n                k++;\n            }\n        }\n        return k;\n    }\n};",
+  "tier": "crafted"
+}

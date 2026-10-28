@@ -1,0 +1,145 @@
+{
+  "id": 547,
+  "slug": "number-of-provinces",
+  "title": "Number of Provinces",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "graph",
+    "dfs",
+    "bfs",
+    "union-find"
+  ],
+  "story": {
+    "title": "Counting the Kingdoms",
+    "text": "A table says which towns share a road. An envoy visits every unvisited town, following roads to stamp every town it can reach; each fresh start is a new kingdom.",
+    "goal": "Return how many separate groups of connected towns there are."
+  },
+  "spec": {
+    "method": "findCircleNum",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "isConnected"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "grid",
+            "var": "isConnected",
+            "palette": "dp",
+            "label": "road table",
+            "pointers": [
+              [
+                "u",
+                "v"
+              ]
+            ]
+          },
+          {
+            "kind": "array",
+            "var": "seen",
+            "label": "stamped",
+            "style": "tiles",
+            "pointers": [
+              "u"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "provinces"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<bool> seen;\n    void visit(vector<vector<int>>& isConnected, int u) {\n        seen[u] = true;\n        for (int v = 0; v < (int)isConnected.size(); v++) {\n            if (isConnected[u][v] && !seen[v]) visit(isConnected, v);\n        }\n    }\n    int findCircleNum(vector<vector<int>>& isConnected) {\n        int n = isConnected.size(), provinces = 0;\n        seen.assign(n, false);\n        for (int u = 0; u < n; u++) {\n            if (!seen[u]) {\n                provinces++;\n                visit(isConnected, u);\n            }\n        }\n        return provinces;\n    }\n};",
+  "tier": "crafted"
+}

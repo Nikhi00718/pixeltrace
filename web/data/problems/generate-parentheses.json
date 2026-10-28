@@ -1,0 +1,73 @@
+{
+  "id": 22,
+  "slug": "generate-parentheses",
+  "title": "Generate Parentheses",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "string",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "story": {
+    "title": "Balanced Doorways",
+    "text": "A builder lays n opening and n closing arches. At each door they may open a new arch if any are left, or close one if more are open than closed, backing out to try the other choice.",
+    "goal": "Return every balanced arrangement of n pairs (any order)."
+  },
+  "spec": {
+    "method": "generateParenthesis",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        3
+      ],
+      "expected": [
+        "((()))",
+        "(()())",
+        "(())()",
+        "()(())",
+        "()()()"
+      ]
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": [
+        "()"
+      ]
+    }
+  ],
+  "visualTest": 0,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "path",
+          "open",
+          "close",
+          "n"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "finished",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> res;\n    string path;\n    void go(int open, int close, int n) {\n        if ((int)path.size() == 2 * n) {\n            res.push_back(path);\n            return;\n        }\n        if (open < n) {\n            path.push_back('(');\n            go(open + 1, close, n);\n            path.pop_back();\n        }\n        if (close < open) {\n            path.push_back(')');\n            go(open, close + 1, n);\n            path.pop_back();\n        }\n    }\n    vector<string> generateParenthesis(int n) {\n        go(0, 0, n);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,97 @@
+{
+  "id": 134,
+  "slug": "gas-station",
+  "title": "Gas Station",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "story": {
+    "title": "The Round-Trip Road",
+    "text": "Stations sit on a ring road, each giving some fuel and costing some to reach the next. A driver keeps a tank; whenever it runs dry, every station so far was a bad start, so they restart from the next one.",
+    "goal": "Return the station to start from to finish the loop, or -1."
+  },
+  "spec": {
+    "method": "canCompleteCircuit",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "gas"
+      ],
+      [
+        "vector<int>&",
+        "cost"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          3,
+          4,
+          5,
+          1,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          2,
+          3,
+          4
+        ],
+        [
+          3,
+          4,
+          3
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "gas",
+        "label": "fuel given",
+        "pointers": [
+          "i",
+          "start"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "cost",
+        "label": "fuel to next",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "tank",
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {\n        int total = 0, tank = 0, start = 0;\n        for (int i = 0; i < (int)gas.size(); i++) {\n            int diff = gas[i] - cost[i];\n            total += diff;\n            tank += diff;\n            if (tank < 0) {\n                start = i + 1;\n                tank = 0;\n            }\n        }\n        return total < 0 ? -1 : start;\n    }\n};",
+  "tier": "crafted"
+}

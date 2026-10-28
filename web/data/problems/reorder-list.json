@@ -1,0 +1,88 @@
+{
+  "id": 143,
+  "slug": "reorder-list",
+  "title": "Reorder List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers",
+    "stack",
+    "recursion"
+  ],
+  "story": {
+    "title": "Shuffling the Train",
+    "text": "The station wants cars in the order first, last, second, second-to-last\u2026 Find the middle, turn the back half around, then zip the two halves together car by car.",
+    "goal": "Reorder the train in place."
+  },
+  "spec": {
+    "method": "reorderList",
+    "ret": "void",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": [
+        1,
+        4,
+        2,
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        1,
+        5,
+        2,
+        4,
+        3
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "slow",
+          "fast",
+          "prev",
+          "a",
+          "b"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void reorderList(ListNode* head) {\n        ListNode* slow = head;\n        ListNode* fast = head;\n        while (fast->next && fast->next->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n        ListNode* prev = nullptr;\n        ListNode* cur = slow->next;\n        slow->next = nullptr;\n        while (cur) {\n            ListNode* nxt = cur->next;\n            cur->next = prev;\n            prev = cur;\n            cur = nxt;\n        }\n        ListNode* a = head;\n        ListNode* b = prev;\n        while (b) {\n            ListNode* an = a->next;\n            ListNode* bn = b->next;\n            a->next = b;\n            b->next = an;\n            a = an;\n            b = bn;\n        }\n    }\n};",
+  "tier": "crafted"
+}

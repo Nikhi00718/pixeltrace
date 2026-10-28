@@ -1,0 +1,90 @@
+{
+  "id": 567,
+  "slug": "permutation-in-string",
+  "title": "Permutation in String",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "string",
+    "sliding-window",
+    "hash-table",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "The Hidden Password",
+    "text": "A password's letters were shuffled and hidden somewhere in a long message. A beam the password's length slides along, keeping letter counts, until the counts match exactly.",
+    "goal": "Return true if some window of s2 is a permutation of s1."
+  },
+  "spec": {
+    "method": "checkInclusion",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s1"
+      ],
+      [
+        "string",
+        "s2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "ab",
+        "eidbaooo"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "ab",
+        "eidboaoo"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "adc",
+        "dcda"
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s2",
+        "label": "message",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "map",
+            "var": "need",
+            "label": "password letters"
+          },
+          {
+            "kind": "map",
+            "var": "win",
+            "label": "beam letters"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool checkInclusion(string s1, string s2) {\n        map<char, int> need, win;\n        for (char c : s1) need[c]++;\n        int m = s1.size();\n        for (int r = 0; r < (int)s2.size(); r++) {\n            win[s2[r]]++;\n            int l = r - m + 1;\n            if (l < 0) continue;\n            if (win == need) return true;\n            if (--win[s2[l]] == 0) win.erase(s2[l]);\n        }\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

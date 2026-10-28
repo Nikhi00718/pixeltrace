@@ -1,0 +1,98 @@
+{
+  "id": 682,
+  "slug": "baseball-game",
+  "title": "Baseball Game",
+  "difficulty": "Easy",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Scorekeeper's Tower",
+    "text": "Each card says what to do with the score tower: a number stacks a new score, + stacks the sum of the top two, D doubles the top, and C knocks the top score off.",
+    "goal": "Return the sum of the scores left in the tower."
+  },
+  "spec": {
+    "method": "calPoints",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "operations"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "5",
+          "2",
+          "C",
+          "D",
+          "+"
+        ]
+      ],
+      "expected": 30
+    },
+    {
+      "args": [
+        [
+          "5",
+          "-2",
+          "4",
+          "C",
+          "D",
+          "9",
+          "+",
+          "+"
+        ]
+      ],
+      "expected": 27
+    },
+    {
+      "args": [
+        [
+          "1",
+          "C"
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "operations",
+        "label": "cards",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "stack",
+            "var": "st",
+            "label": "score tower"
+          },
+          {
+            "kind": "values",
+            "vars": [
+              "total"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int calPoints(vector<string>& operations) {\n        stack<int> st;\n        for (int i = 0; i < (int)operations.size(); i++) {\n            string& op = operations[i];\n            if (op == \"C\") {\n                st.pop();\n            } else if (op == \"D\") {\n                st.push(st.top() * 2);\n            } else if (op == \"+\") {\n                int a = st.top();\n                st.pop();\n                int b = st.top();\n                st.push(a);\n                st.push(a + b);\n            } else {\n                st.push(stoi(op));\n            }\n        }\n        int total = 0;\n        while (!st.empty()) {\n            total += st.top();\n            st.pop();\n        }\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

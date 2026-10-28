@@ -1,0 +1,84 @@
+{
+  "id": 45,
+  "slug": "jump-game-ii",
+  "title": "Jump Game II",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Fewest Leaps Across the River",
+    "text": "Stones say how far you can leap. The hiker treats each leap as a range of stones; while walking through the current range they note the farthest next range, and leap when the current one runs out.",
+    "goal": "Return the fewest leaps to reach the last stone."
+  },
+  "spec": {
+    "method": "jump",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          3,
+          1,
+          1,
+          4
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          2,
+          3,
+          0,
+          1,
+          4
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "stones",
+        "pointers": [
+          "i",
+          "end",
+          "far"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "jumps"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int jump(vector<int>& nums) {\n        int jumps = 0, end = 0, far = 0;\n        for (int i = 0; i + 1 < (int)nums.size(); i++) {\n            far = max(far, i + nums[i]);\n            if (i == end) {\n                jumps++;\n                end = far;\n            }\n        }\n        return jumps;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,95 @@
+{
+  "id": 438,
+  "slug": "find-all-anagrams-in-a-string",
+  "title": "Find All Anagrams in a String",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "string",
+    "sliding-window",
+    "hash-table"
+  ],
+  "story": {
+    "title": "Spotting the Scrambled Name",
+    "text": "A beam the exact length of a name sweeps along a banner of letters. Lockers count the letters inside the beam; whenever they match the name's letter counts, an anagram is spotted.",
+    "goal": "Return every start index where an anagram of p begins."
+  },
+  "spec": {
+    "method": "findAnagrams",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "p"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "cbaebabacd",
+        "abc"
+      ],
+      "expected": [
+        0,
+        6
+      ]
+    },
+    {
+      "args": [
+        "abab",
+        "ab"
+      ],
+      "expected": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "banner",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "map",
+            "var": "need",
+            "label": "name letters"
+          },
+          {
+            "kind": "map",
+            "var": "win",
+            "label": "beam letters"
+          }
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "found at",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> findAnagrams(string s, string p) {\n        vector<int> res;\n        map<char, int> need, win;\n        for (char c : p) need[c]++;\n        int m = p.size();\n        for (int r = 0; r < (int)s.size(); r++) {\n            win[s[r]]++;\n            int l = r - m + 1;\n            if (l < 0) continue;\n            if (win == need) res.push_back(l);\n            if (--win[s[l]] == 0) win.erase(s[l]);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,80 @@
+{
+  "id": 746,
+  "slug": "min-cost-climbing-stairs",
+  "title": "Min Cost Climbing Stairs",
+  "difficulty": "Easy",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Toll Staircase",
+    "text": "Every stair charges a toll and you may climb one or two at a time, starting on stair 0 or 1. The farmer chalks on each step the cheapest way to arrive there.",
+    "goal": "Return the cheapest cost to get past the top stair."
+  },
+  "spec": {
+    "method": "minCostClimbingStairs",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "cost"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          15,
+          20
+        ]
+      ],
+      "expected": 15
+    },
+    {
+      "args": [
+        [
+          1,
+          100,
+          1,
+          1,
+          1,
+          100,
+          1,
+          1,
+          100,
+          1
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "cost",
+        "label": "tolls",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "cheapest arrival",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minCostClimbingStairs(vector<int>& cost) {\n        int n = cost.size();\n        vector<int> dp(n + 1, 0);\n        for (int i = 2; i <= n; i++) {\n            dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);\n        }\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

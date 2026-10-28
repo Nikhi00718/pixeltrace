@@ -1,0 +1,95 @@
+{
+  "id": 75,
+  "slug": "sort-colors",
+  "title": "Sort Colors",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Flag Painter",
+    "text": "Paint pots of three colours (0, 1, 2) are jumbled on a shelf. One worker pushes 0s to the left wall, another pushes 2s to the right wall, and the middle walker decides where each pot goes.",
+    "goal": "Sort the pots in place in one pass."
+  },
+  "spec": {
+    "method": "sortColors",
+    "ret": "void",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          0,
+          2,
+          1,
+          1,
+          0
+        ]
+      ],
+      "expected": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          0,
+          1
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "paint pots",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "mid",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void sortColors(vector<int>& nums) {\n        int lo = 0, mid = 0, hi = nums.size() - 1;\n        while (mid <= hi) {\n            if (nums[mid] == 0) {\n                swap(nums[lo], nums[mid]);\n                lo++;\n                mid++;\n            } else if (nums[mid] == 1) {\n                mid++;\n            } else {\n                swap(nums[mid], nums[hi]);\n                hi--;\n            }\n        }\n    }\n};",
+  "tier": "crafted"
+}

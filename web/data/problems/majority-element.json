@@ -1,0 +1,76 @@
+{
+  "id": 169,
+  "slug": "majority-element",
+  "title": "Majority Element",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "story": {
+    "title": "The Village Vote",
+    "text": "Villagers walk past a ballot box one by one. A candidate holds the box with a vote count; a different vote knocks one off, and at zero the next voter takes over. The true majority always survives.",
+    "goal": "Return the value that appears more than half the time."
+  },
+  "spec": {
+    "method": "majorityElement",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          2,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          1,
+          1,
+          1,
+          2,
+          2
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "voters",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cand",
+          "cnt"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int majorityElement(vector<int>& nums) {\n        int cand = nums[0], cnt = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (cnt == 0) cand = nums[i];\n            if (nums[i] == cand) cnt++;\n            else cnt--;\n        }\n        return cand;\n    }\n};",
+  "tier": "crafted"
+}

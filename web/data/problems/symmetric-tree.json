@@ -1,0 +1,73 @@
+{
+  "id": 101,
+  "slug": "symmetric-tree",
+  "title": "Symmetric Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bfs"
+  ],
+  "story": {
+    "title": "The Mirror Hedge",
+    "text": "A gardener wants the hedge to be a perfect mirror. Two squirrels climb from the top, one going left while the other goes right, checking that every pair of fruits matches.",
+    "goal": "Return true if the tree is a mirror of itself."
+  },
+  "spec": {
+    "method": "isSymmetric",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          3,
+          4,
+          4,
+          3
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          null,
+          3,
+          null,
+          3
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "a",
+          "b"
+        ],
+        "label": "hedge"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool mirror(TreeNode* a, TreeNode* b) {\n        if (!a && !b) return true;\n        if (!a || !b || a->val != b->val) return false;\n        return mirror(a->left, b->right) && mirror(a->right, b->left);\n    }\n    bool isSymmetric(TreeNode* root) {\n        return mirror(root->left, root->right);\n    }\n};",
+  "tier": "crafted"
+}
