@@ -1,0 +1,63 @@
+{
+  "id": 696,
+  "slug": "count-binary-substrings",
+  "title": "Count Binary Substrings",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Balanced Lamp Blocks",
+    "text": "Group the lamps into runs. Two neighbouring runs of lengths a and b give min(a, b) balanced substrings.",
+    "goal": "Return the number of substrings with equal grouped 0s and 1s."
+  },
+  "spec": {
+    "method": "countBinarySubstrings",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "00110011"
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        "10101"
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "lamps",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "prev",
+          "cur",
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int countBinarySubstrings(string s) {\n        int prev = 0, cur = 1, total = 0;\n        for (int i = 1; i < (int)s.size(); i++) {\n            if (s[i] == s[i - 1]) {\n                cur++;\n            } else {\n                total += min(prev, cur);\n                prev = cur;\n                cur = 1;\n            }\n        }\n        return total + min(prev, cur);\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,72 @@
+{
+  "id": 516,
+  "slug": "longest-palindromic-subsequence",
+  "title": "Longest Palindromic Subsequence",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Mirror Hidden in the Scroll",
+    "text": "For each stretch i..j, matching end letters wrap the best answer inside; otherwise drop one end and keep the better.",
+    "goal": "Return the length of the longest palindromic subsequence."
+  },
+  "spec": {
+    "method": "longestPalindromeSubseq",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "bbbab"
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        "cbbd"
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "scroll",
+        "pointers": [
+          "i",
+          "j"
+        ],
+        "window": [
+          "i",
+          "j"
+        ]
+      },
+      {
+        "kind": "grid",
+        "var": "dp",
+        "palette": "dp",
+        "label": "best for stretch i..j",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestPalindromeSubseq(string s) {\n        int n = s.size();\n        vector<vector<int>> dp(n, vector<int>(n, 0));\n        for (int i = n - 1; i >= 0; i--) {\n            dp[i][i] = 1;\n            for (int j = i + 1; j < n; j++) {\n                if (s[i] == s[j]) dp[i][j] = dp[i + 1][j - 1] + 2;\n                else dp[i][j] = max(dp[i + 1][j], dp[i][j - 1]);\n            }\n        }\n        return dp[0][n - 1];\n    }\n};",
+  "tier": "crafted"
+}

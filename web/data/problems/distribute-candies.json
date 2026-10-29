@@ -1,0 +1,80 @@
+{
+  "id": 575,
+  "slug": "distribute-candies",
+  "title": "Distribute Candies",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "As Many Kinds as Possible",
+    "text": "Alice may eat half the candies. She can taste at most that many kinds, and at most as many kinds as exist.",
+    "goal": "Return the maximum number of different candy types she can eat."
+  },
+  "spec": {
+    "method": "distributeCandies",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "candyType"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          2,
+          2,
+          3,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          6,
+          6,
+          6,
+          6
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "candyType",
+        "label": "candies"
+      },
+      {
+        "kind": "set",
+        "var": "kinds",
+        "label": "kinds"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int distributeCandies(vector<int>& candyType) {\n        set<int> kinds(candyType.begin(), candyType.end());\n        return min(kinds.size(), candyType.size() / 2);\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,80 @@
+{
+  "id": 583,
+  "slug": "delete-operation-for-two-strings",
+  "title": "Delete Operation for Two Strings",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Trimming Two Scrolls to Match",
+    "text": "Whatever they keep must be a common subsequence, so keep the longest one; every other letter is deleted.",
+    "goal": "Return the minimum deletions to make both words equal."
+  },
+  "spec": {
+    "method": "minDistance",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "word1"
+      ],
+      [
+        "string",
+        "word2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "sea",
+        "eat"
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        "leetcode",
+        "etco"
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "string",
+            "var": "word1",
+            "label": "scroll 1"
+          },
+          {
+            "kind": "string",
+            "var": "word2",
+            "label": "scroll 2"
+          }
+        ]
+      },
+      {
+        "kind": "grid",
+        "var": "dp",
+        "palette": "dp",
+        "label": "common subsequence table",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minDistance(string word1, string word2) {\n        int n = word1.size(), m = word2.size();\n        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));\n        for (int i = 1; i <= n; i++)\n            for (int j = 1; j <= m; j++)\n                dp[i][j] = word1[i - 1] == word2[j - 1] ? dp[i - 1][j - 1] + 1 : max(dp[i - 1][j], dp[i][j - 1]);\n        return n + m - 2 * dp[n][m];\n    }\n};",
+  "tier": "crafted"
+}

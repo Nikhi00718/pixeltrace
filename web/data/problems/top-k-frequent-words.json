@@ -1,0 +1,96 @@
+{
+  "id": 692,
+  "slug": "top-k-frequent-words",
+  "title": "Top K Frequent Words",
+  "difficulty": "Medium",
+  "world": "heap",
+  "tags": [
+    "hash-table",
+    "string",
+    "trie",
+    "sorting",
+    "heap",
+    "bucket-sort",
+    "counting"
+  ],
+  "story": {
+    "title": "The Most Spoken Words",
+    "text": "Count every word, then sort by count (high first), breaking ties alphabetically, and read off the first k.",
+    "goal": "Return the k most frequent words in that order."
+  },
+  "spec": {
+    "method": "topKFrequent",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "i",
+          "love",
+          "leetcode",
+          "i",
+          "love",
+          "coding"
+        ],
+        2
+      ],
+      "expected": [
+        "i",
+        "love"
+      ]
+    },
+    {
+      "args": [
+        [
+          "the",
+          "day",
+          "is",
+          "sunny",
+          "the",
+          "the",
+          "the",
+          "sunny",
+          "is",
+          "is"
+        ],
+        4
+      ],
+      "expected": [
+        "the",
+        "is",
+        "sunny",
+        "day"
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "word counts"
+      },
+      {
+        "kind": "array",
+        "var": "order",
+        "label": "ranked",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> topKFrequent(vector<string>& words, int k) {\n        map<string, int> cnt;\n        for (auto& w : words) cnt[w]++;\n        vector<string> order;\n        for (auto& [w, c] : cnt) order.push_back(w);\n        sort(order.begin(), order.end(), [&](const string& a, const string& b) {\n            return cnt[a] != cnt[b] ? cnt[a] > cnt[b] : a < b;\n        });\n        order.resize(k);\n        return order;\n    }\n};",
+  "tier": "crafted"
+}

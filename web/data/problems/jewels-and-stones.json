@@ -1,0 +1,72 @@
+{
+  "id": 771,
+  "slug": "jewels-and-stones",
+  "title": "Jewels and Stones",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "Sorting the Treasure Bag",
+    "text": "The kinds of jewels go into lockers; then each stone in the bag is checked against them.",
+    "goal": "Return how many stones are jewels."
+  },
+  "spec": {
+    "method": "numJewelsInStones",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "jewels"
+      ],
+      [
+        "string",
+        "stones"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "aA",
+        "aAAbbbb"
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "z",
+        "ZZ"
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "stones",
+        "label": "bag",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "kinds",
+        "label": "jewel kinds"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numJewelsInStones(string jewels, string stones) {\n        set<char> kinds(jewels.begin(), jewels.end());\n        int count = 0;\n        for (int i = 0; i < (int)stones.size(); i++) count += kinds.count(stones[i]);\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

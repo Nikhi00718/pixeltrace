@@ -1,0 +1,92 @@
+{
+  "id": 563,
+  "slug": "binary-tree-tilt",
+  "title": "Binary Tree Tilt",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "How Lopsided Is Each Branch?",
+    "text": "Each fruit asks both branches for their total weight; the difference is its tilt, and it reports its own subtree's weight upward.",
+    "goal": "Return the sum of every node's tilt."
+  },
+  "spec": {
+    "method": "findTilt",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          4,
+          2,
+          9,
+          3,
+          5,
+          null,
+          7
+        ]
+      ],
+      "expected": 15
+    },
+    {
+      "args": [
+        [
+          21,
+          7,
+          14,
+          1,
+          1,
+          2,
+          2,
+          3,
+          3
+        ]
+      ],
+      "expected": 9
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r",
+          "tilt"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int tilt = 0;\n    int weigh(TreeNode* node) {\n        if (!node) return 0;\n        int l = weigh(node->left);\n        int r = weigh(node->right);\n        tilt += abs(l - r);\n        return node->val + l + r;\n    }\n    int findTilt(TreeNode* root) {\n        weigh(root);\n        return tilt;\n    }\n};",
+  "tier": "crafted"
+}

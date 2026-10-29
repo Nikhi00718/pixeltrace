@@ -1,0 +1,74 @@
+{
+  "id": 606,
+  "slug": "construct-string-from-binary-tree",
+  "title": "Construct String from Binary Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "string",
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Writing the Orchard Down",
+    "text": "Each fruit writes its value, then its branches in brackets. An empty left branch still needs () if there is a right branch; empty brackets are skipped otherwise.",
+    "goal": "Return the preorder string with minimal parentheses."
+  },
+  "spec": {
+    "method": "tree2str",
+    "ret": "string",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": "1(2(4))(3)"
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          null,
+          4
+        ]
+      ],
+      "expected": "1(2()(4))(3)"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "s"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string write(TreeNode* node) {\n        if (!node) return \"\";\n        string s = to_string(node->val);\n        if (node->left || node->right) s += \"(\" + write(node->left) + \")\";\n        if (node->right) s += \"(\" + write(node->right) + \")\";\n        return s;\n    }\n    string tree2str(TreeNode* root) {\n        return write(root);\n    }\n};",
+  "tier": "crafted"
+}

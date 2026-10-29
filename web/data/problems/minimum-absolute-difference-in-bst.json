@@ -1,0 +1,77 @@
+{
+  "id": 530,
+  "slug": "minimum-absolute-difference-in-bst",
+  "title": "Minimum Absolute Difference in BST",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bst"
+  ],
+  "story": {
+    "title": "The Closest Two Fruits",
+    "text": "Visiting a sorted orchard left-to-right lists the fruit in order, so the closest pair is always neighbours in that walk.",
+    "goal": "Return the minimum difference between any two nodes."
+  },
+  "spec": {
+    "method": "getMinimumDifference",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          6,
+          1,
+          3
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          1,
+          0,
+          48,
+          null,
+          null,
+          12,
+          49
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "prev",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int prev = -1, best = INT_MAX;\n    void walk(TreeNode* node) {\n        if (!node) return;\n        walk(node->left);\n        if (prev >= 0) best = min(best, node->val - prev);\n        prev = node->val;\n        walk(node->right);\n    }\n    int getMinimumDifference(TreeNode* root) {\n        walk(root);\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

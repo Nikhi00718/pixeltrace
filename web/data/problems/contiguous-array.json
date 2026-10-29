@@ -1,0 +1,95 @@
+{
+  "id": 525,
+  "slug": "contiguous-array",
+  "title": "Contiguous Array",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "Balanced Lamps",
+    "text": "Count +1 for a lit lamp and -1 for a dark one. Two positions with the same running balance bound a stretch with equal lit and dark lamps.",
+    "goal": "Return the length of the longest subarray with equal 0s and 1s."
+  },
+  "spec": {
+    "method": "findMaxLength",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "lamps",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "first",
+        "label": "balance first seen at",
+        "lookup": [
+          "bal"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "bal",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findMaxLength(vector<int>& nums) {\n        map<int, int> first;\n        first[0] = -1;\n        int bal = 0, best = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            bal += nums[i] ? 1 : -1;\n            if (first.count(bal)) best = max(best, i - first[bal]);\n            else first[bal] = i;\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

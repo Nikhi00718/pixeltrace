@@ -1,0 +1,77 @@
+{
+  "id": 678,
+  "slug": "valid-parenthesis-string",
+  "title": "Valid Parenthesis String",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "string",
+    "dynamic-programming",
+    "stack",
+    "greedy"
+  ],
+  "story": {
+    "title": "Wildcard Brackets",
+    "text": "A * can be (, ) or nothing. Track the lowest and highest number of open brackets possible; if the highest ever drops below zero it's broken.",
+    "goal": "Return true if the string can be valid."
+  },
+  "spec": {
+    "method": "checkValidString",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "()"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "(*)"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "(*))"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "((*)(*))((*"
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "brackets",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool checkValidString(string s) {\n        int lo = 0, hi = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '(') {\n                lo++;\n                hi++;\n            } else if (s[i] == ')') {\n                lo--;\n                hi--;\n            } else {\n                lo--;\n                hi++;\n            }\n            if (hi < 0) return false;\n            lo = max(lo, 0);\n        }\n        return lo == 0;\n    }\n};",
+  "tier": "crafted"
+}

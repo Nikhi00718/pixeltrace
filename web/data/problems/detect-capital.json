@@ -1,0 +1,66 @@
+{
+  "id": 520,
+  "slug": "detect-capital",
+  "title": "Detect Capital",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "string"
+  ],
+  "story": {
+    "title": "Checking the Sign's Capitals",
+    "text": "Count the capital letters. All capitals, none, or only the first letter is fine.",
+    "goal": "Return true if the word uses capitals correctly."
+  },
+  "spec": {
+    "method": "detectCapitalUse",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "word"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "USA"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "FlaG"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "Google"
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "word",
+        "label": "sign",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "caps"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool detectCapitalUse(string word) {\n        int caps = 0;\n        for (int i = 0; i < (int)word.size(); i++) caps += isupper(word[i]) ? 1 : 0;\n        return caps == 0 || caps == (int)word.size() || (caps == 1 && isupper(word[0]));\n    }\n};",
+  "tier": "crafted"
+}

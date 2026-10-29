@@ -1,0 +1,80 @@
+{
+  "id": 687,
+  "slug": "longest-univalue-path",
+  "title": "Longest Univalue Path",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Vines of Matching Fruit",
+    "text": "Each fruit asks its branches how long a same-valued arm reaches down. Arms only count when the child matches; both arms together form a vine through the fruit.",
+    "goal": "Return the number of edges on the longest path of equal values."
+  },
+  "spec": {
+    "method": "longestUnivaluePath",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          4,
+          5,
+          1,
+          1,
+          null,
+          5
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          4,
+          5,
+          4,
+          4,
+          null,
+          5
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int best = 0;\n    int arm(TreeNode* node) {\n        if (!node) return 0;\n        int l = arm(node->left);\n        int r = arm(node->right);\n        l = (node->left && node->left->val == node->val) ? l + 1 : 0;\n        r = (node->right && node->right->val == node->val) ? r + 1 : 0;\n        best = max(best, l + r);\n        return max(l, r);\n    }\n    int longestUnivaluePath(TreeNode* root) {\n        arm(root);\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

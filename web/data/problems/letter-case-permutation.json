@@ -1,0 +1,71 @@
+{
+  "id": 784,
+  "slug": "letter-case-permutation",
+  "title": "Letter Case Permutation",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "string",
+    "backtracking",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Every Way to Capitalise",
+    "text": "At each letter, the doors split: keep its case, or flip it. Digits pass straight through. Every finished word is written down.",
+    "goal": "Return every case permutation (any order)."
+  },
+  "spec": {
+    "method": "letterCasePermutation",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        "a1b2"
+      ],
+      "expected": [
+        "a1b2",
+        "a1B2",
+        "A1b2",
+        "A1B2"
+      ]
+    },
+    {
+      "args": [
+        "3z4"
+      ],
+      "expected": [
+        "3z4",
+        "3Z4"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "cur",
+        "label": "word",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "written",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> res;\n    void go(string& cur, int i) {\n        if (i == (int)cur.size()) {\n            res.push_back(cur);\n            return;\n        }\n        go(cur, i + 1);\n        if (isalpha(cur[i])) {\n            cur[i] ^= 32;\n            go(cur, i + 1);\n            cur[i] ^= 32;\n        }\n    }\n    vector<string> letterCasePermutation(string s) {\n        string cur = s;\n        go(cur, 0);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

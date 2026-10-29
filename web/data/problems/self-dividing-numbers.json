@@ -1,0 +1,86 @@
+{
+  "id": 728,
+  "slug": "self-dividing-numbers",
+  "title": "Self Dividing Numbers",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math"
+  ],
+  "story": {
+    "title": "Numbers Divisible by Their Own Digits",
+    "text": "Peel off each digit and check it divides the number (and isn't zero).",
+    "goal": "Return every self-dividing number in [left, right]."
+  },
+  "spec": {
+    "method": "selfDividingNumbers",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "int",
+        "left"
+      ],
+      [
+        "int",
+        "right"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        1,
+        22
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        15,
+        22
+      ]
+    },
+    {
+      "args": [
+        47,
+        85
+      ],
+      "expected": [
+        48,
+        55,
+        66,
+        77
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "self-dividing",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "v",
+          "x",
+          "d"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> selfDividingNumbers(int left, int right) {\n        vector<int> res;\n        for (int v = left; v <= right; v++) {\n            int x = v;\n            bool ok = true;\n            while (x > 0 && ok) {\n                int d = x % 10;\n                if (d == 0 || v % d != 0) ok = false;\n                x /= 10;\n            }\n            if (ok) res.push_back(v);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,82 @@
+{
+  "id": 539,
+  "slug": "minimum-time-difference",
+  "title": "Minimum Time Difference",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "math",
+    "string",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Closest Two Alarms",
+    "text": "Turn every clock time into minutes and sort. Neighbours are the closest candidates, plus the wrap-around from the last back to the first.",
+    "goal": "Return the minimum minutes between any two times."
+  },
+  "spec": {
+    "method": "findMinDifference",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "timePoints"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "23:59",
+          "00:00"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          "00:00",
+          "23:59",
+          "00:00"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          "01:10",
+          "12:30",
+          "06:45"
+        ]
+      ],
+      "expected": 335
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "mins",
+        "label": "minutes (sorted)",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findMinDifference(vector<string>& timePoints) {\n        vector<int> mins;\n        for (auto& t : timePoints) mins.push_back(stoi(t.substr(0, 2)) * 60 + stoi(t.substr(3, 2)));\n        sort(mins.begin(), mins.end());\n        int best = 1440 - mins.back() + mins[0];\n        for (int i = 1; i < (int)mins.size(); i++) best = min(best, mins[i] - mins[i - 1]);\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

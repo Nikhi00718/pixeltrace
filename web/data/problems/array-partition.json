@@ -1,0 +1,76 @@
+{
+  "id": 561,
+  "slug": "array-partition",
+  "title": "Array Partition",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting",
+    "counting-sort"
+  ],
+  "story": {
+    "title": "Pairing the Crates",
+    "text": "Pair crates so the sum of each pair's lighter crate is as big as possible: sort, and pair neighbours.",
+    "goal": "Return the max sum of min(a, b) over n pairs."
+  },
+  "spec": {
+    "method": "arrayPairSum",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          4,
+          3,
+          2
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          6,
+          2,
+          6,
+          5,
+          1,
+          2
+        ]
+      ],
+      "expected": 9
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "crates (sorted)",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int arrayPairSum(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int sum = 0;\n        for (int i = 0; i < (int)nums.size(); i += 2) sum += nums[i];\n        return sum;\n    }\n};",
+  "tier": "crafted"
+}

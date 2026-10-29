@@ -1,0 +1,64 @@
+{
+  "id": 509,
+  "slug": "fibonacci-number",
+  "title": "Fibonacci Number",
+  "difficulty": "Easy",
+  "world": "dp",
+  "tags": [
+    "math",
+    "dynamic-programming",
+    "recursion",
+    "memoization"
+  ],
+  "story": {
+    "title": "The Rabbit Ledger",
+    "text": "Each month's count is the sum of the two months before. Two signposts slide forward carrying the last two counts.",
+    "goal": "Return F(n)."
+  },
+  "spec": {
+    "method": "fib",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        2
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        4
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        10
+      ],
+      "expected": 55
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "a",
+          "b",
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int fib(int n) {\n        int a = 0, b = 1;\n        for (int i = 0; i < n; i++) {\n            int c = a + b;\n            a = b;\n            b = c;\n        }\n        return a;\n    }\n};",
+  "tier": "crafted"
+}

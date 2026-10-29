@@ -1,0 +1,91 @@
+{
+  "id": 654,
+  "slug": "maximum-binary-tree",
+  "title": "Maximum Binary Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "array",
+    "divide-and-conquer",
+    "stack",
+    "tree",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "The Tallest Fruit Rules",
+    "text": "The heaviest fruit in the stretch becomes the root; everything left of it builds the left branch and everything right the right branch.",
+    "goal": "Return the maximum binary tree."
+  },
+  "spec": {
+    "method": "constructMaximumBinaryTree",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          2,
+          1,
+          6,
+          0,
+          5
+        ]
+      ],
+      "expected": [
+        6,
+        3,
+        5,
+        null,
+        2,
+        0,
+        null,
+        null,
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": [
+        3,
+        null,
+        2,
+        null,
+        1
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "fruit weights",
+        "pointers": [
+          "lo",
+          "best",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    TreeNode* build(vector<int>& nums, int lo, int hi) {\n        if (lo > hi) return nullptr;\n        int best = lo;\n        for (int i = lo; i <= hi; i++) {\n            if (nums[i] > nums[best]) best = i;\n        }\n        TreeNode* node = new TreeNode(nums[best]);\n        node->left = build(nums, lo, best - 1);\n        node->right = build(nums, best + 1, hi);\n        return node;\n    }\n    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {\n        return build(nums, 0, nums.size() - 1);\n    }\n};",
+  "tier": "crafted"
+}

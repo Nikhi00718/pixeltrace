@@ -1,0 +1,84 @@
+{
+  "id": 653,
+  "slug": "two-sum-iv-input-is-a-bst",
+  "title": "Two Sum IV - Input is a BST",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "hash-table",
+    "two-pointers",
+    "tree",
+    "bst"
+  ],
+  "story": {
+    "title": "Two Fruits That Weigh k",
+    "text": "A squirrel climbs the orchard asking the lockers whether the partner weight k - val was already seen.",
+    "goal": "Return true if two nodes sum to k."
+  },
+  "spec": {
+    "method": "findTarget",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          7
+        ],
+        9
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          7
+        ],
+        28
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "set",
+        "var": "seen",
+        "label": "weights seen"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    set<int> seen;\n    bool find(TreeNode* node, int k) {\n        if (!node) return false;\n        if (seen.count(k - node->val)) return true;\n        seen.insert(node->val);\n        return find(node->left, k) || find(node->right, k);\n    }\n    bool findTarget(TreeNode* root, int k) {\n        return find(root, k);\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,120 @@
+{
+  "id": 658,
+  "slug": "find-k-closest-elements",
+  "title": "Find K Closest Elements",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting",
+    "sliding-window",
+    "heap"
+  ],
+  "story": {
+    "title": "The Best Window of k",
+    "text": "Binary-search where a window of k starts: if x is closer to the element just past the window than to its first, the window should move right.",
+    "goal": "Return the k closest elements to x, in ascending order."
+  },
+  "spec": {
+    "method": "findClosestElements",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ],
+      [
+        "int",
+        "k"
+      ],
+      [
+        "int",
+        "x"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        4,
+        3
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        4,
+        -1
+      ],
+      "expected": [
+        1,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11
+        ],
+        3,
+        8
+      ],
+      "expected": [
+        5,
+        7,
+        9
+      ]
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "sorted values",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> findClosestElements(vector<int>& arr, int k, int x) {\n        int lo = 0, hi = arr.size() - k;\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            if (x - arr[mid] > arr[mid + k] - x) lo = mid + 1;\n            else hi = mid;\n        }\n        return vector<int>(arr.begin() + lo, arr.begin() + lo + k);\n    }\n};",
+  "tier": "crafted"
+}

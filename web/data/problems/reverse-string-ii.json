@@ -1,0 +1,66 @@
+{
+  "id": 541,
+  "slug": "reverse-string-ii",
+  "title": "Reverse String II",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Flipping Every Other Block",
+    "text": "Split the banner into blocks of 2k letters. In each block, two painters flip the first k letters.",
+    "goal": "Reverse the first k characters of every 2k chunk."
+  },
+  "spec": {
+    "method": "reverseStr",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abcdefg",
+        2
+      ],
+      "expected": "bacdfeg"
+    },
+    {
+      "args": [
+        "abcd",
+        2
+      ],
+      "expected": "bacd"
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "banner",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string reverseStr(string s, int k) {\n        for (int start = 0; start < (int)s.size(); start += 2 * k) {\n            int l = start, r = min(start + k, (int)s.size()) - 1;\n            while (l < r) {\n                swap(s[l], s[r]);\n                l++;\n                r--;\n            }\n        }\n        return s;\n    }\n};",
+  "tier": "crafted"
+}

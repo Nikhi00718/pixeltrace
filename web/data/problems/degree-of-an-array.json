@@ -1,0 +1,92 @@
+{
+  "id": 697,
+  "slug": "degree-of-an-array",
+  "title": "Degree of an Array",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "The Shortest Stretch with the Busiest Value",
+    "text": "Lockers remember each value's count and first position. The busiest values' first-to-last spans are candidates; keep the shortest.",
+    "goal": "Return the length of the shortest subarray with the same degree as the whole array."
+  },
+  "spec": {
+    "method": "findShortestSubArray",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          3,
+          1,
+          4,
+          2
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "values",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "map",
+            "var": "cnt",
+            "label": "counts"
+          },
+          {
+            "kind": "map",
+            "var": "first",
+            "label": "first seen at"
+          }
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "degree",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findShortestSubArray(vector<int>& nums) {\n        map<int, int> cnt, first;\n        int degree = 0, best = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            int x = nums[i];\n            if (!first.count(x)) first[x] = i;\n            int c = ++cnt[x];\n            int span = i - first[x] + 1;\n            if (c > degree) {\n                degree = c;\n                best = span;\n            } else if (c == degree) {\n                best = min(best, span);\n            }\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

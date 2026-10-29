@@ -1,0 +1,100 @@
+{
+  "id": 785,
+  "slug": "is-graph-bipartite",
+  "title": "Is Graph Bipartite?",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "dfs",
+    "bfs",
+    "union-find",
+    "graph"
+  ],
+  "story": {
+    "title": "Two Rival Kingdoms",
+    "text": "Paint towns in two colours so every road joins different colours. A painter floods each region alternating colours; a road between same colours breaks it.",
+    "goal": "Return true if the graph is bipartite."
+  },
+  "spec": {
+    "method": "isBipartite",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "graph"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "graph",
+        "adj": "graph",
+        "state": "color",
+        "pointers": [
+          "u"
+        ],
+        "label": "towns"
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "to paint"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isBipartite(vector<vector<int>>& graph) {\n        int n = graph.size();\n        vector<int> color(n, 0);\n        for (int s = 0; s < n; s++) {\n            if (color[s]) continue;\n            queue<int> q;\n            q.push(s);\n            color[s] = 1;\n            while (!q.empty()) {\n                int u = q.front();\n                q.pop();\n                for (int v : graph[u]) {\n                    if (color[v] == color[u]) return false;\n                    if (!color[v]) {\n                        color[v] = 3 - color[u];\n                        q.push(v);\n                    }\n                }\n            }\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

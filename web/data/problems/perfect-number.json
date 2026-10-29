@@ -1,0 +1,61 @@
+{
+  "id": 507,
+  "slug": "perfect-number",
+  "title": "Perfect Number",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math"
+  ],
+  "story": {
+    "title": "Divisors That Add Up",
+    "text": "Walk divisors up to the square root; each one found brings its partner too. A perfect number equals the sum of its proper divisors.",
+    "goal": "Return true if num is a perfect number."
+  },
+  "spec": {
+    "method": "checkPerfectNumber",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "num"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        28
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        7
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        496
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 0,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "num",
+          "d",
+          "sum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool checkPerfectNumber(int num) {\n        if (num <= 1) return false;\n        int sum = 1;\n        for (int d = 2; d * d <= num; d++) {\n            if (num % d == 0) {\n                sum += d;\n                if (d * d != num) sum += num / d;\n            }\n        }\n        return sum == num;\n    }\n};",
+  "tier": "crafted"
+}

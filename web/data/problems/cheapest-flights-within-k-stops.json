@@ -1,0 +1,155 @@
+{
+  "id": 787,
+  "slug": "cheapest-flights-within-k-stops",
+  "title": "Cheapest Flights Within K Stops",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "dfs",
+    "bfs",
+    "graph",
+    "dynamic-programming",
+    "heap",
+    "shortest-path"
+  ],
+  "story": {
+    "title": "Budget Airline Hopping",
+    "text": "Each round allows one more flight. Every round, prices are relaxed from the previous round's prices only, so no route sneaks in an extra stop.",
+    "goal": "Return the cheapest price from src to dst with at most k stops, or -1."
+  },
+  "spec": {
+    "method": "findCheapestPrice",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ],
+      [
+        "vector<vector<int>>&",
+        "flights"
+      ],
+      [
+        "int",
+        "src"
+      ],
+      [
+        "int",
+        "dst"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        4,
+        [
+          [
+            0,
+            1,
+            100
+          ],
+          [
+            1,
+            2,
+            100
+          ],
+          [
+            2,
+            0,
+            100
+          ],
+          [
+            1,
+            3,
+            600
+          ],
+          [
+            2,
+            3,
+            200
+          ]
+        ],
+        0,
+        3,
+        1
+      ],
+      "expected": 700
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1,
+            100
+          ],
+          [
+            1,
+            2,
+            100
+          ],
+          [
+            0,
+            2,
+            500
+          ]
+        ],
+        0,
+        2,
+        1
+      ],
+      "expected": 200
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1,
+            100
+          ],
+          [
+            1,
+            2,
+            100
+          ],
+          [
+            0,
+            2,
+            500
+          ]
+        ],
+        0,
+        2,
+        0
+      ],
+      "expected": 500
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "cost",
+        "label": "best price by city",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "round"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {\n        const int INF = 1e9;\n        vector<int> cost(n, INF);\n        cost[src] = 0;\n        for (int round = 0; round <= k; round++) {\n            vector<int> next = cost;\n            for (auto& f : flights) {\n                if (cost[f[0]] != INF && cost[f[0]] + f[2] < next[f[1]]) next[f[1]] = cost[f[0]] + f[2];\n            }\n            cost = next;\n        }\n        return cost[dst] == INF ? -1 : cost[dst];\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,67 @@
+{
+  "id": 551,
+  "slug": "student-attendance-record-i",
+  "title": "Student Attendance Record I",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "string"
+  ],
+  "story": {
+    "title": "The Attendance Sheet",
+    "text": "Walk the sheet counting absences and the current run of lates. Two absences, or three lates in a row, lose the award.",
+    "goal": "Return true if the student is eligible for the award."
+  },
+  "spec": {
+    "method": "checkRecord",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "PPALLP"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "PPALLL"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "APLPA"
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "sheet",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "absent",
+          "late"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool checkRecord(string s) {\n        int absent = 0, late = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == 'A') absent++;\n            late = s[i] == 'L' ? late + 1 : 0;\n            if (absent >= 2 || late >= 3) return false;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

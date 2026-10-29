@@ -1,0 +1,86 @@
+{
+  "id": 594,
+  "slug": "longest-harmonious-subsequence",
+  "title": "Longest Harmonious Subsequence",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "sliding-window",
+    "sorting",
+    "counting"
+  ],
+  "story": {
+    "title": "Notes One Apart",
+    "text": "A harmonious choir uses only two neighbouring pitches. Count every pitch; each pitch plus the one above it is a candidate choir.",
+    "goal": "Return the longest subsequence whose max and min differ by exactly 1."
+  },
+  "spec": {
+    "method": "findLHS",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          2,
+          2,
+          5,
+          2,
+          3,
+          7
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "pitch counts"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findLHS(vector<int>& nums) {\n        map<int, int> cnt;\n        for (int x : nums) cnt[x]++;\n        int best = 0;\n        for (auto& [v, c] : cnt) {\n            if (cnt.count(v + 1)) best = max(best, c + cnt[v + 1]);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

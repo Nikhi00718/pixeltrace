@@ -1,0 +1,76 @@
+{
+  "id": 740,
+  "slug": "delete-and-earn",
+  "title": "Delete and Earn",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "hash-table",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Fox and the Numbered Henhouses",
+    "text": "Earning v burns every v-1 and v+1. Pile the points by value, then it's House Robber over the values.",
+    "goal": "Return the maximum points."
+  },
+  "spec": {
+    "method": "deleteAndEarn",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          4,
+          2
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          3,
+          3,
+          3,
+          4
+        ]
+      ],
+      "expected": 9
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "points",
+        "label": "points by value",
+        "style": "tiles",
+        "pointers": [
+          "v"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "take",
+          "skip"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int deleteAndEarn(vector<int>& nums) {\n        int top = *max_element(nums.begin(), nums.end());\n        vector<int> points(top + 1, 0);\n        for (int x : nums) points[x] += x;\n        int take = 0, skip = 0;\n        for (int v = 0; v <= top; v++) {\n            int nt = skip + points[v];\n            skip = max(skip, take);\n            take = nt;\n        }\n        return max(take, skip);\n    }\n};",
+  "tier": "crafted"
+}

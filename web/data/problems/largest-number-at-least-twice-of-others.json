@@ -1,0 +1,72 @@
+{
+  "id": 747,
+  "slug": "largest-number-at-least-twice-of-others",
+  "title": "Largest Number At Least Twice of Others",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Dominant Tower",
+    "text": "Track the tallest and second-tallest tower; the tallest dominates if it's at least twice the runner-up.",
+    "goal": "Return the index of the dominant element, or -1."
+  },
+  "spec": {
+    "method": "dominantIndex",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          6,
+          1,
+          0
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "towers",
+        "pointers": [
+          "i",
+          "best"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "second"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int dominantIndex(vector<int>& nums) {\n        int best = 0, second = -1;\n        for (int i = 1; i < (int)nums.size(); i++) {\n            if (nums[i] > nums[best]) {\n                second = nums[best];\n                best = i;\n            } else {\n                second = max(second, nums[i]);\n            }\n        }\n        return nums[best] >= 2 * second ? best : -1;\n    }\n};",
+  "tier": "crafted"
+}

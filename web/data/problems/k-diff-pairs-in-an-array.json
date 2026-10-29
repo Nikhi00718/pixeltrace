@@ -1,0 +1,97 @@
+{
+  "id": 532,
+  "slug": "k-diff-pairs-in-an-array",
+  "title": "K-diff Pairs in an Array",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "story": {
+    "title": "Pairs a Fixed Distance Apart",
+    "text": "Count every value. For k = 0 a pair needs a value seen twice; otherwise each value pairs with value + k if it exists.",
+    "goal": "Return the number of unique k-diff pairs."
+  },
+  "spec": {
+    "method": "findPairs",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          1,
+          4,
+          1,
+          5
+        ],
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          1,
+          5,
+          4
+        ],
+        0
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "counts",
+        "lookup": [
+          "want"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "want",
+          "pairs"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findPairs(vector<int>& nums, int k) {\n        map<int, int> cnt;\n        for (int x : nums) cnt[x]++;\n        int pairs = 0;\n        for (auto& [v, c] : cnt) {\n            int want = v + k;\n            if (k == 0) pairs += c > 1;\n            else if (cnt.count(want)) pairs++;\n        }\n        return pairs;\n    }\n};",
+  "tier": "crafted"
+}

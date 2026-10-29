@@ -1,0 +1,76 @@
+{
+  "id": 611,
+  "slug": "valid-triangle-number",
+  "title": "Valid Triangle Number",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Sticks That Make a Triangle",
+    "text": "Sticks are sorted. Fix the longest stick; two pointers find pairs whose sum beats it. If the outer pair works, every pair between does too.",
+    "goal": "Return how many triplets can form a triangle."
+  },
+  "spec": {
+    "method": "triangleNumber",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          4,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "sticks (sorted)",
+        "pointers": [
+          "l",
+          "r",
+          "k"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int triangleNumber(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int count = 0;\n        for (int k = nums.size() - 1; k >= 2; k--) {\n            int l = 0, r = k - 1;\n            while (l < r) {\n                if (nums[l] + nums[r] > nums[k]) {\n                    count += r - l;\n                    r--;\n                } else {\n                    l++;\n                }\n            }\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

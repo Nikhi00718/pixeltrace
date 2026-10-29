@@ -1,0 +1,74 @@
+{
+  "id": 647,
+  "slug": "palindromic-substrings",
+  "title": "Palindromic Substrings",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Counting Every Mirror",
+    "text": "From every centre (each letter and each gap), two scouts walk outward while the letters match; every step out is one more palindrome.",
+    "goal": "Return the number of palindromic substrings."
+  },
+  "spec": {
+    "method": "countSubstrings",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abc"
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "aaa"
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        "abba"
+      ],
+      "expected": 6
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "letters",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int count = 0;\n    void expand(string& s, int l, int r) {\n        while (l >= 0 && r < (int)s.size() && s[l] == s[r]) {\n            count++;\n            l--;\n            r++;\n        }\n    }\n    int countSubstrings(string s) {\n        for (int c = 0; c < (int)s.size(); c++) {\n            expand(s, c, c);\n            expand(s, c, c + 1);\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

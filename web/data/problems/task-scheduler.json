@@ -1,0 +1,98 @@
+{
+  "id": 621,
+  "slug": "task-scheduler",
+  "title": "Task Scheduler",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "hash-table",
+    "greedy",
+    "sorting",
+    "heap",
+    "counting"
+  ],
+  "story": {
+    "title": "Spacing Out the Chores",
+    "text": "The most frequent chore sets the frame: maxCount blocks of n+1 slots, with the last block holding only the chores that tie for most frequent.",
+    "goal": "Return the fewest time units to finish all tasks with cooldown n."
+  },
+  "spec": {
+    "method": "leastInterval",
+    "ret": "int",
+    "params": [
+      [
+        "vector<char>&",
+        "tasks"
+      ],
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "A",
+          "A",
+          "A",
+          "B",
+          "B",
+          "B"
+        ],
+        2
+      ],
+      "expected": 8
+    },
+    {
+      "args": [
+        [
+          "A",
+          "C",
+          "A",
+          "B",
+          "D",
+          "B"
+        ],
+        1
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          "A",
+          "A",
+          "A",
+          "B",
+          "B",
+          "B"
+        ],
+        3
+      ],
+      "expected": 10
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "chore counts"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "most",
+          "ties",
+          "frame"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int leastInterval(vector<char>& tasks, int n) {\n        map<char, int> cnt;\n        for (char t : tasks) cnt[t]++;\n        int most = 0, ties = 0;\n        for (auto& [t, c] : cnt) most = max(most, c);\n        for (auto& [t, c] : cnt) ties += c == most;\n        int frame = (most - 1) * (n + 1) + ties;\n        return max(frame, (int)tasks.size());\n    }\n};",
+  "tier": "crafted"
+}

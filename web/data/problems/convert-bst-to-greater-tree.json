@@ -1,0 +1,102 @@
+{
+  "id": 538,
+  "slug": "convert-bst-to-greater-tree",
+  "title": "Convert BST to Greater Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bst"
+  ],
+  "story": {
+    "title": "Adding Up from the Heaviest",
+    "text": "Visit the orchard right-to-left (heaviest first), carrying a running total. Each fruit becomes itself plus every heavier fruit.",
+    "goal": "Return the greater tree."
+  },
+  "spec": {
+    "method": "convertBST",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          1,
+          6,
+          0,
+          2,
+          5,
+          7,
+          null,
+          null,
+          null,
+          3,
+          null,
+          null,
+          null,
+          8
+        ]
+      ],
+      "expected": [
+        30,
+        36,
+        21,
+        36,
+        35,
+        26,
+        15,
+        null,
+        null,
+        null,
+        33,
+        null,
+        null,
+        null,
+        8
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          null,
+          1
+        ]
+      ],
+      "expected": [
+        1,
+        null,
+        1
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int total = 0;\n    void walk(TreeNode* node) {\n        if (!node) return;\n        walk(node->right);\n        total += node->val;\n        node->val = total;\n        walk(node->left);\n    }\n    TreeNode* convertBST(TreeNode* root) {\n        walk(root);\n        return root;\n    }\n};",
+  "tier": "crafted"
+}

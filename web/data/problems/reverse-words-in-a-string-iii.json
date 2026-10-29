@@ -1,0 +1,61 @@
+{
+  "id": 557,
+  "slug": "reverse-words-in-a-string-iii",
+  "title": "Reverse Words in a String III",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Mirroring Each Word",
+    "text": "Words stay in place but each one is read backwards: two painters flip each word between its spaces.",
+    "goal": "Reverse the letters of every word."
+  },
+  "spec": {
+    "method": "reverseWords",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "Let's take LeetCode contest"
+      ],
+      "expected": "s'teL ekat edoCteeL tsetnoc"
+    },
+    {
+      "args": [
+        "Mr Ding"
+      ],
+      "expected": "rM gniD"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "sign",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string reverseWords(string s) {\n        int n = s.size(), start = 0;\n        while (start < n) {\n            int end = start;\n            while (end < n && s[end] != ' ') end++;\n            int l = start, r = end - 1;\n            while (l < r) swap(s[l++], s[r--]);\n            start = end + 1;\n        }\n        return s;\n    }\n};",
+  "tier": "crafted"
+}

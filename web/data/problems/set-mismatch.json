@@ -1,0 +1,101 @@
+{
+  "id": 645,
+  "slug": "set-mismatch",
+  "title": "Set Mismatch",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "bit-manipulation",
+    "sorting"
+  ],
+  "story": {
+    "title": "One Badge Copied, One Lost",
+    "text": "Badges 1..n should each appear once. Tally them; the badge counted twice is the duplicate and the badge counted zero times is the missing one.",
+    "goal": "Return [duplicate, missing]."
+  },
+  "spec": {
+    "method": "findErrorNums",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          4
+        ]
+      ],
+      "expected": [
+        2,
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          1
+        ]
+      ],
+      "expected": [
+        1,
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          3,
+          4,
+          6,
+          5
+        ]
+      ],
+      "expected": [
+        3,
+        1
+      ]
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "badges"
+      },
+      {
+        "kind": "array",
+        "var": "cnt",
+        "label": "tally by badge",
+        "style": "tiles",
+        "pointers": [
+          "v"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "dup",
+          "miss"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> findErrorNums(vector<int>& nums) {\n        int n = nums.size(), dup = 0, miss = 0;\n        vector<int> cnt(n + 1, 0);\n        for (int x : nums) cnt[x]++;\n        for (int v = 1; v <= n; v++) {\n            if (cnt[v] == 2) dup = v;\n            if (cnt[v] == 0) miss = v;\n        }\n        return {dup, miss};\n    }\n};",
+  "tier": "crafted"
+}

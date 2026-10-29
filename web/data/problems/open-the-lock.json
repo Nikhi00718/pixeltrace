@@ -1,0 +1,92 @@
+{
+  "id": 752,
+  "slug": "open-the-lock",
+  "title": "Open the Lock",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "hash-table",
+    "string",
+    "bfs"
+  ],
+  "story": {
+    "title": "Turning the Combination Wheels",
+    "text": "From 0000, every wheel can turn up or down. Explore settings in rings of one turn each, avoiding dead ends, until the target appears.",
+    "goal": "Return the fewest turns to reach target, or -1."
+  },
+  "spec": {
+    "method": "openLock",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "deadends"
+      ],
+      [
+        "string",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "0201",
+          "0101",
+          "0102",
+          "1212",
+          "2002"
+        ],
+        "0202"
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          "8888"
+        ],
+        "0009"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          "8887",
+          "8889",
+          "8878",
+          "8898",
+          "8788",
+          "8988",
+          "7888",
+          "9888"
+        ],
+        "8888"
+      ],
+      "expected": -1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "settings to try"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cur",
+          "turns"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int openLock(vector<string>& deadends, string target) {\n        set<string> seen(deadends.begin(), deadends.end());\n        if (seen.count(\"0000\")) return -1;\n        queue<string> q;\n        q.push(\"0000\");\n        seen.insert(\"0000\");\n        int turns = 0;\n        while (!q.empty()) {\n            int sz = q.size();\n            for (int k = 0; k < sz; k++) {\n                string cur = q.front();\n                q.pop();\n                if (cur == target) return turns;\n                for (int w = 0; w < 4; w++) {\n                    for (int d : {1, 9}) {\n                        string next = cur;\n                        next[w] = '0' + (next[w] - '0' + d) % 10;\n                        if (!seen.count(next)) {\n                            seen.insert(next);\n                            q.push(next);\n                        }\n                    }\n                }\n            }\n            turns++;\n        }\n        return -1;\n    }\n};",
+  "tier": "crafted"
+}

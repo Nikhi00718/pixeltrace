@@ -1,0 +1,148 @@
+{
+  "id": 566,
+  "slug": "reshape-the-matrix",
+  "title": "Reshape the Matrix",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "story": {
+    "title": "Rearranging the Tile Wall",
+    "text": "Read the tiles row by row as one long line, then lay them out again c to a row, as long as the tile counts match.",
+    "goal": "Return the reshaped r x c matrix, or the original if impossible."
+  },
+  "spec": {
+    "method": "matrixReshape",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "mat"
+      ],
+      [
+        "int",
+        "r"
+      ],
+      [
+        "int",
+        "c"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        1,
+        4
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        2,
+        4
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        ],
+        3,
+        2
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          6
+        ]
+      ]
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "grid",
+            "var": "mat",
+            "palette": "dp",
+            "label": "old wall"
+          },
+          {
+            "kind": "grid",
+            "var": "res",
+            "palette": "dp",
+            "label": "new wall"
+          }
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> matrixReshape(vector<vector<int>>& mat, int r, int c) {\n        int m = mat.size(), n = mat[0].size();\n        if (m * n != r * c) return mat;\n        vector<vector<int>> res(r, vector<int>(c));\n        for (int k = 0; k < m * n; k++) res[k / c][k % c] = mat[k / n][k % n];\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,63 @@
+{
+  "id": 717,
+  "slug": "1-bit-and-2-bit-characters",
+  "title": "1-bit and 2-bit Characters",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "Reading the Lamp Code",
+    "text": "A 1 starts a two-lamp character; a 0 alone is a one-lamp character. Hop through the code; is the last character a single 0?",
+    "goal": "Return true if the last character must be a one-bit character."
+  },
+  "spec": {
+    "method": "isOneBitCharacter",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "bits"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          0
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "bits",
+        "label": "lamps",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isOneBitCharacter(vector<int>& bits) {\n        int i = 0, n = bits.size();\n        while (i < n - 1) i += bits[i] + 1;\n        return i == n - 1;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,69 @@
+{
+  "id": 657,
+  "slug": "robot-return-to-origin",
+  "title": "Robot Return to Origin",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "string",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Wandering Robot",
+    "text": "Follow the robot's moves on a grid, adjusting x and y. It's home if both are zero at the end.",
+    "goal": "Return true if the robot ends at the origin."
+  },
+  "spec": {
+    "method": "judgeCircle",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "moves"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "UD"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "LL"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "RRDDLUUL"
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "moves",
+        "label": "moves",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x",
+          "y"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool judgeCircle(string moves) {\n        int x = 0, y = 0;\n        for (int i = 0; i < (int)moves.size(); i++) {\n            char m = moves[i];\n            if (m == 'U') y++;\n            else if (m == 'D') y--;\n            else if (m == 'L') x--;\n            else x++;\n        }\n        return x == 0 && y == 0;\n    }\n};",
+  "tier": "crafted"
+}
