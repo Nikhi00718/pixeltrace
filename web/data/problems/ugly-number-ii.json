@@ -1,0 +1,74 @@
+{
+  "id": 264,
+  "slug": "ugly-number-ii",
+  "title": "Ugly Number II",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "hash-table",
+    "math",
+    "dynamic-programming",
+    "heap"
+  ],
+  "story": {
+    "title": "Three Conveyor Belts",
+    "text": "Three pointers walk the list of ugly numbers, each offering its number times 2, 3 or 5. The smallest offer is the next ugly number, and every pointer that made it steps forward.",
+    "goal": "Return the n-th ugly number."
+  },
+  "spec": {
+    "method": "nthUglyNumber",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        10
+      ],
+      "expected": 12
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        15
+      ],
+      "expected": 24
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "u",
+        "label": "ugly numbers",
+        "style": "tiles",
+        "pointers": [
+          "i2",
+          "i3",
+          "i5"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "a",
+          "b",
+          "c"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int nthUglyNumber(int n) {\n        vector<int> u(1, 1);\n        int i2 = 0, i3 = 0, i5 = 0;\n        while ((int)u.size() < n) {\n            int a = u[i2] * 2, b = u[i3] * 3, c = u[i5] * 5;\n            int next = min({a, b, c});\n            u.push_back(next);\n            if (next == a) i2++;\n            if (next == b) i3++;\n            if (next == c) i5++;\n        }\n        return u[n - 1];\n    }\n};",
+  "tier": "crafted"
+}

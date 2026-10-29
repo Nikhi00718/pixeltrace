@@ -1,0 +1,93 @@
+{
+  "id": 412,
+  "slug": "fizz-buzz",
+  "title": "Fizz Buzz",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Counting Game",
+    "text": "Count up to n out loud, but say Fizz for multiples of 3, Buzz for multiples of 5, and FizzBuzz for both.",
+    "goal": "Return the list of what is said."
+  },
+  "spec": {
+    "method": "fizzBuzz",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        3
+      ],
+      "expected": [
+        "1",
+        "2",
+        "Fizz"
+      ]
+    },
+    {
+      "args": [
+        5
+      ],
+      "expected": [
+        "1",
+        "2",
+        "Fizz",
+        "4",
+        "Buzz"
+      ]
+    },
+    {
+      "args": [
+        15
+      ],
+      "expected": [
+        "1",
+        "2",
+        "Fizz",
+        "4",
+        "Buzz",
+        "Fizz",
+        "7",
+        "8",
+        "Fizz",
+        "Buzz",
+        "11",
+        "Fizz",
+        "13",
+        "14",
+        "FizzBuzz"
+      ]
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "what is said",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> fizzBuzz(int n) {\n        vector<string> res;\n        for (int i = 1; i <= n; i++) {\n            if (i % 15 == 0) res.push_back(\"FizzBuzz\");\n            else if (i % 3 == 0) res.push_back(\"Fizz\");\n            else if (i % 5 == 0) res.push_back(\"Buzz\");\n            else res.push_back(to_string(i));\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

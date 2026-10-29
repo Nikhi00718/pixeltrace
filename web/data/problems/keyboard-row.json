@@ -1,0 +1,90 @@
+{
+  "id": 500,
+  "slug": "keyboard-row",
+  "title": "Keyboard Row",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "One-Row Words",
+    "text": "Each letter is labelled with its keyboard row. A word is kept if every letter has the same row label as its first.",
+    "goal": "Return the words typeable using one keyboard row."
+  },
+  "spec": {
+    "method": "findWords",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "Hello",
+          "Alaska",
+          "Dad",
+          "Peace"
+        ]
+      ],
+      "expected": [
+        "Alaska",
+        "Dad"
+      ]
+    },
+    {
+      "args": [
+        [
+          "omk"
+        ]
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        [
+          "adsdf",
+          "sfd"
+        ]
+      ],
+      "expected": [
+        "adsdf",
+        "sfd"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "words",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "row",
+        "label": "letter \u2192 row"
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "one-row words",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> findWords(vector<string>& words) {\n        vector<string> rows = {\"qwertyuiop\", \"asdfghjkl\", \"zxcvbnm\"};\n        map<char, int> row;\n        for (int r = 0; r < 3; r++)\n            for (char c : rows[r]) row[c] = r;\n        vector<string> res;\n        for (int k = 0; k < (int)words.size(); k++) {\n            int want = row[tolower(words[k][0])];\n            bool ok = true;\n            for (char c : words[k]) {\n                if (row[tolower(c)] != want) ok = false;\n            }\n            if (ok) res.push_back(words[k]);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

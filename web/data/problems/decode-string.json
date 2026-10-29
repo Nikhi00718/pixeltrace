@@ -1,0 +1,85 @@
+{
+  "id": 394,
+  "slug": "decode-string",
+  "title": "Decode String",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack",
+    "recursion"
+  ],
+  "story": {
+    "title": "Unpacking Nested Crates",
+    "text": "A number before [ says how many copies to make. On [, the current text and count are stacked; on ], the inner text is repeated and appended to what was stacked.",
+    "goal": "Return the decoded string."
+  },
+  "spec": {
+    "method": "decodeString",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "3[a]2[bc]"
+      ],
+      "expected": "aaabcbc"
+    },
+    {
+      "args": [
+        "3[a2[c]]"
+      ],
+      "expected": "accaccacc"
+    },
+    {
+      "args": [
+        "2[abc]3[cd]ef"
+      ],
+      "expected": "abcabccdcdcdef"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "packed",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "stack",
+            "var": "counts",
+            "label": "counts"
+          },
+          {
+            "kind": "stack",
+            "var": "texts",
+            "label": "saved text"
+          }
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cur",
+          "num"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string decodeString(string s) {\n        stack<int> counts;\n        stack<string> texts;\n        string cur;\n        int num = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            char c = s[i];\n            if (isdigit(c)) {\n                num = num * 10 + (c - '0');\n            } else if (c == '[') {\n                counts.push(num);\n                texts.push(cur);\n                num = 0;\n                cur = \"\";\n            } else if (c == ']') {\n                string inner = cur;\n                cur = texts.top();\n                texts.pop();\n                for (int k = counts.top(); k > 0; k--) cur += inner;\n                counts.pop();\n            } else {\n                cur.push_back(c);\n            }\n        }\n        return cur;\n    }\n};",
+  "tier": "crafted"
+}

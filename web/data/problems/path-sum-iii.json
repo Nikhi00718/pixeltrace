@@ -1,0 +1,99 @@
+{
+  "id": 437,
+  "slug": "path-sum-iii",
+  "title": "Path Sum III",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Any Downward Vine",
+    "text": "A vine can start at any fruit and go down. Carrying a running total, each fruit asks the logbook how many earlier totals were exactly target less than now.",
+    "goal": "Return the number of downward paths that sum to targetSum."
+  },
+  "spec": {
+    "method": "pathSum",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "targetSum"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          5,
+          -3,
+          3,
+          2,
+          null,
+          11,
+          3,
+          -2,
+          null,
+          1
+        ],
+        8
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          5,
+          4,
+          8,
+          11,
+          null,
+          13,
+          4,
+          7,
+          2,
+          null,
+          null,
+          5,
+          1
+        ],
+        22
+      ],
+      "expected": 3
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "map",
+        "var": "seen",
+        "label": "running totals so far"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    map<long long, int> seen;\n    int count = 0;\n    void walk(TreeNode* node, long long sum, int target) {\n        if (!node) return;\n        sum += node->val;\n        if (seen.count(sum - target)) count += seen[sum - target];\n        seen[sum]++;\n        walk(node->left, sum, target);\n        walk(node->right, sum, target);\n        seen[sum]--;\n    }\n    int pathSum(TreeNode* root, int targetSum) {\n        seen[0] = 1;\n        walk(root, 0, targetSum);\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

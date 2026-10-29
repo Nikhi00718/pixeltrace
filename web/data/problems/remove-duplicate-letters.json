@@ -1,0 +1,68 @@
+{
+  "id": 316,
+  "slug": "remove-duplicate-letters",
+  "title": "Remove Duplicate Letters",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack",
+    "greedy",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "The Smallest Word Tower",
+    "text": "Each letter must appear once, as early-alphabet as possible. A bigger letter on top of the tower is knocked off if a copy of it still comes later.",
+    "goal": "Return the lexicographically smallest result with each letter once."
+  },
+  "spec": {
+    "method": "removeDuplicateLetters",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "bcabc"
+      ],
+      "expected": "abc"
+    },
+    {
+      "args": [
+        "cbacdcbc"
+      ],
+      "expected": "acdb"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "letters",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "tower"
+      },
+      {
+        "kind": "map",
+        "var": "last",
+        "label": "last seen at"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string removeDuplicateLetters(string s) {\n        map<char, int> last;\n        for (int i = 0; i < (int)s.size(); i++) last[s[i]] = i;\n        string st;\n        set<char> inStack;\n        for (int i = 0; i < (int)s.size(); i++) {\n            char c = s[i];\n            if (inStack.count(c)) continue;\n            while (!st.empty() && st.back() > c && last[st.back()] > i) {\n                inStack.erase(st.back());\n                st.pop_back();\n            }\n            st.push_back(c);\n            inStack.insert(c);\n        }\n        return st;\n    }\n};",
+  "tier": "crafted"
+}

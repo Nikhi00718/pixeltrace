@@ -1,0 +1,71 @@
+{
+  "id": 309,
+  "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+  "title": "Best Time to Buy and Sell Stock with Cooldown",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Trading with a Rest Day",
+    "text": "After selling, the trader must rest a day. Three purses are tracked daily: holding a share, just sold, and resting.",
+    "goal": "Return the maximum profit."
+  },
+  "spec": {
+    "method": "maxProfit",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "prices"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          0,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "prices",
+        "label": "price towers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "hold",
+          "sold",
+          "rest"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        int hold = INT_MIN / 2, sold = 0, rest = 0;\n        for (int i = 0; i < (int)prices.size(); i++) {\n            int prevSold = sold;\n            sold = hold + prices[i];\n            hold = max(hold, rest - prices[i]);\n            rest = max(rest, prevSold);\n        }\n        return max(sold, rest);\n    }\n};",
+  "tier": "crafted"
+}

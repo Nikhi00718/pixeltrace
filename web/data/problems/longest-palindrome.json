@@ -1,0 +1,66 @@
+{
+  "id": 409,
+  "slug": "longest-palindrome",
+  "title": "Longest Palindrome",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "hash-table",
+    "string",
+    "greedy"
+  ],
+  "story": {
+    "title": "Building a Mirror Word",
+    "text": "Every pair of matching tiles can go on both sides of the mirror. One leftover odd tile may sit in the middle.",
+    "goal": "Return the length of the longest palindrome you can build."
+  },
+  "spec": {
+    "method": "longestPalindrome",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abccccdd"
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        "a"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "Aa"
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "len",
+          "odd"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestPalindrome(string s) {\n        map<char, int> cnt;\n        for (char c : s) cnt[c]++;\n        int len = 0;\n        bool odd = false;\n        for (auto& [c, n] : cnt) {\n            len += n / 2 * 2;\n            if (n % 2) odd = true;\n        }\n        return len + (odd ? 1 : 0);\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,89 @@
+{
+  "id": 495,
+  "slug": "teemo-attacking",
+  "title": "Teemo Attacking",
+  "difficulty": "Easy",
+  "world": "intervals",
+  "tags": [
+    "array",
+    "simulation"
+  ],
+  "story": {
+    "title": "Overlapping Poison Clouds",
+    "text": "Each attack poisons for duration seconds, but a new attack resets the timer. Add whichever is shorter: the full duration or the gap to the next attack.",
+    "goal": "Return the total seconds poisoned."
+  },
+  "spec": {
+    "method": "findPoisonedDuration",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "timeSeries"
+      ],
+      [
+        "int",
+        "duration"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          4
+        ],
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        2
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          9
+        ],
+        3
+      ],
+      "expected": 10
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "timeSeries",
+        "label": "attack times",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "duration",
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findPoisonedDuration(vector<int>& timeSeries, int duration) {\n        int total = 0;\n        for (int i = 0; i < (int)timeSeries.size(); i++) {\n            if (i + 1 < (int)timeSeries.size()) total += min(duration, timeSeries[i + 1] - timeSeries[i]);\n            else total += duration;\n        }\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

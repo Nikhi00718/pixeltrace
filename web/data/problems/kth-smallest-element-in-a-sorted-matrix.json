@@ -1,0 +1,93 @@
+{
+  "id": 378,
+  "slug": "kth-smallest-element-in-a-sorted-matrix",
+  "title": "Kth Smallest Element in a Sorted Matrix",
+  "difficulty": "Medium",
+  "world": "heap",
+  "tags": [
+    "array",
+    "binary-search",
+    "sorting",
+    "heap",
+    "matrix"
+  ],
+  "story": {
+    "title": "Popping the Smallest Drawer",
+    "text": "A pyramid starts with the first drawer of every row. Each pop takes the smallest, and the next drawer in that row joins the pyramid; the k-th pop is the answer.",
+    "goal": "Return the k-th smallest value."
+  },
+  "spec": {
+    "method": "kthSmallest",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "matrix"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            5,
+            9
+          ],
+          [
+            10,
+            11,
+            13
+          ],
+          [
+            12,
+            13,
+            15
+          ]
+        ],
+        8
+      ],
+      "expected": 13
+    },
+    {
+      "args": [
+        [
+          [
+            -5
+          ]
+        ],
+        1
+      ],
+      "expected": -5
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "matrix",
+        "palette": "dp",
+        "label": "drawers"
+      },
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "pyramid [value,row,col]"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int kthSmallest(vector<vector<int>>& matrix, int k) {\n        int n = matrix.size();\n        priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>> pq;\n        for (int r = 0; r < n; r++) pq.push({matrix[r][0], r, 0});\n        while (--k > 0) {\n            auto [v, r, c] = pq.top();\n            pq.pop();\n            if (c + 1 < n) pq.push({matrix[r][c + 1], r, c + 1});\n        }\n        return get<0>(pq.top());\n    }\n};",
+  "tier": "crafted"
+}

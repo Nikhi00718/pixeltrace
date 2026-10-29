@@ -1,0 +1,100 @@
+{
+  "id": 454,
+  "slug": "4sum-ii",
+  "title": "4Sum II",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "Meet in the Middle",
+    "text": "Every sum of one from A and one from B goes into the lockers. For each pair from C and D, look up how many A+B sums would cancel it out.",
+    "goal": "Return how many tuples sum to zero."
+  },
+  "spec": {
+    "method": "fourSumCount",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums1"
+      ],
+      [
+        "vector<int>&",
+        "nums2"
+      ],
+      [
+        "vector<int>&",
+        "nums3"
+      ],
+      [
+        "vector<int>&",
+        "nums4"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        [
+          -2,
+          -1
+        ],
+        [
+          -1,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "ab",
+        "label": "A+B sums",
+        "lookup": [
+          "need"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "need",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {\n        map<int, int> ab;\n        for (int a : nums1)\n            for (int b : nums2) ab[a + b]++;\n        int count = 0;\n        for (int c : nums3)\n            for (int d : nums4) {\n                int need = -(c + d);\n                if (ab.count(need)) count += ab[need];\n            }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,121 @@
+{
+  "id": 445,
+  "slug": "add-two-numbers-ii",
+  "title": "Add Two Numbers II",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "math",
+    "stack"
+  ],
+  "story": {
+    "title": "Counting Trains, Biggest Digit First",
+    "text": "This time digits run most significant first. Both trains are unloaded onto towers so the ones digits come off first, then the sum is built by coupling new cars at the front.",
+    "goal": "Return the sum as a list, most significant digit first."
+  },
+  "spec": {
+    "method": "addTwoNumbers",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "l1"
+      ],
+      [
+        "ListNode*",
+        "l2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          7,
+          2,
+          4,
+          3
+        ],
+        [
+          5,
+          6,
+          4
+        ]
+      ],
+      "expected": [
+        7,
+        8,
+        0,
+        7
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          4,
+          3
+        ],
+        [
+          5,
+          6,
+          4
+        ]
+      ],
+      "expected": [
+        8,
+        0,
+        7
+      ]
+    },
+    {
+      "args": [
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "stack",
+            "var": "a",
+            "label": "train 1 digits"
+          },
+          {
+            "kind": "stack",
+            "var": "b",
+            "label": "train 2 digits"
+          }
+        ]
+      },
+      {
+        "kind": "list",
+        "vars": [
+          "head"
+        ],
+        "label": "sum train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "carry"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        stack<int> a, b;\n        for (ListNode* p = l1; p; p = p->next) a.push(p->val);\n        for (ListNode* p = l2; p; p = p->next) b.push(p->val);\n        ListNode* head = nullptr;\n        int carry = 0;\n        while (!a.empty() || !b.empty() || carry) {\n            int sum = carry;\n            if (!a.empty()) {\n                sum += a.top();\n                a.pop();\n            }\n            if (!b.empty()) {\n                sum += b.top();\n                b.pop();\n            }\n            head = new ListNode(sum % 10, head);\n            carry = sum / 10;\n        }\n        return head;\n    }\n};",
+  "tier": "crafted"
+}

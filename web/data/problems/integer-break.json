@@ -1,0 +1,64 @@
+{
+  "id": 343,
+  "slug": "integer-break",
+  "title": "Integer Break",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "math",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Cutting the Rope",
+    "text": "A rope of length n is cut into at least two pieces to maximise the product of the lengths. The ledger tries every first cut, keeping the rest whole or cut further.",
+    "goal": "Return the maximum product."
+  },
+  "spec": {
+    "method": "integerBreak",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        2
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        10
+      ],
+      "expected": 36
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": 18
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "best product per length",
+        "style": "tiles",
+        "pointers": [
+          "i",
+          "j"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int integerBreak(int n) {\n        vector<int> dp(n + 1, 0);\n        dp[1] = 1;\n        for (int i = 2; i <= n; i++) {\n            for (int j = 1; j < i; j++) dp[i] = max(dp[i], j * max(i - j, dp[i - j]));\n        }\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

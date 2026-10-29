@@ -1,0 +1,66 @@
+{
+  "id": 434,
+  "slug": "number-of-segments-in-a-string",
+  "title": "Number of Segments in a String",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "string"
+  ],
+  "story": {
+    "title": "Counting Words on the Sign",
+    "text": "A word starts wherever a non-space letter follows a space (or the very start).",
+    "goal": "Return the number of space-separated segments."
+  },
+  "spec": {
+    "method": "countSegments",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "Hello, my name is John"
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        "Hello"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "   "
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "sign",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int countSegments(string s) {\n        int count = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] != ' ' && (i == 0 || s[i - 1] == ' ')) count++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

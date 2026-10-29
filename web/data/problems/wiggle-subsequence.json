@@ -1,0 +1,98 @@
+{
+  "id": 376,
+  "slug": "wiggle-subsequence",
+  "title": "Wiggle Subsequence",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "greedy"
+  ],
+  "story": {
+    "title": "The Zigzag Hike",
+    "text": "Track the longest wiggle ending on an up-step and on a down-step. Each rise extends the down count, each fall extends the up count.",
+    "goal": "Return the length of the longest wiggle subsequence."
+  },
+  "spec": {
+    "method": "wiggleMaxLength",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          7,
+          4,
+          9,
+          2,
+          5
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          1,
+          17,
+          5,
+          10,
+          13,
+          15,
+          10,
+          5,
+          16,
+          8
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "trail",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "up",
+          "down"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int wiggleMaxLength(vector<int>& nums) {\n        int up = 1, down = 1;\n        for (int i = 1; i < (int)nums.size(); i++) {\n            if (nums[i] > nums[i - 1]) up = down + 1;\n            else if (nums[i] < nums[i - 1]) down = up + 1;\n        }\n        return max(up, down);\n    }\n};",
+  "tier": "crafted"
+}

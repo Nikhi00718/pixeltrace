@@ -1,0 +1,164 @@
+{
+  "id": 406,
+  "slug": "queue-reconstruction-by-height",
+  "title": "Queue Reconstruction by Height",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "binary-indexed-tree",
+    "segment-tree",
+    "sorting"
+  ],
+  "story": {
+    "title": "Lining Up for the Photo",
+    "text": "Each person says their height and how many taller-or-equal people stand in front. Seat the tallest first; each shorter person is inserted at exactly their count, since nobody shorter is in their way yet.",
+    "goal": "Return the reconstructed queue."
+  },
+  "spec": {
+    "method": "reconstructQueue",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "people"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            7,
+            0
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            5,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          5,
+          0
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          1
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          7,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            6,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          0
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          6,
+          0
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "people",
+        "label": "people (tallest first)",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "line",
+        "label": "the line",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {\n        sort(people.begin(), people.end(), [](const vector<int>& a, const vector<int>& b) {\n            return a[0] != b[0] ? a[0] > b[0] : a[1] < b[1];\n        });\n        vector<vector<int>> line;\n        for (int i = 0; i < (int)people.size(); i++) line.insert(line.begin() + people[i][1], people[i]);\n        return line;\n    }\n};",
+  "tier": "crafted"
+}

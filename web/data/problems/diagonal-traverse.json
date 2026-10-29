@@ -1,0 +1,106 @@
+{
+  "id": 498,
+  "slug": "diagonal-traverse",
+  "title": "Diagonal Traverse",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Zigzag Gardener",
+    "text": "The gardener walks diagonals of the field, going up-right on even diagonals and down-left on odd ones, bouncing off the edges.",
+    "goal": "Return all elements in diagonal zigzag order."
+  },
+  "spec": {
+    "method": "findDiagonalOrder",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "mat"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        4,
+        7,
+        5,
+        3,
+        6,
+        8,
+        9
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "mat",
+        "palette": "dp",
+        "label": "field",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "visit order",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {\n        int m = mat.size(), n = mat[0].size();\n        vector<int> res;\n        for (int d = 0; d < m + n - 1; d++) {\n            if (d % 2 == 0) {\n                int r = min(d, m - 1), c = d - r;\n                while (r >= 0 && c < n) res.push_back(mat[r--][c++]);\n            } else {\n                int c = min(d, n - 1), r = d - c;\n                while (c >= 0 && r < m) res.push_back(mat[r++][c--]);\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,85 @@
+{
+  "id": 415,
+  "slug": "add-strings",
+  "title": "Add Strings",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "story": {
+    "title": "Adding on the Chalkboard",
+    "text": "Add the two numbers column by column from the right, carrying a 1 whenever a column reaches 10.",
+    "goal": "Return the sum of two numbers given as strings."
+  },
+  "spec": {
+    "method": "addStrings",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "num1"
+      ],
+      [
+        "string",
+        "num2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "11",
+        "123"
+      ],
+      "expected": "134"
+    },
+    {
+      "args": [
+        "456",
+        "77"
+      ],
+      "expected": "533"
+    },
+    {
+      "args": [
+        "0",
+        "0"
+      ],
+      "expected": "0"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "num1",
+        "label": "num1",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "num2",
+        "label": "num2",
+        "pointers": [
+          "j"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "carry",
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string addStrings(string num1, string num2) {\n        string res;\n        int i = num1.size() - 1, j = num2.size() - 1, carry = 0;\n        while (i >= 0 || j >= 0 || carry) {\n            int sum = carry;\n            if (i >= 0) sum += num1[i--] - '0';\n            if (j >= 0) sum += num2[j--] - '0';\n            res.push_back('0' + sum % 10);\n            carry = sum / 10;\n        }\n        reverse(res.begin(), res.end());\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

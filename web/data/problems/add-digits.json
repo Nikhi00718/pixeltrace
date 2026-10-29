@@ -1,0 +1,62 @@
+{
+  "id": 258,
+  "slug": "add-digits",
+  "title": "Add Digits",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math",
+    "simulation",
+    "number-theory"
+  ],
+  "story": {
+    "title": "Shrinking the Number",
+    "text": "Add up the digits, then the digits of that, until a single digit is left.",
+    "goal": "Return the single digit reached by repeatedly summing digits."
+  },
+  "spec": {
+    "method": "addDigits",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "num"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        38
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        987654
+      ],
+      "expected": 3
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "num",
+          "sum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int addDigits(int num) {\n        while (num >= 10) {\n            int sum = 0;\n            while (num > 0) {\n                sum += num % 10;\n                num /= 10;\n            }\n            num = sum;\n        }\n        return num;\n    }\n};",
+  "tier": "crafted"
+}

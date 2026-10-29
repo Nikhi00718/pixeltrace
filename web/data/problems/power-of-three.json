@@ -1,0 +1,65 @@
+{
+  "id": 326,
+  "slug": "power-of-three",
+  "title": "Power of Three",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math",
+    "recursion"
+  ],
+  "story": {
+    "title": "Dividing by Three",
+    "text": "Keep dividing by three while it divides evenly. Only a power of three ends at exactly 1.",
+    "goal": "Return true if n is a power of three."
+  },
+  "spec": {
+    "method": "isPowerOfThree",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        27
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        0
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        -1
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        45
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isPowerOfThree(int n) {\n        if (n <= 0) return false;\n        while (n % 3 == 0) n /= 3;\n        return n == 1;\n    }\n};",
+  "tier": "crafted"
+}

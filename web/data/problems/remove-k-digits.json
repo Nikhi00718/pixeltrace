@@ -1,0 +1,81 @@
+{
+  "id": 402,
+  "slug": "remove-k-digits",
+  "title": "Remove K Digits",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack",
+    "greedy",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "Shaving the Number Down",
+    "text": "Digits stack up. While removals are left and the top digit is bigger than the new one, the top is knocked off, keeping the number as small as possible.",
+    "goal": "Return the smallest number after removing k digits."
+  },
+  "spec": {
+    "method": "removeKdigits",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "num"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "1432219",
+        3
+      ],
+      "expected": "1219"
+    },
+    {
+      "args": [
+        "10200",
+        1
+      ],
+      "expected": "200"
+    },
+    {
+      "args": [
+        "10",
+        2
+      ],
+      "expected": "0"
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "num",
+        "label": "digits",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "kept"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string removeKdigits(string num, int k) {\n        string st;\n        for (int i = 0; i < (int)num.size(); i++) {\n            while (k > 0 && !st.empty() && st.back() > num[i]) {\n                st.pop_back();\n                k--;\n            }\n            st.push_back(num[i]);\n        }\n        while (k > 0 && !st.empty()) {\n            st.pop_back();\n            k--;\n        }\n        int start = 0;\n        while (start < (int)st.size() && st[start] == '0') start++;\n        string res = st.substr(start);\n        return res.empty() ? \"0\" : res;\n    }\n};",
+  "tier": "crafted"
+}

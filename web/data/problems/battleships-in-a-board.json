@@ -1,0 +1,89 @@
+{
+  "id": 419,
+  "slug": "battleships-in-a-board",
+  "title": "Battleships in a Board",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "Counting the Fleet",
+    "text": "Ships are straight lines of X. Count only each ship's top-left cell: an X with no X above it and none to its left.",
+    "goal": "Return the number of battleships."
+  },
+  "spec": {
+    "method": "countBattleships",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<char>>&",
+        "board"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            "X",
+            ".",
+            ".",
+            "X"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            "X"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            "X"
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            "."
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "board",
+        "palette": "board",
+        "label": "sea",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "ships"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int countBattleships(vector<vector<char>>& board) {\n        int ships = 0;\n        for (int r = 0; r < (int)board.size(); r++) {\n            for (int c = 0; c < (int)board[0].size(); c++) {\n                if (board[r][c] != 'X') continue;\n                if (r > 0 && board[r - 1][c] == 'X') continue;\n                if (c > 0 && board[r][c - 1] == 'X') continue;\n                ships++;\n            }\n        }\n        return ships;\n    }\n};",
+  "tier": "crafted"
+}

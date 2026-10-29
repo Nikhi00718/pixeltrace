@@ -1,0 +1,71 @@
+{
+  "id": 275,
+  "slug": "h-index-ii",
+  "title": "H-Index II",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "Binary-Searching the Score",
+    "text": "Citations are already ascending. The guard finds the first paper whose citation count is at least the number of papers from it to the end.",
+    "goal": "Return the h-index in O(log n)."
+  },
+  "spec": {
+    "method": "hIndex",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "citations"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          1,
+          3,
+          5,
+          6
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          100
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "citations",
+        "label": "citations",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int hIndex(vector<int>& citations) {\n        int n = citations.size(), lo = 0, hi = n - 1;\n        while (lo <= hi) {\n            int mid = (lo + hi) / 2;\n            if (citations[mid] >= n - mid) hi = mid - 1;\n            else lo = mid + 1;\n        }\n        return n - lo;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,83 @@
+{
+  "id": 453,
+  "slug": "minimum-moves-to-equal-array-elements",
+  "title": "Minimum Moves to Equal Array Elements",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "math"
+  ],
+  "story": {
+    "title": "Raising All but One",
+    "text": "Adding one to every crate but one is the same as lowering that one crate. So the answer is how far every crate is above the smallest.",
+    "goal": "Return the minimum number of moves to make all elements equal."
+  },
+  "spec": {
+    "method": "minMoves",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          5,
+          6,
+          8,
+          8,
+          5
+        ]
+      ],
+      "expected": 7
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "crates",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "low",
+          "moves"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minMoves(vector<int>& nums) {\n        int low = *min_element(nums.begin(), nums.end());\n        long long moves = 0;\n        for (int i = 0; i < (int)nums.size(); i++) moves += nums[i] - low;\n        return moves;\n    }\n};",
+  "tier": "crafted"
+}

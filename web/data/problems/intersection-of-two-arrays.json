@@ -1,0 +1,99 @@
+{
+  "id": 349,
+  "slug": "intersection-of-two-arrays",
+  "title": "Intersection of Two Arrays",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "story": {
+    "title": "Stamps Both Collectors Own",
+    "text": "The first collection goes into lockers. Walking the second, any stamp found in the lockers is written down once.",
+    "goal": "Return the unique values in both arrays (any order)."
+  },
+  "spec": {
+    "method": "intersection",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums1"
+      ],
+      [
+        "vector<int>&",
+        "nums2"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "expected": [
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          4,
+          9,
+          5
+        ],
+        [
+          9,
+          4,
+          9,
+          8,
+          4
+        ]
+      ],
+      "expected": [
+        4,
+        9
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums2",
+        "label": "second collection",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "a",
+        "label": "first collection"
+      },
+      {
+        "kind": "set",
+        "var": "both",
+        "label": "in both"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {\n        set<int> a(nums1.begin(), nums1.end()), both;\n        for (int i = 0; i < (int)nums2.size(); i++) {\n            if (a.count(nums2[i])) both.insert(nums2[i]);\n        }\n        return vector<int>(both.begin(), both.end());\n    }\n};",
+  "tier": "crafted"
+}

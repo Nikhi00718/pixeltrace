@@ -1,0 +1,88 @@
+{
+  "id": 334,
+  "slug": "increasing-triplet-subsequence",
+  "title": "Increasing Triplet Subsequence",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "story": {
+    "title": "Three Rising Steps",
+    "text": "Keep the smallest first step and the smallest second step seen so far. Any number bigger than both completes a rising triplet.",
+    "goal": "Return true if some i < j < k has nums[i] < nums[j] < nums[k]."
+  },
+  "spec": {
+    "method": "increasingTriplet",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          2,
+          1,
+          5,
+          0,
+          4,
+          6
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "steps",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "first",
+          "second"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool increasingTriplet(vector<int>& nums) {\n        int first = INT_MAX, second = INT_MAX;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (nums[i] <= first) first = nums[i];\n            else if (nums[i] <= second) second = nums[i];\n            else return true;\n        }\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

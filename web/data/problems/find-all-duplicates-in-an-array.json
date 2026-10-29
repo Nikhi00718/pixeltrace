@@ -1,0 +1,89 @@
+{
+  "id": 442,
+  "slug": "find-all-duplicates-in-an-array",
+  "title": "Find All Duplicates in an Array",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "Flipping the Crate Marks",
+    "text": "For each value v, flip the crate at slot v-1 to negative. If it's already negative, v was seen before.",
+    "goal": "Return every value that appears twice (any order)."
+  },
+  "spec": {
+    "method": "findDuplicates",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          3,
+          2,
+          7,
+          8,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": [
+        2,
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          2
+        ]
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "crates",
+        "pointers": [
+          "i",
+          "j"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "seen twice",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> findDuplicates(vector<int>& nums) {\n        vector<int> res;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            int j = abs(nums[i]) - 1;\n            if (nums[j] < 0) res.push_back(j + 1);\n            else nums[j] = -nums[j];\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

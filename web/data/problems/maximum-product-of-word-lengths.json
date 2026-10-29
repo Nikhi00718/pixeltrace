@@ -1,0 +1,96 @@
+{
+  "id": 318,
+  "slug": "maximum-product-of-word-lengths",
+  "title": "Maximum Product of Word Lengths",
+  "difficulty": "Medium",
+  "world": "bits",
+  "tags": [
+    "array",
+    "string",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Words Without Shared Letters",
+    "text": "Each word lights a 26-lamp mask of its letters. Two words share no letter exactly when their masks AND to zero.",
+    "goal": "Return the max length product of two words with no common letters."
+  },
+  "spec": {
+    "method": "maxProduct",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "abcw",
+          "baz",
+          "foo",
+          "bar",
+          "xtfn",
+          "abcdef"
+        ]
+      ],
+      "expected": 16
+    },
+    {
+      "args": [
+        [
+          "a",
+          "ab",
+          "abc",
+          "d",
+          "cd",
+          "bcd",
+          "abcd"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          "a",
+          "aa",
+          "aaa",
+          "aaaa"
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "words",
+        "style": "tiles",
+        "pointers": [
+          "i",
+          "j"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "mask",
+        "label": "letter masks",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxProduct(vector<string>& words) {\n        int n = words.size(), best = 0;\n        vector<int> mask(n, 0);\n        for (int i = 0; i < n; i++)\n            for (char c : words[i]) mask[i] |= 1 << (c - 'a');\n        for (int i = 0; i < n; i++)\n            for (int j = i + 1; j < n; j++)\n                if ((mask[i] & mask[j]) == 0) best = max(best, (int)(words[i].size() * words[j].size()));\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

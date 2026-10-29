@@ -1,0 +1,75 @@
+{
+  "id": 494,
+  "slug": "target-sum",
+  "title": "Target Sum",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "backtracking"
+  ],
+  "story": {
+    "title": "Plus or Minus Every Coin",
+    "text": "Each coin gets a + or a -. The lockers track, after each coin, how many sign choices reach every running total.",
+    "goal": "Return how many sign assignments make the total equal target."
+  },
+  "spec": {
+    "method": "findTargetSumWays",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        3
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "coins",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "ways",
+        "label": "ways to reach total"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findTargetSumWays(vector<int>& nums, int target) {\n        map<int, int> ways;\n        ways[0] = 1;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            map<int, int> next;\n            for (auto& [sum, c] : ways) {\n                next[sum + nums[i]] += c;\n                next[sum - nums[i]] += c;\n            }\n            ways = next;\n        }\n        return ways.count(target) ? ways[target] : 0;\n    }\n};",
+  "tier": "crafted"
+}

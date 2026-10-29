@@ -1,0 +1,75 @@
+{
+  "id": 485,
+  "slug": "max-consecutive-ones",
+  "title": "Max Consecutive Ones",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "The Longest Lit Stretch",
+    "text": "Walk the row of lamps counting the current lit run; a dark lamp resets it.",
+    "goal": "Return the longest run of 1s."
+  },
+  "spec": {
+    "method": "findMaxConsecutiveOnes",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "lamps",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "run",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findMaxConsecutiveOnes(vector<int>& nums) {\n        int run = 0, best = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            run = nums[i] ? run + 1 : 0;\n            best = max(best, run);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

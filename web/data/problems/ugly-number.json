@@ -1,0 +1,66 @@
+{
+  "id": 263,
+  "slug": "ugly-number",
+  "title": "Ugly Number",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math"
+  ],
+  "story": {
+    "title": "Only Small Prime Bricks",
+    "text": "Divide out every 2, 3 and 5. If nothing but 1 is left, the number was built only from those bricks.",
+    "goal": "Return true if n's prime factors are only 2, 3 and 5."
+  },
+  "spec": {
+    "method": "isUgly",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        6
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        14
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        300
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "p"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isUgly(int n) {\n        if (n <= 0) return false;\n        int primes[3] = {2, 3, 5};\n        for (int p : primes) {\n            while (n % p == 0) n /= p;\n        }\n        return n == 1;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,104 @@
+{
+  "id": 350,
+  "slug": "intersection-of-two-arrays-ii",
+  "title": "Intersection of Two Arrays II",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "story": {
+    "title": "Matching Stamps One for One",
+    "text": "Both collections are sorted. Two clerks compare the stamps they hold: equal means a match for both, otherwise the smaller one steps forward.",
+    "goal": "Return the intersection with multiplicity (any order)."
+  },
+  "spec": {
+    "method": "intersect",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums1"
+      ],
+      [
+        "vector<int>&",
+        "nums2"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "expected": [
+        2,
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          4,
+          9,
+          5
+        ],
+        [
+          9,
+          4,
+          9,
+          8,
+          4
+        ]
+      ],
+      "expected": [
+        4,
+        9
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums1",
+        "label": "collection 1 (sorted)",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "nums2",
+        "label": "collection 2 (sorted)",
+        "pointers": [
+          "j"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "matches",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {\n        sort(nums1.begin(), nums1.end());\n        sort(nums2.begin(), nums2.end());\n        vector<int> res;\n        int i = 0, j = 0;\n        while (i < (int)nums1.size() && j < (int)nums2.size()) {\n            if (nums1[i] == nums2[j]) {\n                res.push_back(nums1[i]);\n                i++;\n                j++;\n            } else if (nums1[i] < nums2[j]) {\n                i++;\n            } else {\n                j++;\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

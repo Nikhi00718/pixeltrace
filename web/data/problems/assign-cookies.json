@@ -1,0 +1,85 @@
+{
+  "id": 455,
+  "slug": "assign-cookies",
+  "title": "Assign Cookies",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "two-pointers",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Handing Out Cookies",
+    "text": "Kids and cookies are both sorted. Walk the cookies smallest first; each cookie goes to the least greedy kid it can satisfy.",
+    "goal": "Return the most kids you can make content."
+  },
+  "spec": {
+    "method": "findContentChildren",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "g"
+      ],
+      [
+        "vector<int>&",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "g",
+        "label": "kids' greed (sorted)",
+        "pointers": [
+          "kid"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "s",
+        "label": "cookies (sorted)",
+        "pointers": [
+          "c"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findContentChildren(vector<int>& g, vector<int>& s) {\n        sort(g.begin(), g.end());\n        sort(s.begin(), s.end());\n        int kid = 0;\n        for (int c = 0; c < (int)s.size() && kid < (int)g.size(); c++) {\n            if (s[c] >= g[kid]) kid++;\n        }\n        return kid;\n    }\n};",
+  "tier": "crafted"
+}

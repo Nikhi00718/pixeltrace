@@ -1,0 +1,77 @@
+{
+  "id": 462,
+  "slug": "minimum-moves-to-equal-array-elements-ii",
+  "title": "Minimum Moves to Equal Array Elements II",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "math",
+    "sorting"
+  ],
+  "story": {
+    "title": "Meeting at the Middle Crate",
+    "text": "Every crate can go up or down by one per move. Meeting at the median is cheapest: after sorting, pair the ends and add their gaps.",
+    "goal": "Return the minimum number of moves."
+  },
+  "spec": {
+    "method": "minMoves2",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          10,
+          2,
+          9
+        ]
+      ],
+      "expected": 16
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "crates (sorted)",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "moves"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minMoves2(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int l = 0, r = nums.size() - 1, moves = 0;\n        while (l < r) {\n            moves += nums[r] - nums[l];\n            l++;\n            r--;\n        }\n        return moves;\n    }\n};",
+  "tier": "crafted"
+}

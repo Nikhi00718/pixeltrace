@@ -1,0 +1,64 @@
+{
+  "id": 367,
+  "slug": "valid-perfect-square",
+  "title": "Valid Perfect Square",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "math",
+    "binary-search"
+  ],
+  "story": {
+    "title": "Is It a Square Plot?",
+    "text": "The gardener binary-searches a side length whose square is exactly the number of tiles.",
+    "goal": "Return true if num is a perfect square, without sqrt."
+  },
+  "spec": {
+    "method": "isPerfectSquare",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "num"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        16
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        14
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        808201
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "num",
+          "lo",
+          "mid",
+          "hi",
+          "sq"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isPerfectSquare(int num) {\n        long long lo = 1, hi = num;\n        while (lo <= hi) {\n            long long mid = (lo + hi) / 2;\n            long long sq = mid * mid;\n            if (sq == num) return true;\n            if (sq < num) lo = mid + 1;\n            else hi = mid - 1;\n        }\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

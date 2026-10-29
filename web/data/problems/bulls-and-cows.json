@@ -1,0 +1,94 @@
+{
+  "id": 299,
+  "slug": "bulls-and-cows",
+  "title": "Bulls and Cows",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "story": {
+    "title": "The Code-Breaking Game",
+    "text": "Right digit in the right place is a bull. For the rest, lockers count each digit on both sides; matches between leftover counts are cows.",
+    "goal": "Return the hint as \"xAyB\"."
+  },
+  "spec": {
+    "method": "getHint",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "secret"
+      ],
+      [
+        "string",
+        "guess"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "1807",
+        "7810"
+      ],
+      "expected": "1A3B"
+    },
+    {
+      "args": [
+        "1123",
+        "0111"
+      ],
+      "expected": "1A1B"
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "secret",
+        "label": "secret",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "guess",
+        "label": "guess",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "array",
+            "var": "cs",
+            "label": "secret leftovers",
+            "style": "tiles"
+          },
+          {
+            "kind": "array",
+            "var": "cg",
+            "label": "guess leftovers",
+            "style": "tiles"
+          }
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "bulls",
+          "cows"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string getHint(string secret, string guess) {\n        vector<int> cs(10, 0), cg(10, 0);\n        int bulls = 0, cows = 0;\n        for (int i = 0; i < (int)secret.size(); i++) {\n            if (secret[i] == guess[i]) bulls++;\n            else {\n                cs[secret[i] - '0']++;\n                cg[guess[i] - '0']++;\n            }\n        }\n        for (int d = 0; d < 10; d++) cows += min(cs[d], cg[d]);\n        return to_string(bulls) + \"A\" + to_string(cows) + \"B\";\n    }\n};",
+  "tier": "crafted"
+}

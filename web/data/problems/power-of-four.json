@@ -1,0 +1,68 @@
+{
+  "id": 342,
+  "slug": "power-of-four",
+  "title": "Power of Four",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math",
+    "bit-manipulation",
+    "recursion"
+  ],
+  "story": {
+    "title": "One Lamp in an Even Spot",
+    "text": "A power of four has exactly one lamp lit, and it sits in an even position. Check both with masks.",
+    "goal": "Return true if n is a power of four."
+  },
+  "spec": {
+    "method": "isPowerOfFour",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        16
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        5
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "one",
+          "even"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isPowerOfFour(int n) {\n        bool one = n > 0 && (n & (n - 1)) == 0;\n        bool even = (n & 0x55555555) != 0;\n        return one && even;\n    }\n};",
+  "tier": "crafted"
+}

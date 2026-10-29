@@ -1,0 +1,76 @@
+{
+  "id": 389,
+  "slug": "find-the-difference",
+  "title": "Find the Difference",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "hash-table",
+    "string",
+    "bit-manipulation",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Extra Tile",
+    "text": "t is s shuffled with one extra letter. XOR every letter of both; matching pairs cancel and the extra letter remains lit.",
+    "goal": "Return the letter added to t."
+  },
+  "spec": {
+    "method": "findTheDifference",
+    "ret": "char",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "t"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abcd",
+        "abcde"
+      ],
+      "expected": "e"
+    },
+    {
+      "args": [
+        "",
+        "y"
+      ],
+      "expected": "y"
+    },
+    {
+      "args": [
+        "ae",
+        "aea"
+      ],
+      "expected": "a"
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "t",
+        "label": "shuffled",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    char findTheDifference(string s, string t) {\n        int x = 0;\n        for (char c : s) x ^= c;\n        for (int i = 0; i < (int)t.size(); i++) x ^= t[i];\n        return (char)x;\n    }\n};",
+  "tier": "crafted"
+}

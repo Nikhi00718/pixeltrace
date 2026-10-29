@@ -1,0 +1,127 @@
+{
+  "id": 289,
+  "slug": "game-of-life",
+  "title": "Game of Life",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Living Garden",
+    "text": "Each plant counts its eight neighbours. In place, cells are marked 2 for \"alive now, dies\" and 3 for \"dead now, lives\" so the old state can still be read, then everything settles.",
+    "goal": "Advance the board one generation, in place."
+  },
+  "spec": {
+    "method": "gameOfLife",
+    "ret": "void",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "board"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "board",
+        "palette": "dp",
+        "label": "garden (2 dies, 3 is born)",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "live"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void gameOfLife(vector<vector<int>>& board) {\n        int m = board.size(), n = board[0].size();\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                int live = 0;\n                for (int dr = -1; dr <= 1; dr++)\n                    for (int dc = -1; dc <= 1; dc++) {\n                        if (!dr && !dc) continue;\n                        int nr = r + dr, nc = c + dc;\n                        if (nr >= 0 && nc >= 0 && nr < m && nc < n && (board[nr][nc] == 1 || board[nr][nc] == 2)) live++;\n                    }\n                if (board[r][c] == 1 && (live < 2 || live > 3)) board[r][c] = 2;\n                if (board[r][c] == 0 && live == 3) board[r][c] = 3;\n            }\n        }\n        for (int r = 0; r < m; r++)\n            for (int c = 0; c < n; c++) board[r][c] = board[r][c] == 1 || board[r][c] == 3;\n    }\n};",
+  "tier": "crafted"
+}

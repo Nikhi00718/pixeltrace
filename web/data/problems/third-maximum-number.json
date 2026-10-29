@@ -1,0 +1,82 @@
+{
+  "id": 414,
+  "slug": "third-maximum-number",
+  "title": "Third Maximum Number",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "sorting"
+  ],
+  "story": {
+    "title": "Bronze Medal",
+    "text": "Three podium spots hold the top three distinct values seen so far; each new value slots in and pushes the others down.",
+    "goal": "Return the third distinct maximum, or the maximum if there isn't one."
+  },
+  "spec": {
+    "method": "thirdMax",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "scores",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "a",
+          "b",
+          "c"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int thirdMax(vector<int>& nums) {\n        long long a = LLONG_MIN, b = LLONG_MIN, c = LLONG_MIN;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            long long x = nums[i];\n            if (x == a || x == b || x == c) continue;\n            if (x > a) {\n                c = b;\n                b = a;\n                a = x;\n            } else if (x > b) {\n                c = b;\n                b = x;\n            } else if (x > c) {\n                c = x;\n            }\n        }\n        return c == LLONG_MIN ? a : c;\n    }\n};",
+  "tier": "crafted"
+}

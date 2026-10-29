@@ -1,0 +1,105 @@
+{
+  "id": 447,
+  "slug": "number-of-boomerangs",
+  "title": "Number of Boomerangs",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "math"
+  ],
+  "story": {
+    "title": "Equidistant Campfires",
+    "text": "Stand at each campfire and count the others by squared distance. Any two at the same distance form a boomerang in both orders.",
+    "goal": "Return the number of boomerangs (i, j, k)."
+  },
+  "spec": {
+    "method": "numberOfBoomerangs",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "points"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "points",
+        "label": "campfires",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "dist",
+        "label": "others by distance\u00b2"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numberOfBoomerangs(vector<vector<int>>& points) {\n        int total = 0;\n        for (int i = 0; i < (int)points.size(); i++) {\n            map<int, int> dist;\n            for (int j = 0; j < (int)points.size(); j++) {\n                int dx = points[i][0] - points[j][0], dy = points[i][1] - points[j][1];\n                dist[dx * dx + dy * dy]++;\n            }\n            for (auto& [d, c] : dist) total += c * (c - 1);\n        }\n        return total;\n    }\n};",
+  "tier": "crafted"
+}
