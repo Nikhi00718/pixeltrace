@@ -1,0 +1,125 @@
+{
+  "id": 1200,
+  "slug": "minimum-absolute-difference",
+  "title": "Minimum Absolute Difference",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Closest Neighbours",
+    "text": "After sorting, the closest pairs are always neighbours. Find the smallest gap, then list every neighbouring pair with that gap.",
+    "goal": "Return all pairs with the minimum absolute difference, in ascending order."
+  },
+  "spec": {
+    "method": "minimumAbsDifference",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          6,
+          10,
+          15
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          8,
+          -10,
+          23,
+          19,
+          -4,
+          -14,
+          27
+        ]
+      ],
+      "expected": [
+        [
+          -14,
+          -10
+        ],
+        [
+          19,
+          23
+        ],
+        [
+          23,
+          27
+        ]
+      ]
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "values (sorted)",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "gap"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "closest pairs",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> minimumAbsDifference(vector<int>& arr) {\n        sort(arr.begin(), arr.end());\n        int gap = INT_MAX;\n        for (int i = 1; i < (int)arr.size(); i++) gap = min(gap, arr[i] - arr[i - 1]);\n        vector<vector<int>> res;\n        for (int i = 1; i < (int)arr.size(); i++)\n            if (arr[i] - arr[i - 1] == gap) res.push_back({arr[i - 1], arr[i]});\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

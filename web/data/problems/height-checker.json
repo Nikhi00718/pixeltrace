@@ -1,0 +1,95 @@
+{
+  "id": 1051,
+  "slug": "height-checker",
+  "title": "Height Checker",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "sorting",
+    "counting-sort"
+  ],
+  "story": {
+    "title": "Who's Out of Line?",
+    "text": "Sort a copy of the line by height, then count the students not standing where the sorted line says.",
+    "goal": "Return how many students are out of place."
+  },
+  "spec": {
+    "method": "heightChecker",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "heights"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          4,
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          5,
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "heights",
+        "label": "line now",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "bars",
+        "var": "sorted",
+        "label": "line sorted",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "wrong"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int heightChecker(vector<int>& heights) {\n        vector<int> sorted = heights;\n        sort(sorted.begin(), sorted.end());\n        int wrong = 0;\n        for (int i = 0; i < (int)heights.size(); i++) wrong += heights[i] != sorted[i];\n        return wrong;\n    }\n};",
+  "tier": "crafted"
+}

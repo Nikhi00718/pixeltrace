@@ -1,0 +1,70 @@
+{
+  "id": 1041,
+  "slug": "robot-bounded-in-circle",
+  "title": "Robot Bounded In Circle",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Looping Robot",
+    "text": "Run the instructions once. If the robot is back home, or facing a new direction, repeating them keeps it within a circle.",
+    "goal": "Return true if the robot stays in a bounded circle."
+  },
+  "spec": {
+    "method": "isRobotBounded",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "instructions"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "GGLLGG"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "GG"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "GL"
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "instructions",
+        "label": "instructions",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x",
+          "y",
+          "dir"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isRobotBounded(string instructions) {\n        int x = 0, y = 0, dir = 0;\n        int dx[4] = {0, 1, 0, -1}, dy[4] = {1, 0, -1, 0};\n        for (int i = 0; i < (int)instructions.size(); i++) {\n            char c = instructions[i];\n            if (c == 'G') {\n                x += dx[dir];\n                y += dy[dir];\n            } else if (c == 'L') {\n                dir = (dir + 3) % 4;\n            } else {\n                dir = (dir + 1) % 4;\n            }\n        }\n        return (x == 0 && y == 0) || dir != 0;\n    }\n};",
+  "tier": "crafted"
+}

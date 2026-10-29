@@ -1,0 +1,105 @@
+{
+  "id": 993,
+  "slug": "cousins-in-binary-tree",
+  "title": "Cousins in Binary Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bfs"
+  ],
+  "story": {
+    "title": "Same Row, Different Parents",
+    "text": "Walk the orchard recording each fruit's depth and parent. Cousins hang at the same depth from different parents.",
+    "goal": "Return true if x and y are cousins."
+  },
+  "spec": {
+    "method": "isCousins",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "x"
+      ],
+      [
+        "int",
+        "y"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        4,
+        3
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          null,
+          4,
+          null,
+          5
+        ],
+        5,
+        4
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          null,
+          4
+        ],
+        2,
+        3
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "dx",
+          "dy",
+          "px",
+          "py"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int dx = -1, dy = -1, px = -1, py = -1;\n    void walk(TreeNode* node, int parent, int depth, int x, int y) {\n        if (!node) return;\n        if (node->val == x) {\n            dx = depth;\n            px = parent;\n        }\n        if (node->val == y) {\n            dy = depth;\n            py = parent;\n        }\n        walk(node->left, node->val, depth + 1, x, y);\n        walk(node->right, node->val, depth + 1, x, y);\n    }\n    bool isCousins(TreeNode* root, int x, int y) {\n        walk(root, -1, 0, x, y);\n        return dx == dy && px != py;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,77 @@
+{
+  "id": 1049,
+  "slug": "last-stone-weight-ii",
+  "title": "Last Stone Weight II",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Two Piles of Stones",
+    "text": "Smashing stones really splits them into two piles and subtracts. Find the pile weight closest to half the total that is reachable.",
+    "goal": "Return the smallest possible weight of the last stone."
+  },
+  "spec": {
+    "method": "lastStoneWeightII",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "stones"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          7,
+          4,
+          1,
+          8,
+          1
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          31,
+          26,
+          33,
+          21,
+          40
+        ]
+      ],
+      "expected": 5
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "stones",
+        "label": "stones",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "can",
+        "label": "reachable pile weights",
+        "style": "tiles",
+        "pointers": [
+          "s"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int lastStoneWeightII(vector<int>& stones) {\n        int total = 0;\n        for (int x : stones) total += x;\n        int half = total / 2;\n        vector<bool> can(half + 1, false);\n        can[0] = true;\n        for (int k = 0; k < (int)stones.size(); k++)\n            for (int s = half; s >= stones[k]; s--)\n                if (can[s - stones[k]]) can[s] = true;\n        for (int s = half; s >= 0; s--)\n            if (can[s]) return total - 2 * s;\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

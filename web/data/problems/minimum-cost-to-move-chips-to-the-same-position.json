@@ -1,0 +1,83 @@
+{
+  "id": 1217,
+  "slug": "minimum-cost-to-move-chips-to-the-same-position",
+  "title": "Minimum Cost to Move Chips to The Same Position",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "math",
+    "greedy"
+  ],
+  "story": {
+    "title": "Two-Step Hops Are Free",
+    "text": "Moving two spaces costs nothing, so every chip can reach any spot of its parity free. Only the smaller parity group has to pay one each.",
+    "goal": "Return the minimum cost to gather all chips."
+  },
+  "spec": {
+    "method": "minCostToMoveChips",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "position"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          2,
+          3,
+          3
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          1000000000
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "position",
+        "label": "chips",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "odd",
+          "even"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minCostToMoveChips(vector<int>& position) {\n        int odd = 0, even = 0;\n        for (int i = 0; i < (int)position.size(); i++) {\n            if (position[i] % 2) odd++;\n            else even++;\n        }\n        return min(odd, even);\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,93 @@
+{
+  "id": 1048,
+  "slug": "longest-string-chain",
+  "title": "Longest String Chain",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "string",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "story": {
+    "title": "Growing Words One Letter at a Time",
+    "text": "Words are sorted by length. Each word tries removing one letter at a time; if the shorter word is in the lockers, its chain extends by one.",
+    "goal": "Return the length of the longest word chain."
+  },
+  "spec": {
+    "method": "longestStrChain",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "a",
+          "b",
+          "ba",
+          "bca",
+          "bda",
+          "bdca"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          "xbc",
+          "pcxbcf",
+          "xb",
+          "cxbc",
+          "pcxbc"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          "abcd",
+          "dbqca"
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "words (by length)",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "chain",
+        "label": "longest chain ending in"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestStrChain(vector<string>& words) {\n        sort(words.begin(), words.end(), [](const string& a, const string& b) { return a.size() < b.size(); });\n        map<string, int> chain;\n        int best = 0;\n        for (int k = 0; k < (int)words.size(); k++) {\n            string& w = words[k];\n            int cur = 1;\n            for (int i = 0; i < (int)w.size(); i++) {\n                string shorter = w.substr(0, i) + w.substr(i + 1);\n                if (chain.count(shorter)) cur = max(cur, chain[shorter] + 1);\n            }\n            chain[w] = cur;\n            best = max(best, cur);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

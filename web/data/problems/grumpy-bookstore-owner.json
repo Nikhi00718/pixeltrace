@@ -1,0 +1,108 @@
+{
+  "id": 1052,
+  "slug": "grumpy-bookstore-owner",
+  "title": "Grumpy Bookstore Owner",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "sliding-window"
+  ],
+  "story": {
+    "title": "The Owner's Calm Minutes",
+    "text": "Happy customers in non-grumpy minutes always count. A window of `minutes` slides along adding the grumpy-minute customers it would rescue.",
+    "goal": "Return the maximum number of satisfied customers."
+  },
+  "spec": {
+    "method": "maxSatisfied",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "customers"
+      ],
+      [
+        "vector<int>&",
+        "grumpy"
+      ],
+      [
+        "int",
+        "minutes"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          1,
+          2,
+          1,
+          1,
+          7,
+          5
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        3
+      ],
+      "expected": 16
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        [
+          0
+        ],
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "customers",
+        "label": "customers per minute",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "grumpy",
+        "label": "grumpy?",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "base",
+          "extra",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int minutes) {\n        int base = 0, extra = 0, best = 0;\n        for (int r = 0; r < (int)customers.size(); r++) {\n            if (!grumpy[r]) base += customers[r];\n            else extra += customers[r];\n            int l = r - minutes + 1;\n            if (l > 0 && grumpy[l - 1]) extra -= customers[l - 1];\n            best = max(best, extra);\n        }\n        return base + best;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,97 @@
+{
+  "id": 1184,
+  "slug": "distance-between-bus-stops",
+  "title": "Distance Between Bus Stops",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "Clockwise or the Other Way?",
+    "text": "Add the distances going clockwise from start to destination; the other way round is the total minus that.",
+    "goal": "Return the shorter distance between the two stops."
+  },
+  "spec": {
+    "method": "distanceBetweenBusStops",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "distance"
+      ],
+      [
+        "int",
+        "start"
+      ],
+      [
+        "int",
+        "destination"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        0,
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        0,
+        2
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        0,
+        3
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "distance",
+        "label": "road segments",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "clockwise",
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int distanceBetweenBusStops(vector<int>& distance, int start, int destination) {\n        if (start > destination) swap(start, destination);\n        int clockwise = 0, total = 0;\n        for (int i = 0; i < (int)distance.size(); i++) {\n            total += distance[i];\n            if (i >= start && i < destination) clockwise += distance[i];\n        }\n        return min(clockwise, total - clockwise);\n    }\n};",
+  "tier": "crafted"
+}

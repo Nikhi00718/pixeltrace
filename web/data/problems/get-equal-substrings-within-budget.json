@@ -1,0 +1,98 @@
+{
+  "id": 1208,
+  "slug": "get-equal-substrings-within-budget",
+  "title": "Get Equal Substrings Within Budget",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "string",
+    "binary-search",
+    "sliding-window",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "Repainting on a Budget",
+    "text": "Changing a letter costs its alphabet distance. The window stretches right; while its total cost exceeds the budget, the left edge moves up.",
+    "goal": "Return the longest substring of s you can turn into the matching part of t within maxCost."
+  },
+  "spec": {
+    "method": "equalSubstring",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "t"
+      ],
+      [
+        "int",
+        "maxCost"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abcd",
+        "bcdf",
+        3
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "abcd",
+        "cdef",
+        3
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "abcd",
+        "acde",
+        0
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "s",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "t",
+        "label": "t",
+        "pointers": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cost",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int equalSubstring(string s, string t, int maxCost) {\n        int l = 0, cost = 0, best = 0;\n        for (int r = 0; r < (int)s.size(); r++) {\n            cost += abs(s[r] - t[r]);\n            while (cost > maxCost) {\n                cost -= abs(s[l] - t[l]);\n                l++;\n            }\n            best = max(best, r - l + 1);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

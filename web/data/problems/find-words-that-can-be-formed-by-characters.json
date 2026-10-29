@@ -1,0 +1,85 @@
+{
+  "id": 1160,
+  "slug": "find-words-that-can-be-formed-by-characters",
+  "title": "Find Words That Can Be Formed by Characters",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "string",
+    "counting"
+  ],
+  "story": {
+    "title": "Spelling from a Tile Rack",
+    "text": "Count the rack's tiles. A word is spellable if no letter needs more tiles than the rack has; add up the spellable words' lengths.",
+    "goal": "Return the sum of lengths of the good words."
+  },
+  "spec": {
+    "method": "countCharacters",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ],
+      [
+        "string",
+        "chars"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "cat",
+          "bt",
+          "hat",
+          "tree"
+        ],
+        "atach"
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          "hello",
+          "world",
+          "leetcode"
+        ],
+        "welldonehoneyr"
+      ],
+      "expected": 10
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "words",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "rack",
+        "label": "rack counts a..z",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int countCharacters(vector<string>& words, string chars) {\n        vector<int> rack(26, 0);\n        for (char c : chars) rack[c - 'a']++;\n        int total = 0;\n        for (int k = 0; k < (int)words.size(); k++) {\n            vector<int> need(26, 0);\n            bool ok = true;\n            for (char c : words[k]) {\n                if (++need[c - 'a'] > rack[c - 'a']) ok = false;\n            }\n            if (ok) total += words[k].size();\n        }\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

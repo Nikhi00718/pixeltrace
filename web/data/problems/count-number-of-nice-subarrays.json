@@ -1,0 +1,107 @@
+{
+  "id": 1248,
+  "slug": "count-number-of-nice-subarrays",
+  "title": "Count Number of Nice Subarrays",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "hash-table",
+    "math",
+    "sliding-window",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "Exactly k Odd Crates",
+    "text": "Count odd crates so far. The logbook says how many earlier positions had exactly k fewer odd crates.",
+    "goal": "Return how many subarrays contain exactly k odd numbers."
+  },
+  "spec": {
+    "method": "numberOfSubarrays",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          2,
+          1,
+          1
+        ],
+        3
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          2,
+          4,
+          6
+        ],
+        1
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          2,
+          1,
+          2,
+          2,
+          1,
+          2,
+          2,
+          2
+        ],
+        2
+      ],
+      "expected": 16
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "crates",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "seen",
+        "label": "positions by odd-count",
+        "style": "tiles",
+        "pointers": [
+          "odd"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numberOfSubarrays(vector<int>& nums, int k) {\n        vector<int> seen(nums.size() + 1, 0);\n        seen[0] = 1;\n        int odd = 0, count = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            odd += nums[i] % 2;\n            if (odd >= k) count += seen[odd - k];\n            seen[odd]++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

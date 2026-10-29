@@ -1,0 +1,109 @@
+{
+  "id": 1202,
+  "slug": "smallest-string-with-swaps",
+  "title": "Smallest String With Swaps",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "hash-table",
+    "string",
+    "depth-first-search",
+    "union-find",
+    "sorting"
+  ],
+  "story": {
+    "title": "Freely Shuffled Families",
+    "text": "Swappable positions join into families; within a family any order is reachable. Sort each family's letters and hand them back to its positions in order.",
+    "goal": "Return the lexicographically smallest string reachable."
+  },
+  "spec": {
+    "method": "smallestStringWithSwaps",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "vector<vector<int>>&",
+        "pairs"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "dcab",
+        [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": "bacd"
+    },
+    {
+      "args": [
+        "dcab",
+        [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": "abcd"
+    },
+    {
+      "args": [
+        "cba",
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ],
+      "expected": "abc"
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "letters",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "parent",
+        "label": "family leader by position",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> parent;\n    int leader(int x) {\n        while (parent[x] != x) x = parent[x] = parent[parent[x]];\n        return x;\n    }\n    string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {\n        int n = s.size();\n        parent.resize(n);\n        for (int i = 0; i < n; i++) parent[i] = i;\n        for (auto& p : pairs) parent[leader(p[0])] = leader(p[1]);\n        map<int, vector<int>> groups;\n        for (int i = 0; i < n; i++) groups[leader(i)].push_back(i);\n        for (auto& [root, idx] : groups) {\n            string letters;\n            for (int i : idx) letters.push_back(s[i]);\n            sort(letters.begin(), letters.end());\n            for (int k = 0; k < (int)idx.size(); k++) s[idx[k]] = letters[k];\n        }\n        return s;\n    }\n};",
+  "tier": "crafted"
+}

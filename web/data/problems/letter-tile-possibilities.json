@@ -1,0 +1,70 @@
+{
+  "id": 1079,
+  "slug": "letter-tile-possibilities",
+  "title": "Letter Tile Possibilities",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "hash-table",
+    "string",
+    "backtracking",
+    "counting"
+  ],
+  "story": {
+    "title": "Every Word from the Tile Bag",
+    "text": "At each door, take any letter still in the bag: that's one more word, then go deeper and put the tile back.",
+    "goal": "Return the number of non-empty sequences you can make."
+  },
+  "spec": {
+    "method": "numTilePossibilities",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "tiles"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "AAB"
+      ],
+      "expected": 8
+    },
+    {
+      "args": [
+        "AAABBC"
+      ],
+      "expected": 188
+    },
+    {
+      "args": [
+        "V"
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "cnt",
+        "label": "tiles left A..Z",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int go(vector<int>& cnt) {\n        int total = 0;\n        for (int i = 0; i < 26; i++) {\n            if (cnt[i] == 0) continue;\n            total++;\n            cnt[i]--;\n            total += go(cnt);\n            cnt[i]++;\n        }\n        return total;\n    }\n    int numTilePossibilities(string tiles) {\n        vector<int> cnt(26, 0);\n        for (char c : tiles) cnt[c - 'A']++;\n        return go(cnt);\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,71 @@
+{
+  "id": 1014,
+  "slug": "best-sightseeing-pair",
+  "title": "Best Sightseeing Pair",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Two Viewpoints, Not Too Far Apart",
+    "text": "A pair scores values[i] + i plus values[j] - j. Walking right, remember the best values[i] + i seen so far.",
+    "goal": "Return the maximum score of a sightseeing pair."
+  },
+  "spec": {
+    "method": "maxScoreSightseeingPair",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "values"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          8,
+          1,
+          5,
+          2,
+          6
+        ]
+      ],
+      "expected": 11
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "values",
+        "label": "viewpoints",
+        "pointers": [
+          "j"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "bestLeft",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxScoreSightseeingPair(vector<int>& values) {\n        int bestLeft = values[0], best = INT_MIN;\n        for (int j = 1; j < (int)values.size(); j++) {\n            best = max(best, bestLeft + values[j] - j);\n            bestLeft = max(bestLeft, values[j] + j);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

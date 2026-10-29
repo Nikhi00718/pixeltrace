@@ -1,0 +1,84 @@
+{
+  "id": 1186,
+  "slug": "maximum-subarray-sum-with-one-deletion",
+  "title": "Maximum Subarray Sum with One Deletion",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Treasure Walk with One Skip",
+    "text": "Track two purses: the best run ending here with no chest skipped, and with one chest skipped (either this one, or an earlier one).",
+    "goal": "Return the max subarray sum with at most one deletion (non-empty)."
+  },
+  "spec": {
+    "method": "maximumSum",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          -2,
+          0,
+          3
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          1,
+          -2,
+          -2,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "chests",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "keep",
+          "skipped",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maximumSum(vector<int>& arr) {\n        int keep = arr[0], skipped = 0, best = arr[0];\n        for (int i = 1; i < (int)arr.size(); i++) {\n            skipped = max(skipped + arr[i], keep);\n            keep = max(keep + arr[i], arr[i]);\n            best = max({best, keep, skipped});\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

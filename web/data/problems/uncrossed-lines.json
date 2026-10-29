@@ -1,0 +1,101 @@
+{
+  "id": 1035,
+  "slug": "uncrossed-lines",
+  "title": "Uncrossed Lines",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Strings Between Two Rows",
+    "text": "Matching numbers can be joined by a string, but strings can't cross. That's a longest common subsequence: each cell keeps the best for two prefixes.",
+    "goal": "Return the maximum number of non-crossing connecting lines."
+  },
+  "spec": {
+    "method": "maxUncrossedLines",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums1"
+      ],
+      [
+        "vector<int>&",
+        "nums2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          4,
+          2
+        ],
+        [
+          1,
+          2,
+          4
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          2,
+          5,
+          1,
+          2,
+          5
+        ],
+        [
+          10,
+          5,
+          2,
+          1,
+          5,
+          2
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "array",
+            "var": "nums1",
+            "label": "top row"
+          },
+          {
+            "kind": "array",
+            "var": "nums2",
+            "label": "bottom row"
+          }
+        ]
+      },
+      {
+        "kind": "grid",
+        "var": "dp",
+        "palette": "dp",
+        "label": "best lines",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {\n        int n = nums1.size(), m = nums2.size();\n        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));\n        for (int i = 1; i <= n; i++)\n            for (int j = 1; j <= m; j++)\n                dp[i][j] = nums1[i - 1] == nums2[j - 1] ? dp[i - 1][j - 1] + 1 : max(dp[i - 1][j], dp[i][j - 1]);\n        return dp[n][m];\n    }\n};",
+  "tier": "crafted"
+}

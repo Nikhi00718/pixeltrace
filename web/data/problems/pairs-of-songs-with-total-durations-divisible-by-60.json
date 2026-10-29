@@ -1,0 +1,79 @@
+{
+  "id": 1010,
+  "slug": "pairs-of-songs-with-total-durations-divisible-by-60",
+  "title": "Pairs of Songs With Total Durations Divisible by 60",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "story": {
+    "title": "Songs That Finish on the Minute",
+    "text": "Each song's remainder mod 60 needs a partner with remainder 60 - r (or 0 with 0). Lockers count remainders seen so far.",
+    "goal": "Return how many pairs have a total duration divisible by 60."
+  },
+  "spec": {
+    "method": "numPairsDivisibleBy60",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "time"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          30,
+          20,
+          150,
+          100,
+          40
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          60,
+          60,
+          60
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "time",
+        "label": "songs (seconds)",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "cnt",
+        "label": "remainders seen",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "r",
+          "pairs"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numPairsDivisibleBy60(vector<int>& time) {\n        vector<int> cnt(60, 0);\n        int pairs = 0;\n        for (int i = 0; i < (int)time.size(); i++) {\n            int r = time[i] % 60;\n            pairs += cnt[(60 - r) % 60];\n            cnt[r]++;\n        }\n        return pairs;\n    }\n};",
+  "tier": "crafted"
+}

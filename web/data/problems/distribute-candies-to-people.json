@@ -1,0 +1,79 @@
+{
+  "id": 1103,
+  "slug": "distribute-candies-to-people",
+  "title": "Distribute Candies to People",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "math",
+    "simulation"
+  ],
+  "story": {
+    "title": "Handing Out Ever More Candy",
+    "text": "Going round the circle, each turn hands out one more candy than the last, until the bag runs out; the last person gets whatever is left.",
+    "goal": "Return how many candies each person ends up with."
+  },
+  "spec": {
+    "method": "distributeCandies",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "int",
+        "candies"
+      ],
+      [
+        "int",
+        "num_people"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        7,
+        4
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        1
+      ]
+    },
+    {
+      "args": [
+        10,
+        3
+      ],
+      "expected": [
+        5,
+        2,
+        3
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "candies per person",
+        "style": "tiles",
+        "pointers": [
+          "p"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "give",
+          "candies"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> distributeCandies(int candies, int num_people) {\n        vector<int> res(num_people, 0);\n        int give = 1, p = 0;\n        while (candies > 0) {\n            int g = min(give, candies);\n            res[p] += g;\n            candies -= g;\n            give++;\n            p = (p + 1) % num_people;\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

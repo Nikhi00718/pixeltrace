@@ -1,0 +1,83 @@
+{
+  "id": 1026,
+  "slug": "maximum-difference-between-node-and-ancestor",
+  "title": "Maximum Difference Between Node and Ancestor",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "The Biggest Drop Down a Branch",
+    "text": "Climbing down, carry the lightest and heaviest fruit seen on this path. At each fruit, the gap to either is a candidate.",
+    "goal": "Return the maximum |ancestor - node|."
+  },
+  "spec": {
+    "method": "maxAncestorDiff",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          8,
+          3,
+          10,
+          1,
+          6,
+          null,
+          14,
+          null,
+          null,
+          4,
+          7,
+          13
+        ]
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          1,
+          null,
+          2,
+          null,
+          0,
+          3
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "lo",
+          "hi",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int best = 0;\n    void walk(TreeNode* node, int lo, int hi) {\n        if (!node) return;\n        best = max({best, abs(node->val - lo), abs(node->val - hi)});\n        lo = min(lo, node->val);\n        hi = max(hi, node->val);\n        walk(node->left, lo, hi);\n        walk(node->right, lo, hi);\n    }\n    int maxAncestorDiff(TreeNode* root) {\n        walk(root, root->val, root->val);\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

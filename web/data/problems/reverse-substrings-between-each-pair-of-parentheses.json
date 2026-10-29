@@ -1,0 +1,73 @@
+{
+  "id": 1190,
+  "slug": "reverse-substrings-between-each-pair-of-parentheses",
+  "title": "Reverse Substrings Between Each Pair of Parentheses",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "Unfolding Nested Mirrors",
+    "text": "On ( the text so far is stacked and a fresh piece starts. On ), the piece is reversed and appended to what was stacked.",
+    "goal": "Return the string with every bracketed part reversed, innermost first, brackets removed."
+  },
+  "spec": {
+    "method": "reverseParentheses",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "(abcd)"
+      ],
+      "expected": "dcba"
+    },
+    {
+      "args": [
+        "(u(love)i)"
+      ],
+      "expected": "iloveu"
+    },
+    {
+      "args": [
+        "(ed(et(oc))el)"
+      ],
+      "expected": "leetcode"
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "text",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "saved text"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cur"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string reverseParentheses(string s) {\n        stack<string> st;\n        string cur;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '(') {\n                st.push(cur);\n                cur = \"\";\n            } else if (s[i] == ')') {\n                reverse(cur.begin(), cur.end());\n                cur = st.top() + cur;\n                st.pop();\n            } else {\n                cur.push_back(s[i]);\n            }\n        }\n        return cur;\n    }\n};",
+  "tier": "crafted"
+}

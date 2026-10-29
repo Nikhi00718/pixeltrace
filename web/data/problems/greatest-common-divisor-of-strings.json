@@ -1,0 +1,69 @@
+{
+  "id": 1071,
+  "slug": "greatest-common-divisor-of-strings",
+  "title": "Greatest Common Divisor of Strings",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "math",
+    "string"
+  ],
+  "story": {
+    "title": "The Largest Shared Tile",
+    "text": "Two walls are built from the same tile only if a+b equals b+a. Then the tile is as long as the gcd of their lengths.",
+    "goal": "Return the largest string dividing both, or \"\"."
+  },
+  "spec": {
+    "method": "gcdOfStrings",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "str1"
+      ],
+      [
+        "string",
+        "str2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "ABCABC",
+        "ABC"
+      ],
+      "expected": "ABC"
+    },
+    {
+      "args": [
+        "ABABAB",
+        "ABAB"
+      ],
+      "expected": "AB"
+    },
+    {
+      "args": [
+        "LEET",
+        "CODE"
+      ],
+      "expected": ""
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "a",
+          "b",
+          "g"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string gcdOfStrings(string str1, string str2) {\n        if (str1 + str2 != str2 + str1) return \"\";\n        int a = str1.size(), b = str2.size();\n        while (b) {\n            int t = a % b;\n            a = b;\n            b = t;\n        }\n        int g = a;\n        return str1.substr(0, g);\n    }\n};",
+  "tier": "crafted"
+}

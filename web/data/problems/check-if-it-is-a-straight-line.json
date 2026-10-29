@@ -1,0 +1,115 @@
+{
+  "id": 1232,
+  "slug": "check-if-it-is-a-straight-line",
+  "title": "Check If It Is a Straight Line",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "math",
+    "geometry"
+  ],
+  "story": {
+    "title": "Are the Lanterns in a Line?",
+    "text": "Compare every point's direction from the first point with the first two points' direction using cross products, avoiding division.",
+    "goal": "Return true if all points lie on one straight line."
+  },
+  "spec": {
+    "method": "checkStraightLine",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "coordinates"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ]
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            7,
+            7
+          ]
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "coordinates",
+        "label": "lanterns",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "dx",
+          "dy"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool checkStraightLine(vector<vector<int>>& coordinates) {\n        int dx = coordinates[1][0] - coordinates[0][0];\n        int dy = coordinates[1][1] - coordinates[0][1];\n        for (int i = 2; i < (int)coordinates.size(); i++) {\n            int x = coordinates[i][0] - coordinates[0][0], y = coordinates[i][1] - coordinates[0][1];\n            if (dx * y != dy * x) return false;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

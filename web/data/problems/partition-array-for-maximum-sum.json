@@ -1,0 +1,106 @@
+{
+  "id": 1043,
+  "slug": "partition-array-for-maximum-sum",
+  "title": "Partition Array for Maximum Sum",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Levelling Up Short Stretches",
+    "text": "Cut the row into pieces of at most k; every crate in a piece becomes the piece's heaviest. The ledger tries every last-piece length.",
+    "goal": "Return the largest sum after partitioning."
+  },
+  "spec": {
+    "method": "maxSumAfterPartitioning",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          15,
+          7,
+          9,
+          2,
+          5,
+          10
+        ],
+        3
+      ],
+      "expected": 84
+    },
+    {
+      "args": [
+        [
+          1,
+          4,
+          1,
+          5,
+          7,
+          3,
+          6,
+          1,
+          9,
+          9,
+          3
+        ],
+        4
+      ],
+      "expected": 83
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        1
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "crates",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "best sum for prefix",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "len",
+          "top"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxSumAfterPartitioning(vector<int>& arr, int k) {\n        int n = arr.size();\n        vector<int> dp(n + 1, 0);\n        for (int i = 1; i <= n; i++) {\n            int top = 0;\n            for (int len = 1; len <= k && len <= i; len++) {\n                top = max(top, arr[i - len]);\n                dp[i] = max(dp[i], dp[i - len] + top * len);\n            }\n        }\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

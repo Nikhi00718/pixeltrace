@@ -1,0 +1,83 @@
+{
+  "id": 1155,
+  "slug": "number-of-dice-rolls-with-target-sum",
+  "title": "Number of Dice Rolls With Target Sum",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Rolling Toward the Target",
+    "text": "Each die adds a face 1..k. The ledger counts the ways to reach every total after each die.",
+    "goal": "Return the number of ways to roll exactly target, mod 1e9+7."
+  },
+  "spec": {
+    "method": "numRollsToTarget",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ],
+      [
+        "int",
+        "k"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        1,
+        6,
+        3
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        2,
+        6,
+        7
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        30,
+        30,
+        500
+      ],
+      "expected": 222616187
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "ways",
+        "label": "ways to reach total",
+        "style": "tiles",
+        "pointers": [
+          "t"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "die",
+          "face"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numRollsToTarget(int n, int k, int target) {\n        const long long MOD = 1000000007;\n        vector<long long> ways(target + 1, 0);\n        ways[0] = 1;\n        for (int die = 1; die <= n; die++) {\n            vector<long long> next(target + 1, 0);\n            for (int t = 1; t <= target; t++)\n                for (int face = 1; face <= k && face <= t; face++) next[t] = (next[t] + ways[t - face]) % MOD;\n            ways = next;\n        }\n        return ways[target];\n    }\n};",
+  "tier": "crafted"
+}

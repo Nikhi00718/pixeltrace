@@ -1,0 +1,117 @@
+{
+  "id": 1122,
+  "slug": "relative-sort-array",
+  "title": "Relative Sort Array",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "sorting",
+    "counting-sort"
+  ],
+  "story": {
+    "title": "Sorting by the House Rules",
+    "text": "Count every value. First pour out values in the order arr2 lists them, then everything else in ascending order.",
+    "goal": "Return arr1 sorted relative to arr2."
+  },
+  "spec": {
+    "method": "relativeSortArray",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "arr1"
+      ],
+      [
+        "vector<int>&",
+        "arr2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          3,
+          1,
+          3,
+          2,
+          4,
+          6,
+          7,
+          9,
+          2,
+          19
+        ],
+        [
+          2,
+          1,
+          4,
+          3,
+          9,
+          6
+        ]
+      ],
+      "expected": [
+        2,
+        2,
+        2,
+        1,
+        4,
+        3,
+        3,
+        9,
+        6,
+        7,
+        19
+      ]
+    },
+    {
+      "args": [
+        [
+          28,
+          6,
+          22,
+          8,
+          44,
+          17
+        ],
+        [
+          22,
+          28,
+          8,
+          6
+        ]
+      ],
+      "expected": [
+        22,
+        28,
+        8,
+        6,
+        17,
+        44
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "counts"
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "sorted",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {\n        map<int, int> cnt;\n        for (int x : arr1) cnt[x]++;\n        vector<int> res;\n        for (int x : arr2) {\n            while (cnt[x]-- > 0) res.push_back(x);\n            cnt.erase(x);\n        }\n        for (auto& [v, c] : cnt)\n            while (c-- > 0) res.push_back(v);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

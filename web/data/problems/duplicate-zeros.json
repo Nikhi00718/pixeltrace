@@ -1,0 +1,83 @@
+{
+  "id": 1089,
+  "slug": "duplicate-zeros",
+  "title": "Duplicate Zeros",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "Stretching the Shelf",
+    "text": "Every empty crate (0) is doubled, pushing the rest right off the end. Count where things will land, then fill from the back so nothing is overwritten early.",
+    "goal": "Duplicate each zero in place, shifting the rest right."
+  },
+  "spec": {
+    "method": "duplicateZeros",
+    "ret": "void",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          2,
+          3,
+          0,
+          4,
+          5,
+          0
+        ]
+      ],
+      "expected": [
+        1,
+        0,
+        0,
+        2,
+        3,
+        0,
+        0,
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "shelf",
+        "pointers": [
+          "i",
+          "w"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void duplicateZeros(vector<int>& arr) {\n        int n = arr.size(), zeros = 0;\n        for (int x : arr) zeros += x == 0;\n        for (int i = n - 1, w = n + zeros - 1; i >= 0; i--, w--) {\n            if (w < n) arr[w] = arr[i];\n            if (arr[i] == 0) {\n                w--;\n                if (w < n) arr[w] = 0;\n            }\n        }\n    }\n};",
+  "tier": "crafted"
+}

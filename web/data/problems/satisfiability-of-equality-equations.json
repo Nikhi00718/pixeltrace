@@ -1,0 +1,91 @@
+{
+  "id": 990,
+  "slug": "satisfiability-of-equality-equations",
+  "title": "Satisfiability of Equality Equations",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "string",
+    "union-find",
+    "graph"
+  ],
+  "story": {
+    "title": "Who Must Be Equal?",
+    "text": "First every a==b joins two letters into one family. Then each a!=b is checked: if both letters share a family, the equations contradict.",
+    "goal": "Return true if all equations can be satisfied."
+  },
+  "spec": {
+    "method": "equationsPossible",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<string>&",
+        "equations"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "a==b",
+          "b!=a"
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          "b==a",
+          "a==b"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          "a==b",
+          "b==c",
+          "a==c"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          "a==b",
+          "b!=c",
+          "c==a"
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "equations",
+        "label": "equations",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "parent",
+        "label": "family leader by letter",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> parent;\n    int leader(int x) {\n        while (parent[x] != x) x = parent[x];\n        return x;\n    }\n    bool equationsPossible(vector<string>& equations) {\n        parent.resize(26);\n        for (int i = 0; i < 26; i++) parent[i] = i;\n        for (int k = 0; k < (int)equations.size(); k++) {\n            string& e = equations[k];\n            if (e[1] == '=') parent[leader(e[0] - 'a')] = leader(e[3] - 'a');\n        }\n        for (int k = 0; k < (int)equations.size(); k++) {\n            string& e = equations[k];\n            if (e[1] == '!' && leader(e[0] - 'a') == leader(e[3] - 'a')) return false;\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,69 @@
+{
+  "id": 1221,
+  "slug": "split-a-string-in-balanced-strings",
+  "title": "Split a String in Balanced Strings",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "string",
+    "greedy",
+    "counting"
+  ],
+  "story": {
+    "title": "Cutting When It Balances",
+    "text": "Count +1 for L and -1 for R. Every time the running balance returns to zero, cut there: that's one more balanced piece.",
+    "goal": "Return the maximum number of balanced substrings."
+  },
+  "spec": {
+    "method": "balancedStringSplit",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "RLRRLLRLRL"
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        "RLRRRLLRLL"
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        "LLLLRRRR"
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "string",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "bal",
+          "pieces"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int balancedStringSplit(string s) {\n        int bal = 0, pieces = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            bal += s[i] == 'L' ? 1 : -1;\n            if (bal == 0) pieces++;\n        }\n        return pieces;\n    }\n};",
+  "tier": "crafted"
+}

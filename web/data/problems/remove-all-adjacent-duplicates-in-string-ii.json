@@ -1,0 +1,74 @@
+{
+  "id": 1209,
+  "slug": "remove-all-adjacent-duplicates-in-string-ii",
+  "title": "Remove All Adjacent Duplicates in String II",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "Popping Runs of k",
+    "text": "The tower stores letter blocks with run counts. A letter matching the top bumps the count; when a run reaches k, the whole run vanishes.",
+    "goal": "Return the string after removing every run of k equal letters."
+  },
+  "spec": {
+    "method": "removeDuplicates",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abcd",
+        2
+      ],
+      "expected": "abcd"
+    },
+    {
+      "args": [
+        "deeedbbcccbdaa",
+        3
+      ],
+      "expected": "aa"
+    },
+    {
+      "args": [
+        "pbbcggttciiippooaais",
+        2
+      ],
+      "expected": "ps"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "letters",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "tower [letter, run]"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string removeDuplicates(string s, int k) {\n        vector<pair<char, int>> st;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (!st.empty() && st.back().first == s[i]) {\n                if (++st.back().second == k) st.pop_back();\n            } else {\n                st.push_back({s[i], 1});\n            }\n        }\n        string res;\n        for (auto& [c, n] : st) res += string(n, c);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

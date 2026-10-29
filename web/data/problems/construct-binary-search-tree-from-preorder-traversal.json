@@ -1,0 +1,86 @@
+{
+  "id": 1008,
+  "slug": "construct-binary-search-tree-from-preorder-traversal",
+  "title": "Construct Binary Search Tree from Preorder Traversal",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "array",
+    "stack",
+    "tree",
+    "bst",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "Replanting from the Top-Down Record",
+    "text": "Read the record in order. Each branch accepts fruit only below a ceiling; a fruit too heavy for this branch is left for an ancestor's right side.",
+    "goal": "Return the BST with this preorder."
+  },
+  "spec": {
+    "method": "bstFromPreorder",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "vector<int>&",
+        "preorder"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          8,
+          5,
+          1,
+          7,
+          10,
+          12
+        ]
+      ],
+      "expected": [
+        8,
+        5,
+        10,
+        1,
+        7,
+        null,
+        12
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        null,
+        3
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "preorder",
+        "label": "top-down record",
+        "pointers": [
+          "idx"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "ceiling"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int idx = 0;\n    TreeNode* build(vector<int>& preorder, int ceiling) {\n        if (idx == (int)preorder.size() || preorder[idx] > ceiling) return nullptr;\n        TreeNode* node = new TreeNode(preorder[idx++]);\n        node->left = build(preorder, node->val);\n        node->right = build(preorder, ceiling);\n        return node;\n    }\n    TreeNode* bstFromPreorder(vector<int>& preorder) {\n        return build(preorder, INT_MAX);\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,104 @@
+{
+  "id": 1013,
+  "slug": "partition-array-into-three-parts-with-equal-sum",
+  "title": "Partition Array Into Three Parts With Equal Sum",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "story": {
+    "title": "Three Fair Shares",
+    "text": "Each share must weigh a third of the total. Walk the crates; every time the running weight reaches a share, cut and start the next.",
+    "goal": "Return true if the array splits into three non-empty parts of equal sum."
+  },
+  "spec": {
+    "method": "canThreePartsEqualSum",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          2,
+          1,
+          -6,
+          6,
+          -7,
+          9,
+          1,
+          2,
+          0,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          0,
+          2,
+          1,
+          -6,
+          6,
+          7,
+          9,
+          -1,
+          2,
+          0,
+          1
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          3,
+          3,
+          6,
+          5,
+          -2,
+          2,
+          5,
+          1,
+          -9,
+          4
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "crates",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "share",
+          "run",
+          "parts"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool canThreePartsEqualSum(vector<int>& arr) {\n        int total = 0;\n        for (int x : arr) total += x;\n        if (total % 3) return false;\n        int share = total / 3, run = 0, parts = 0;\n        for (int i = 0; i < (int)arr.size(); i++) {\n            run += arr[i];\n            if (run == share && parts < 2) {\n                parts++;\n                run = 0;\n            }\n        }\n        return parts == 2 && run == share;\n    }\n};",
+  "tier": "crafted"
+}

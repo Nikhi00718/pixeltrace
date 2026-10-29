@@ -1,0 +1,79 @@
+{
+  "id": 1002,
+  "slug": "find-common-characters",
+  "title": "Find Common Characters",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "Letters Every Scroll Shares",
+    "text": "Keep the minimum count of each letter across all scrolls; whatever survives appears in every one.",
+    "goal": "Return every character (with repeats) that appears in all words."
+  },
+  "spec": {
+    "method": "commonChars",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        [
+          "bella",
+          "label",
+          "roller"
+        ]
+      ],
+      "expected": [
+        "e",
+        "l",
+        "l"
+      ]
+    },
+    {
+      "args": [
+        [
+          "cool",
+          "lock",
+          "cook"
+        ]
+      ],
+      "expected": [
+        "c",
+        "o"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "scrolls",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "common",
+        "label": "min count a..z",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> commonChars(vector<string>& words) {\n        vector<int> common(26, INT_MAX);\n        for (int k = 0; k < (int)words.size(); k++) {\n            vector<int> cnt(26, 0);\n            for (char c : words[k]) cnt[c - 'a']++;\n            for (int i = 0; i < 26; i++) common[i] = min(common[i], cnt[i]);\n        }\n        vector<string> res;\n        for (int i = 0; i < 26; i++)\n            for (int t = 0; t < common[i]; t++) res.push_back(string(1, 'a' + i));\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

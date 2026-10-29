@@ -1,0 +1,95 @@
+{
+  "id": 1233,
+  "slug": "remove-sub-folders-from-the-filesystem",
+  "title": "Remove Sub-Folders from the Filesystem",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "string",
+    "depth-first-search",
+    "trie"
+  ],
+  "story": {
+    "title": "Tidying the Folder Tree",
+    "text": "Sorted paths put every folder just before its sub-folders. Keep a folder unless it starts with the last kept folder followed by a slash.",
+    "goal": "Return the folders after removing every sub-folder (any order)."
+  },
+  "spec": {
+    "method": "removeSubfolders",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "vector<string>&",
+        "folder"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        [
+          "/a",
+          "/a/b",
+          "/c/d",
+          "/c/d/e",
+          "/c/f"
+        ]
+      ],
+      "expected": [
+        "/a",
+        "/c/d",
+        "/c/f"
+      ]
+    },
+    {
+      "args": [
+        [
+          "/a",
+          "/a/b/c",
+          "/a/b/d"
+        ]
+      ],
+      "expected": [
+        "/a"
+      ]
+    },
+    {
+      "args": [
+        [
+          "/a/b/c",
+          "/a/b/ca",
+          "/a/b/d"
+        ]
+      ],
+      "expected": [
+        "/a/b/c",
+        "/a/b/ca",
+        "/a/b/d"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "folder",
+        "label": "paths (sorted)",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "kept",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> removeSubfolders(vector<string>& folder) {\n        sort(folder.begin(), folder.end());\n        vector<string> res;\n        for (int k = 0; k < (int)folder.size(); k++) {\n            string& f = folder[k];\n            if (!res.empty()) {\n                string prefix = res.back() + \"/\";\n                if (f.compare(0, prefix.size(), prefix) == 0) continue;\n            }\n            res.push_back(f);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

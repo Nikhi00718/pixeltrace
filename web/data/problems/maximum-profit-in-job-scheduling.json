@@ -1,0 +1,140 @@
+{
+  "id": 1235,
+  "slug": "maximum-profit-in-job-scheduling",
+  "title": "Maximum Profit in Job Scheduling",
+  "difficulty": "Hard",
+  "world": "dp",
+  "tags": [
+    "array",
+    "binary-search",
+    "dynamic-programming",
+    "sorting"
+  ],
+  "story": {
+    "title": "Picking Paid Jobs That Don't Clash",
+    "text": "Jobs are sorted by end time. For each job, binary-search the last job that ends by its start; the best total is either skipping it or taking it on top of that earlier best.",
+    "goal": "Return the maximum profit from non-overlapping jobs."
+  },
+  "spec": {
+    "method": "jobScheduling",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "startTime"
+      ],
+      [
+        "vector<int>&",
+        "endTime"
+      ],
+      [
+        "vector<int>&",
+        "profit"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          3
+        ],
+        [
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          50,
+          10,
+          40,
+          70
+        ]
+      ],
+      "expected": 120
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          6
+        ],
+        [
+          3,
+          5,
+          10,
+          6,
+          9
+        ],
+        [
+          20,
+          20,
+          100,
+          70,
+          60
+        ]
+      ],
+      "expected": 150
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          6,
+          4
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "intervals",
+        "vars": [
+          "jobs"
+        ],
+        "pointers": [
+          "i"
+        ],
+        "label": "jobs (by end time)"
+      },
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "best profit after job",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {\n        int n = startTime.size();\n        vector<vector<int>> jobs;\n        for (int i = 0; i < n; i++) jobs.push_back({startTime[i], endTime[i], profit[i]});\n        sort(jobs.begin(), jobs.end(), [](const vector<int>& a, const vector<int>& b) { return a[1] < b[1]; });\n        vector<int> dp(n + 1, 0);\n        for (int i = 1; i <= n; i++) {\n            int lo = 0, hi = i - 1;\n            while (lo < hi) {\n                int mid = (lo + hi + 1) / 2;\n                if (jobs[mid - 1][1] <= jobs[i - 1][0]) lo = mid;\n                else hi = mid - 1;\n            }\n            dp[i] = max(dp[i - 1], dp[lo] + jobs[i - 1][2]);\n        }\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

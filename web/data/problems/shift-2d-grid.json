@@ -1,0 +1,135 @@
+{
+  "id": 1260,
+  "slug": "shift-2d-grid",
+  "title": "Shift 2D Grid",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "story": {
+    "title": "Sliding the Tile Wall",
+    "text": "Read the wall as one long ribbon. Shifting k times moves every tile k places along the ribbon, wrapping around.",
+    "goal": "Return the grid after k shifts."
+  },
+  "spec": {
+    "method": "shiftGrid",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ],
+        1
+      ],
+      "expected": [
+        [
+          9,
+          1,
+          2
+        ],
+        [
+          3,
+          4,
+          5
+        ],
+        [
+          6,
+          7,
+          8
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ],
+        9
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6
+        ],
+        [
+          7,
+          8,
+          9
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "grid",
+            "var": "grid",
+            "palette": "dp",
+            "label": "old wall"
+          },
+          {
+            "kind": "grid",
+            "var": "res",
+            "palette": "dp",
+            "label": "shifted"
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> shiftGrid(vector<vector<int>>& grid, int k) {\n        int m = grid.size(), n = grid[0].size(), total = m * n;\n        vector<vector<int>> res(m, vector<int>(n));\n        for (int p = 0; p < total; p++) {\n            int q = (p + k) % total;\n            res[q / n][q % n] = grid[p / n][p % n];\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

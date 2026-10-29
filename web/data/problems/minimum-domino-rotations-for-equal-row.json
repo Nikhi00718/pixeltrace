@@ -1,0 +1,103 @@
+{
+  "id": 1007,
+  "slug": "minimum-domino-rotations-for-equal-row",
+  "title": "Minimum Domino Rotations For Equal Row",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy"
+  ],
+  "story": {
+    "title": "Making One Row Uniform",
+    "text": "The winning number must be on the first domino, so try tops[0] and bottoms[0]. For each, count flips needed to bring it to the top or to the bottom.",
+    "goal": "Return the fewest rotations to make one row all the same, or -1."
+  },
+  "spec": {
+    "method": "minDominoRotations",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "tops"
+      ],
+      [
+        "vector<int>&",
+        "bottoms"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          2,
+          4,
+          2,
+          2
+        ],
+        [
+          5,
+          2,
+          6,
+          2,
+          3,
+          2
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          3,
+          5,
+          1,
+          2,
+          3
+        ],
+        [
+          3,
+          6,
+          3,
+          3,
+          4
+        ]
+      ],
+      "expected": -1
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "tops",
+        "label": "tops",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "bottoms",
+        "label": "bottoms",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x",
+          "flipTop",
+          "flipBottom"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int tryValue(vector<int>& tops, vector<int>& bottoms, int x) {\n        int flipTop = 0, flipBottom = 0;\n        for (int i = 0; i < (int)tops.size(); i++) {\n            if (tops[i] != x && bottoms[i] != x) return INT_MAX;\n            if (tops[i] != x) flipTop++;\n            if (bottoms[i] != x) flipBottom++;\n        }\n        return min(flipTop, flipBottom);\n    }\n    int minDominoRotations(vector<int>& tops, vector<int>& bottoms) {\n        int best = min(tryValue(tops, bottoms, tops[0]), tryValue(tops, bottoms, bottoms[0]));\n        return best == INT_MAX ? -1 : best;\n    }\n};",
+  "tier": "crafted"
+}

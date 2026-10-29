@@ -1,0 +1,84 @@
+{
+  "id": 1140,
+  "slug": "stone-game-ii",
+  "title": "Stone Game II",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "prefix-sum",
+    "game-theory"
+  ],
+  "story": {
+    "title": "Grabbing Up to 2M Piles",
+    "text": "A player may take the next x piles, 1 \u2264 x \u2264 2M, and M grows to max(M, x). The table stores the most stones the mover can get from pile i with a given M.",
+    "goal": "Return the most stones Alice can get."
+  },
+  "spec": {
+    "method": "stoneGameII",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "piles"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          7,
+          9,
+          4,
+          4
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          100
+        ]
+      ],
+      "expected": 104
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "suffix",
+        "label": "stones from pile i onward",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "grid",
+        "var": "dp",
+        "palette": "dp",
+        "label": "best by (pile, M)",
+        "pointers": [
+          [
+            "i",
+            "m"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int stoneGameII(vector<int>& piles) {\n        int n = piles.size();\n        vector<int> suffix(n + 1, 0);\n        for (int i = n - 1; i >= 0; i--) suffix[i] = suffix[i + 1] + piles[i];\n        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));\n        for (int i = n - 1; i >= 0; i--) {\n            for (int m = 1; m <= n; m++) {\n                if (i + 2 * m >= n) {\n                    dp[i][m] = suffix[i];\n                    continue;\n                }\n                for (int x = 1; x <= 2 * m; x++) dp[i][m] = max(dp[i][m], suffix[i] - dp[i + x][max(m, x)]);\n            }\n        }\n        return dp[0][1];\n    }\n};",
+  "tier": "crafted"
+}

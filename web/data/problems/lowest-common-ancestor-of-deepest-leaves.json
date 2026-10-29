@@ -1,0 +1,98 @@
+{
+  "id": 1123,
+  "slug": "lowest-common-ancestor-of-deepest-leaves",
+  "title": "Lowest Common Ancestor of Deepest Leaves",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "hash-table",
+    "tree",
+    "dfs",
+    "bfs"
+  ],
+  "story": {
+    "title": "Where the Deepest Fruit Meet",
+    "text": "Each fruit reports its subtree depth and the lowest fruit above all its deepest leaves. Equal depths on both sides mean this fruit is the meeting point.",
+    "goal": "Return the subtree rooted at the LCA of the deepest leaves."
+  },
+  "spec": {
+    "method": "lcaDeepestLeaves",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          0,
+          8,
+          null,
+          null,
+          7,
+          4
+        ]
+      ],
+      "expected": [
+        2,
+        7,
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": [
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          3,
+          null,
+          2
+        ]
+      ],
+      "expected": [
+        2
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "dl",
+          "dr"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    pair<int, TreeNode*> deep(TreeNode* node) {\n        if (!node) return {0, nullptr};\n        auto l = deep(node->left);\n        auto r = deep(node->right);\n        int dl = l.first, dr = r.first;\n        if (dl == dr) return {dl + 1, node};\n        return dl > dr ? make_pair(dl + 1, l.second) : make_pair(dr + 1, r.second);\n    }\n    TreeNode* lcaDeepestLeaves(TreeNode* root) {\n        return deep(root).second;\n    }\n};",
+  "tier": "crafted"
+}

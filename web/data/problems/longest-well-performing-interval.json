@@ -1,0 +1,82 @@
+{
+  "id": 1124,
+  "slug": "longest-well-performing-interval",
+  "title": "Longest Well-Performing Interval",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "stack",
+    "monotonic-stack",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "More Tiring Days Than Easy Ones",
+    "text": "Score +1 for a tiring day (>8 hours) and -1 otherwise. A positive running score covers everything so far; otherwise look up where the score was one lower.",
+    "goal": "Return the longest interval with more tiring days than non-tiring days."
+  },
+  "spec": {
+    "method": "longestWPI",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "hours"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          9,
+          9,
+          6,
+          0,
+          6,
+          6,
+          9
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          6,
+          6,
+          6
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "hours",
+        "label": "hours worked",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "first",
+        "label": "score first seen at"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "score",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestWPI(vector<int>& hours) {\n        map<int, int> first;\n        int score = 0, best = 0;\n        for (int i = 0; i < (int)hours.size(); i++) {\n            score += hours[i] > 8 ? 1 : -1;\n            if (score > 0) best = i + 1;\n            else {\n                if (!first.count(score)) first[score] = i;\n                if (first.count(score - 1)) best = max(best, i - first[score - 1]);\n            }\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,92 @@
+{
+  "id": 1019,
+  "slug": "next-greater-node-in-linked-list",
+  "title": "Next Greater Node In Linked List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "array",
+    "linked-list",
+    "stack",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "The Next Heavier Car",
+    "text": "Walk the train numbering cars. Cars still waiting for a heavier car behind them wait on a tower; each new heavier car answers them.",
+    "goal": "Return, for each node, the value of the next greater node (or 0)."
+  },
+  "spec": {
+    "method": "nextLargerNodes",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          5
+        ]
+      ],
+      "expected": [
+        5,
+        5,
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          7,
+          4,
+          3,
+          5
+        ]
+      ],
+      "expected": [
+        7,
+        0,
+        5,
+        5,
+        0
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "cur"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "waiting (position)"
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "answers",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> nextLargerNodes(ListNode* head) {\n        vector<int> vals, res;\n        stack<int> st;\n        int i = 0;\n        for (ListNode* cur = head; cur; cur = cur->next, i++) {\n            vals.push_back(cur->val);\n            res.push_back(0);\n            while (!st.empty() && vals[st.top()] < cur->val) {\n                res[st.top()] = cur->val;\n                st.pop();\n            }\n            st.push(i);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

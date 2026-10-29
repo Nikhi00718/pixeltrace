@@ -1,0 +1,107 @@
+{
+  "id": 1128,
+  "slug": "number-of-equivalent-domino-pairs",
+  "title": "Number of Equivalent Domino Pairs",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "story": {
+    "title": "Matching Dominoes",
+    "text": "A domino reads the same either way up, so file it under (small, big). Each new domino pairs with every earlier one in its locker.",
+    "goal": "Return the number of equivalent domino pairs."
+  },
+  "spec": {
+    "method": "numEquivDominoPairs",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "dominoes"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "dominoes",
+        "label": "dominoes",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "seen (as small*10+big)"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "pairs"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numEquivDominoPairs(vector<vector<int>>& dominoes) {\n        map<int, int> cnt;\n        int pairs = 0;\n        for (int i = 0; i < (int)dominoes.size(); i++) {\n            int a = dominoes[i][0], b = dominoes[i][1];\n            int key = min(a, b) * 10 + max(a, b);\n            pairs += cnt[key]++;\n        }\n        return pairs;\n    }\n};",
+  "tier": "crafted"
+}

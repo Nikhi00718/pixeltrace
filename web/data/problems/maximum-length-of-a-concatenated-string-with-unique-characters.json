@@ -1,0 +1,83 @@
+{
+  "id": 1239,
+  "slug": "maximum-length-of-a-concatenated-string-with-unique-characters",
+  "title": "Maximum Length of a Concatenated String with Unique Characters",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "string",
+    "backtracking",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Stacking Words Without Repeats",
+    "text": "Each word lights a letter mask. Behind each door, add the next word if its mask doesn't clash with the bag's mask, then try skipping it too.",
+    "goal": "Return the longest concatenation with all unique characters."
+  },
+  "spec": {
+    "method": "maxLength",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "un",
+          "iq",
+          "ue"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          "cha",
+          "r",
+          "act",
+          "ers"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          "abcdefghijklmnopqrstuvwxyz"
+        ]
+      ],
+      "expected": 26
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "words",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "mask",
+          "len",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int best = 0;\n    vector<int> masks;\n    void go(vector<string>& arr, int i, int mask, int len) {\n        best = max(best, len);\n        if (i == (int)arr.size()) return;\n        if (masks[i] >= 0 && (mask & masks[i]) == 0) go(arr, i + 1, mask | masks[i], len + arr[i].size());\n        go(arr, i + 1, mask, len);\n    }\n    int maxLength(vector<string>& arr) {\n        for (auto& w : arr) {\n            int m = 0;\n            for (char c : w) {\n                if (m & (1 << (c - 'a'))) {\n                    m = -1;\n                    break;\n                }\n                m |= 1 << (c - 'a');\n            }\n            masks.push_back(m);\n        }\n        go(arr, 0, 0, 0);\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

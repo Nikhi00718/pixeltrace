@@ -1,0 +1,101 @@
+{
+  "id": 1218,
+  "slug": "longest-arithmetic-subsequence-of-given-difference",
+  "title": "Longest Arithmetic Subsequence of Given Difference",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "hash-table",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Evenly Stepping Stones",
+    "text": "For each value, the longest chain ending here is one more than the chain ending at value - difference, looked up in the lockers.",
+    "goal": "Return the longest subsequence with constant difference."
+  },
+  "spec": {
+    "method": "longestSubsequence",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ],
+      [
+        "int",
+        "difference"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          5,
+          7
+        ],
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          1,
+          5,
+          7,
+          8,
+          5,
+          3,
+          4,
+          2,
+          1
+        ],
+        -2
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "stones",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "chain",
+        "label": "longest chain ending at value"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestSubsequence(vector<int>& arr, int difference) {\n        map<int, int> chain;\n        int best = 0;\n        for (int i = 0; i < (int)arr.size(); i++) {\n            int prev = chain.count(arr[i] - difference) ? chain[arr[i] - difference] : 0;\n            chain[arr[i]] = prev + 1;\n            best = max(best, chain[arr[i]]);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

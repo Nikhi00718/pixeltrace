@@ -1,0 +1,89 @@
+{
+  "id": 1130,
+  "slug": "minimum-cost-tree-from-leaf-values",
+  "title": "Minimum Cost Tree From Leaf Values",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "stack",
+    "greedy",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "Pairing Leaves Cheaply",
+    "text": "A small leaf should be merged with its smaller neighbour as soon as possible. A falling tower of leaves pops each small leaf, paying it times the smaller of its neighbours.",
+    "goal": "Return the smallest possible sum of non-leaf node values."
+  },
+  "spec": {
+    "method": "mctFromLeafValues",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          6,
+          2,
+          4
+        ]
+      ],
+      "expected": 32
+    },
+    {
+      "args": [
+        [
+          4,
+          11
+        ]
+      ],
+      "expected": 44
+    },
+    {
+      "args": [
+        [
+          15,
+          13,
+          5,
+          3,
+          15
+        ]
+      ],
+      "expected": 500
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "leaves",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "falling tower"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cost"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int mctFromLeafValues(vector<int>& arr) {\n        vector<int> st = {INT_MAX};\n        int cost = 0;\n        for (int i = 0; i < (int)arr.size(); i++) {\n            while (st.back() <= arr[i]) {\n                int mid = st.back();\n                st.pop_back();\n                cost += mid * min(st.back(), arr[i]);\n            }\n            st.push_back(arr[i]);\n        }\n        while (st.size() > 2) {\n            int mid = st.back();\n            st.pop_back();\n            cost += mid * st.back();\n        }\n        return cost;\n    }\n};",
+  "tier": "crafted"
+}

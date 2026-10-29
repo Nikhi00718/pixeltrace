@@ -1,0 +1,88 @@
+{
+  "id": 1005,
+  "slug": "maximize-sum-of-array-after-k-negations",
+  "title": "Maximize Sum Of Array After K Negations",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Flipping the Worst Debts",
+    "text": "Always flip the smallest number: a pyramid keeps it on top. After k flips, add everything up.",
+    "goal": "Return the largest possible sum after k negations."
+  },
+  "spec": {
+    "method": "largestSumAfterKNegations",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          3
+        ],
+        1
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          3,
+          -1,
+          0,
+          2
+        ],
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          2,
+          -3,
+          -1,
+          5,
+          -4
+        ],
+        2
+      ],
+      "expected": 13
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "smallest on top"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int largestSumAfterKNegations(vector<int>& nums, int k) {\n        priority_queue<int, vector<int>, greater<int>> pq(nums.begin(), nums.end());\n        while (k-- > 0) {\n            int x = pq.top();\n            pq.pop();\n            pq.push(-x);\n        }\n        int sum = 0;\n        while (!pq.empty()) {\n            sum += pq.top();\n            pq.pop();\n        }\n        return sum;\n    }\n};",
+  "tier": "crafted"
+}
