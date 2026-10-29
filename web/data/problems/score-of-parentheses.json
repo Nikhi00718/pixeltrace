@@ -1,0 +1,73 @@
+{
+  "id": 856,
+  "slug": "score-of-parentheses",
+  "title": "Score of Parentheses",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "Scoring Nested Brackets",
+    "text": "Every ( stacks a fresh score of 0. On ), the inner score is popped: an empty pair is worth 1, otherwise it doubles, and it's added to the level below.",
+    "goal": "Return the score of the balanced string."
+  },
+  "spec": {
+    "method": "scoreOfParentheses",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "()"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "(())"
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        "()()"
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        "(()(()))"
+      ],
+      "expected": 6
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "brackets",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "score per level"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int scoreOfParentheses(string s) {\n        vector<int> st(1, 0);\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '(') {\n                st.push_back(0);\n            } else {\n                int inner = st.back();\n                st.pop_back();\n                st.back() += max(2 * inner, 1);\n            }\n        }\n        return st[0];\n    }\n};",
+  "tier": "crafted"
+}

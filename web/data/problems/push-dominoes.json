@@ -1,0 +1,66 @@
+{
+  "id": 838,
+  "slug": "push-dominoes",
+  "title": "Push Dominoes",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Falling Domino Row",
+    "text": "Every domino records how strongly it is pushed: a right-push that fades with distance from the left, minus a left-push that fades from the right. The sign decides how it falls.",
+    "goal": "Return the final state of the dominoes."
+  },
+  "spec": {
+    "method": "pushDominoes",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "dominoes"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "RR.L"
+      ],
+      "expected": "RR.L"
+    },
+    {
+      "args": [
+        ".L.R...LR..L.."
+      ],
+      "expected": "LL.RR.LLRRLL.."
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "dominoes",
+        "label": "dominoes",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "force",
+        "label": "net push",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string pushDominoes(string dominoes) {\n        int n = dominoes.size();\n        vector<int> force(n, 0);\n        int f = 0;\n        for (int i = 0; i < n; i++) {\n            if (dominoes[i] == 'R') f = n;\n            else if (dominoes[i] == 'L') f = 0;\n            else f = max(f - 1, 0);\n            force[i] += f;\n        }\n        f = 0;\n        for (int i = n - 1; i >= 0; i--) {\n            if (dominoes[i] == 'L') f = n;\n            else if (dominoes[i] == 'R') f = 0;\n            else f = max(f - 1, 0);\n            force[i] -= f;\n        }\n        for (int i = 0; i < n; i++) dominoes[i] = force[i] > 0 ? 'R' : force[i] < 0 ? 'L' : '.';\n        return dominoes;\n    }\n};",
+  "tier": "crafted"
+}

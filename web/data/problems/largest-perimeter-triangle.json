@@ -1,0 +1,78 @@
+{
+  "id": 976,
+  "slug": "largest-perimeter-triangle",
+  "title": "Largest Perimeter Triangle",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "math",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "The Biggest Triangle of Sticks",
+    "text": "Sorted from longest, the first three neighbours where the two shorter beat the longest make the biggest triangle.",
+    "goal": "Return the largest perimeter of a valid triangle, or 0."
+  },
+  "spec": {
+    "method": "largestPerimeter",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          2
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          1,
+          10
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          3,
+          6,
+          2,
+          3
+        ]
+      ],
+      "expected": 8
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "sticks (longest first)",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int largestPerimeter(vector<int>& nums) {\n        sort(nums.rbegin(), nums.rend());\n        for (int i = 0; i + 2 < (int)nums.size(); i++) {\n            if (nums[i + 1] + nums[i + 2] > nums[i]) return nums[i] + nums[i + 1] + nums[i + 2];\n        }\n        return 0;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,69 @@
+{
+  "id": 804,
+  "slug": "unique-morse-code-words",
+  "title": "Unique Morse Code Words",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "The Telegraph Office",
+    "text": "Every word is tapped out in Morse and the tapped codes go into the lockers; count the distinct codes.",
+    "goal": "Return the number of different transformations."
+  },
+  "spec": {
+    "method": "uniqueMorseRepresentations",
+    "ret": "int",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "gin",
+          "zen",
+          "gig",
+          "msg"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          "a"
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "words",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "codes",
+        "label": "codes seen"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int uniqueMorseRepresentations(vector<string>& words) {\n        vector<string> morse = {\".-\", \"-...\", \"-.-.\", \"-..\", \".\", \"..-.\", \"--.\", \"....\", \"..\", \".---\", \"-.-\", \".-..\", \"--\",\n                                \"-.\", \"---\", \".--.\", \"--.-\", \".-.\", \"...\", \"-\", \"..-\", \"...-\", \".--\", \"-..-\", \"-.--\", \"--..\"};\n        set<string> codes;\n        for (int k = 0; k < (int)words.size(); k++) {\n            string code;\n            for (char c : words[k]) code += morse[c - 'a'];\n            codes.insert(code);\n        }\n        return codes.size();\n    }\n};",
+  "tier": "crafted"
+}

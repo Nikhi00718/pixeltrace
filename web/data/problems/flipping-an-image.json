@@ -1,0 +1,148 @@
+{
+  "id": 832,
+  "slug": "flipping-an-image",
+  "title": "Flipping an Image",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "bit-manipulation",
+    "matrix",
+    "simulation"
+  ],
+  "story": {
+    "title": "Mirror and Negative",
+    "text": "Each row is mirrored by two painters swapping from both ends, and every pixel they touch is inverted.",
+    "goal": "Flip every row horizontally, then invert it."
+  },
+  "spec": {
+    "method": "flipAndInvertImage",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "image"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1,
+          0
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "image",
+        "palette": "bool",
+        "label": "image",
+        "pointers": [
+          [
+            "r",
+            "l"
+          ],
+          [
+            "r",
+            "rr"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {\n        for (int r = 0; r < (int)image.size(); r++) {\n            int l = 0, rr = image[r].size() - 1;\n            while (l <= rr) {\n                int a = image[r][l] ^ 1, b = image[r][rr] ^ 1;\n                image[r][l] = b;\n                image[r][rr] = a;\n                l++;\n                rr--;\n            }\n        }\n        return image;\n    }\n};",
+  "tier": "crafted"
+}

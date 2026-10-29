@@ -1,0 +1,94 @@
+{
+  "id": 938,
+  "slug": "range-sum-of-bst",
+  "title": "Range Sum of BST",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bst"
+  ],
+  "story": {
+    "title": "Weighing Only the Middle Fruit",
+    "text": "In a sorted orchard, branches entirely below low or above high can be skipped. Add up only fruit inside the range.",
+    "goal": "Return the sum of values in [low, high]."
+  },
+  "spec": {
+    "method": "rangeSumBST",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "low"
+      ],
+      [
+        "int",
+        "high"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          5,
+          15,
+          3,
+          7,
+          null,
+          18
+        ],
+        7,
+        15
+      ],
+      "expected": 32
+    },
+    {
+      "args": [
+        [
+          10,
+          5,
+          15,
+          3,
+          7,
+          13,
+          18,
+          1,
+          null,
+          6
+        ],
+        6,
+        10
+      ],
+      "expected": 23
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "root"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "low",
+          "high"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int rangeSumBST(TreeNode* root, int low, int high) {\n        if (!root) return 0;\n        if (root->val < low) return rangeSumBST(root->right, low, high);\n        if (root->val > high) return rangeSumBST(root->left, low, high);\n        return root->val + rangeSumBST(root->left, low, high) + rangeSumBST(root->right, low, high);\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,93 @@
+{
+  "id": 912,
+  "slug": "sort-an-array",
+  "title": "Sort an Array",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "divide-and-conquer",
+    "sorting",
+    "heap",
+    "merge-sort"
+  ],
+  "story": {
+    "title": "Merge-Sorting the Dock",
+    "text": "Split the crates in half, sort each half behind its own door, then zip the two sorted halves back together through a buffer.",
+    "goal": "Return the array sorted in ascending order."
+  },
+  "spec": {
+    "method": "sortArray",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          2,
+          3,
+          1
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          1,
+          1,
+          2,
+          0,
+          0
+        ]
+      ],
+      "expected": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        5
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "crates",
+        "pointers": [
+          "lo",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "buf",
+        "label": "merge buffer",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void sortRange(vector<int>& nums, int lo, int hi) {\n        if (lo >= hi) return;\n        int mid = (lo + hi) / 2;\n        sortRange(nums, lo, mid);\n        sortRange(nums, mid + 1, hi);\n        vector<int> buf;\n        int i = lo, j = mid + 1;\n        while (i <= mid || j <= hi) {\n            if (j > hi || (i <= mid && nums[i] <= nums[j])) buf.push_back(nums[i++]);\n            else buf.push_back(nums[j++]);\n        }\n        for (int k = 0; k < (int)buf.size(); k++) nums[lo + k] = buf[k];\n    }\n    vector<int> sortArray(vector<int>& nums) {\n        sortRange(nums, 0, nums.size() - 1);\n        return nums;\n    }\n};",
+  "tier": "crafted"
+}

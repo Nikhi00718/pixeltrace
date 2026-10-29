@@ -1,0 +1,95 @@
+{
+  "id": 983,
+  "slug": "minimum-cost-for-tickets",
+  "title": "Minimum Cost For Tickets",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Day, Week or Month Pass?",
+    "text": "The ledger records the cheapest cost to cover every travel day up to today: a 1-day pass from yesterday, a 7-day from a week ago, or a 30-day from a month ago.",
+    "goal": "Return the minimum cost to travel on every listed day."
+  },
+  "spec": {
+    "method": "mincostTickets",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "days"
+      ],
+      [
+        "vector<int>&",
+        "costs"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          4,
+          6,
+          7,
+          8,
+          20
+        ],
+        [
+          2,
+          7,
+          15
+        ]
+      ],
+      "expected": 11
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          30,
+          31
+        ],
+        [
+          2,
+          7,
+          15
+        ]
+      ],
+      "expected": 17
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "cheapest cover up to day",
+        "style": "tiles",
+        "pointers": [
+          "d"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "travel",
+        "label": "travel days"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int mincostTickets(vector<int>& days, vector<int>& costs) {\n        set<int> travel(days.begin(), days.end());\n        int last = days.back();\n        vector<int> dp(last + 1, 0);\n        for (int d = 1; d <= last; d++) {\n            if (!travel.count(d)) {\n                dp[d] = dp[d - 1];\n                continue;\n            }\n            dp[d] = min({dp[d - 1] + costs[0], dp[max(0, d - 7)] + costs[1], dp[max(0, d - 30)] + costs[2]});\n        }\n        return dp[last];\n    }\n};",
+  "tier": "crafted"
+}

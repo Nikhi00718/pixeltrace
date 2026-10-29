@@ -1,0 +1,102 @@
+{
+  "id": 890,
+  "slug": "find-and-replace-pattern",
+  "title": "Find and Replace Pattern",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "Words That Fit the Stencil",
+    "text": "A word fits if its letters map one-to-one onto the pattern's letters. Two locker walls check the mapping both ways.",
+    "goal": "Return the words matching the pattern."
+  },
+  "spec": {
+    "method": "findAndReplacePattern",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ],
+      [
+        "string",
+        "pattern"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "abc",
+          "deq",
+          "mee",
+          "aqq",
+          "dkd",
+          "ccc"
+        ],
+        "abb"
+      ],
+      "expected": [
+        "mee",
+        "aqq"
+      ]
+    },
+    {
+      "args": [
+        [
+          "a",
+          "b",
+          "c"
+        ],
+        "a"
+      ],
+      "expected": [
+        "a",
+        "b",
+        "c"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "words",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "map",
+            "var": "wp",
+            "label": "word \u2192 pattern"
+          },
+          {
+            "kind": "map",
+            "var": "pw",
+            "label": "pattern \u2192 word"
+          }
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "fits",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {\n        vector<string> res;\n        for (int k = 0; k < (int)words.size(); k++) {\n            map<char, char> wp, pw;\n            bool ok = true;\n            for (int i = 0; i < (int)pattern.size() && ok; i++) {\n                char a = words[k][i], b = pattern[i];\n                if ((wp.count(a) && wp[a] != b) || (pw.count(b) && pw[b] != a)) ok = false;\n                wp[a] = b;\n                pw[b] = a;\n            }\n            if (ok) res.push_back(words[k]);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,70 @@
+{
+  "id": 921,
+  "slug": "minimum-add-to-make-parentheses-valid",
+  "title": "Minimum Add to Make Parentheses Valid",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack",
+    "greedy"
+  ],
+  "story": {
+    "title": "Patching the Bracket Wall",
+    "text": "Count open brackets still waiting. A ) with nothing open needs a patch; at the end every open bracket still waiting needs one too.",
+    "goal": "Return the minimum number of brackets to add."
+  },
+  "spec": {
+    "method": "minAddToMakeValid",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "())"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "((("
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "()))(("
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "brackets",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "open",
+          "adds"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minAddToMakeValid(string s) {\n        int open = 0, adds = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '(') open++;\n            else if (open > 0) open--;\n            else adds++;\n        }\n        return adds + open;\n    }\n};",
+  "tier": "crafted"
+}

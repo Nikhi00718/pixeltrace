@@ -1,0 +1,106 @@
+{
+  "id": 827,
+  "slug": "making-a-large-island",
+  "title": "Making A Large Island",
+  "difficulty": "Hard",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "bfs",
+    "union-find",
+    "matrix"
+  ],
+  "story": {
+    "title": "One Bag of Sand",
+    "text": "Label every island with its own number and record its size. Then for each sea tile, add up the distinct islands touching it plus the tile itself.",
+    "goal": "Return the largest island possible after turning at most one 0 into 1."
+  },
+  "spec": {
+    "method": "largestIsland",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "dp",
+        "label": "island labels",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "size",
+        "label": "size by label"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    map<int, int> size;\n    int paint(vector<vector<int>>& grid, int r, int c, int label) {\n        int n = grid.size();\n        if (r < 0 || c < 0 || r >= n || c >= n || grid[r][c] != 1) return 0;\n        grid[r][c] = label;\n        return 1 + paint(grid, r + 1, c, label) + paint(grid, r - 1, c, label) + paint(grid, r, c + 1, label) + paint(grid, r, c - 1, label);\n    }\n    int largestIsland(vector<vector<int>>& grid) {\n        int n = grid.size(), label = 2, best = 0;\n        for (int r = 0; r < n; r++)\n            for (int c = 0; c < n; c++)\n                if (grid[r][c] == 1) {\n                    size[label] = paint(grid, r, c, label);\n                    best = max(best, size[label]);\n                    label++;\n                }\n        int dr[4] = {1, -1, 0, 0}, dc[4] = {0, 0, 1, -1};\n        for (int r = 0; r < n; r++)\n            for (int c = 0; c < n; c++) {\n                if (grid[r][c] != 0) continue;\n                set<int> near;\n                for (int d = 0; d < 4; d++) {\n                    int nr = r + dr[d], nc = c + dc[d];\n                    if (nr >= 0 && nc >= 0 && nr < n && nc < n && grid[nr][nc] > 1) near.insert(grid[nr][nc]);\n                }\n                int total = 1;\n                for (int l : near) total += size[l];\n                best = max(best, total);\n            }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

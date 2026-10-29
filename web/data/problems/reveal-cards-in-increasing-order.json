@@ -1,0 +1,90 @@
+{
+  "id": 950,
+  "slug": "reveal-cards-in-increasing-order",
+  "title": "Reveal Cards In Increasing Order",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "queue",
+    "sorting",
+    "simulation"
+  ],
+  "story": {
+    "title": "Stacking the Magician's Deck",
+    "text": "Simulate the reveal with a queue of positions: the front position gets the next smallest card, then the following position moves to the back.",
+    "goal": "Return a deck order that reveals cards in increasing order."
+  },
+  "spec": {
+    "method": "deckRevealedIncreasing",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "vector<int>&",
+        "deck"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          17,
+          13,
+          11,
+          2,
+          3,
+          5,
+          7
+        ]
+      ],
+      "expected": [
+        2,
+        13,
+        3,
+        11,
+        5,
+        17,
+        7
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          1000
+        ]
+      ],
+      "expected": [
+        1,
+        1000
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "deck",
+        "label": "cards (sorted)",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "positions"
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "deck order",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> deckRevealedIncreasing(vector<int>& deck) {\n        sort(deck.begin(), deck.end());\n        int n = deck.size();\n        queue<int> q;\n        for (int i = 0; i < n; i++) q.push(i);\n        vector<int> res(n);\n        for (int k = 0; k < n; k++) {\n            res[q.front()] = deck[k];\n            q.pop();\n            if (!q.empty()) {\n                q.push(q.front());\n                q.pop();\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

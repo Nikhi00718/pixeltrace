@@ -1,0 +1,92 @@
+{
+  "id": 967,
+  "slug": "numbers-with-same-consecutive-differences",
+  "title": "Numbers With Same Consecutive Differences",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "backtracking",
+    "bfs"
+  ],
+  "story": {
+    "title": "Stepping Digits",
+    "text": "Start from each non-zero digit and keep adding a next digit that is exactly k away, up or down, until the number has n digits.",
+    "goal": "Return every n-digit number whose neighbouring digits differ by k (any order)."
+  },
+  "spec": {
+    "method": "numsSameConsecDiff",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "int",
+        "n"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        3,
+        7
+      ],
+      "expected": [
+        181,
+        292,
+        707,
+        818,
+        929
+      ]
+    },
+    {
+      "args": [
+        2,
+        1
+      ],
+      "expected": [
+        10,
+        12,
+        21,
+        23,
+        32,
+        34,
+        43,
+        45,
+        54,
+        56,
+        65,
+        67,
+        76,
+        78,
+        87,
+        89,
+        98
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "num",
+          "len",
+          "last"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "found",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> res;\n    void go(int num, int len, int n, int k) {\n        if (len == n) {\n            res.push_back(num);\n            return;\n        }\n        int last = num % 10;\n        if (last + k <= 9) go(num * 10 + last + k, len + 1, n, k);\n        if (k > 0 && last - k >= 0) go(num * 10 + last - k, len + 1, n, k);\n    }\n    vector<int> numsSameConsecDiff(int n, int k) {\n        for (int d = 1; d <= 9; d++) go(d, 1, n, k);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

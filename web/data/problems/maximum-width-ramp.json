@@ -1,0 +1,85 @@
+{
+  "id": 962,
+  "slug": "maximum-width-ramp",
+  "title": "Maximum Width Ramp",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "The Longest Ramp",
+    "text": "Stack every new low point from the left. Then walk from the right: while the current point is at least the stack's low point, that ramp is a candidate and the low point is used up.",
+    "goal": "Return the maximum j - i with nums[i] <= nums[j]."
+  },
+  "spec": {
+    "method": "maxWidthRamp",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          6,
+          0,
+          8,
+          2,
+          1,
+          5
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          9,
+          8,
+          1,
+          0,
+          1,
+          9,
+          4,
+          0,
+          4,
+          1
+        ]
+      ],
+      "expected": 7
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "heights",
+        "pointers": [
+          "j"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "low points (index)"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxWidthRamp(vector<int>& nums) {\n        vector<int> st;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (st.empty() || nums[i] < nums[st.back()]) st.push_back(i);\n        }\n        int best = 0;\n        for (int j = nums.size() - 1; j >= 0; j--) {\n            while (!st.empty() && nums[st.back()] <= nums[j]) {\n                best = max(best, j - st.back());\n                st.pop_back();\n            }\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

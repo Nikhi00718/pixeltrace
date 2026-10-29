@@ -1,0 +1,91 @@
+{
+  "id": 930,
+  "slug": "binary-subarrays-with-sum",
+  "title": "Binary Subarrays With Sum",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "hash-table",
+    "sliding-window",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "Stretches with Exactly g Lamps",
+    "text": "Keep a running count of lit lamps. The logbook says how many earlier positions were exactly goal lamps behind.",
+    "goal": "Return how many subarrays sum to goal."
+  },
+  "spec": {
+    "method": "numSubarraysWithSum",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "goal"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        0
+      ],
+      "expected": 15
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "lamps",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "seen",
+        "label": "running count \u2192 times",
+        "lookup": [
+          "need"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum",
+          "need",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numSubarraysWithSum(vector<int>& nums, int goal) {\n        map<int, int> seen;\n        seen[0] = 1;\n        int sum = 0, count = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            sum += nums[i];\n            int need = sum - goal;\n            if (seen.count(need)) count += seen[need];\n            seen[sum]++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

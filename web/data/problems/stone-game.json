@@ -1,0 +1,87 @@
+{
+  "id": 877,
+  "slug": "stone-game",
+  "title": "Stone Game",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "math",
+    "dynamic-programming",
+    "game-theory"
+  ],
+  "story": {
+    "title": "Alice and Bob's Stone Piles",
+    "text": "Players take a pile from either end. The table stores how far ahead the player to move ends up on every stretch of piles.",
+    "goal": "Return true if Alice wins with optimal play."
+  },
+  "spec": {
+    "method": "stoneGame",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "piles"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          3,
+          7,
+          2,
+          3
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "piles",
+        "label": "piles",
+        "pointers": [
+          "i",
+          "j"
+        ],
+        "window": [
+          "i",
+          "j"
+        ]
+      },
+      {
+        "kind": "grid",
+        "var": "dp",
+        "palette": "dp",
+        "label": "lead for stretch",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool stoneGame(vector<int>& piles) {\n        int n = piles.size();\n        vector<vector<int>> dp(n, vector<int>(n, 0));\n        for (int i = 0; i < n; i++) dp[i][i] = piles[i];\n        for (int len = 2; len <= n; len++)\n            for (int i = 0; i + len - 1 < n; i++) {\n                int j = i + len - 1;\n                dp[i][j] = max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);\n            }\n        return dp[0][n - 1] > 0;\n    }\n};",
+  "hints": [
+    "With an even number of piles and an odd total, the first player can always win; the table shows why."
+  ],
+  "tier": "crafted"
+}

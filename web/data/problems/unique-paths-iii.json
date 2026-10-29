@@ -1,0 +1,122 @@
+{
+  "id": 980,
+  "slug": "unique-paths-iii",
+  "title": "Unique Paths III",
+  "difficulty": "Hard",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "backtracking",
+    "bit-manipulation",
+    "matrix"
+  ],
+  "story": {
+    "title": "Walk Every Open Tile Once",
+    "text": "From the start, the explorer visits every empty tile exactly once before the end. Each tile walked onto is blocked, and unblocked on the way back out.",
+    "goal": "Return the number of such walks."
+  },
+  "spec": {
+    "method": "uniquePathsIII",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2,
+            -1
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "dp",
+        "label": "cave (\u22121 rock, 3 walked)",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "left",
+          "ways"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int ways = 0;\n    void walk(vector<vector<int>>& grid, int r, int c, int left) {\n        if (r < 0 || c < 0 || r >= (int)grid.size() || c >= (int)grid[0].size() || grid[r][c] == -1 || grid[r][c] == 3) return;\n        if (grid[r][c] == 2) {\n            if (left == 0) ways++;\n            return;\n        }\n        int keep = grid[r][c];\n        grid[r][c] = 3;\n        walk(grid, r + 1, c, left - 1);\n        walk(grid, r - 1, c, left - 1);\n        walk(grid, r, c + 1, left - 1);\n        walk(grid, r, c - 1, left - 1);\n        grid[r][c] = keep;\n    }\n    int uniquePathsIII(vector<vector<int>>& grid) {\n        int sr = 0, sc = 0, empty = 0;\n        for (int r = 0; r < (int)grid.size(); r++)\n            for (int c = 0; c < (int)grid[0].size(); c++) {\n                if (grid[r][c] == 1) {\n                    sr = r;\n                    sc = c;\n                }\n                if (grid[r][c] != -1) empty++;\n            }\n        walk(grid, sr, sc, empty - 1);\n        return ways;\n    }\n};",
+  "tier": "crafted"
+}

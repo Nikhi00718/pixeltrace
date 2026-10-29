@@ -1,0 +1,107 @@
+{
+  "id": 853,
+  "slug": "car-fleet",
+  "title": "Car Fleet",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "sorting",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "Convoys on the Highway",
+    "text": "Cars closest to the target go first. Each car's arrival time is stacked; a car that would arrive no later than the fleet ahead of it just joins that fleet.",
+    "goal": "Return how many fleets reach the target."
+  },
+  "spec": {
+    "method": "carFleet",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "target"
+      ],
+      [
+        "vector<int>&",
+        "position"
+      ],
+      [
+        "vector<int>&",
+        "speed"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        12,
+        [
+          10,
+          8,
+          0,
+          5,
+          3
+        ],
+        [
+          2,
+          4,
+          1,
+          1,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        10,
+        [
+          3
+        ],
+        [
+          3
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        100,
+        [
+          0,
+          2,
+          4
+        ],
+        [
+          4,
+          2,
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "order",
+        "label": "cars by position (closest first)",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "fleets",
+        "label": "fleet arrival times"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int carFleet(int target, vector<int>& position, vector<int>& speed) {\n        int n = position.size();\n        vector<int> order(n);\n        for (int i = 0; i < n; i++) order[i] = i;\n        sort(order.begin(), order.end(), [&](int a, int b) { return position[a] > position[b]; });\n        vector<double> fleets;\n        for (int k = 0; k < n; k++) {\n            int car = order[k];\n            double t = (double)(target - position[car]) / speed[car];\n            if (fleets.empty() || t > fleets.back()) fleets.push_back(t);\n        }\n        return fleets.size();\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,97 @@
+{
+  "id": 836,
+  "slug": "rectangle-overlap",
+  "title": "Rectangle Overlap",
+  "difficulty": "Easy",
+  "world": "intervals",
+  "tags": [
+    "math",
+    "geometry"
+  ],
+  "story": {
+    "title": "Do the Rugs Overlap?",
+    "text": "Two rugs overlap only if their x-ranges overlap and their y-ranges overlap, each by more than a touching edge.",
+    "goal": "Return true if the rectangles overlap with positive area."
+  },
+  "spec": {
+    "method": "isRectangleOverlap",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "rec1"
+      ],
+      [
+        "vector<int>&",
+        "rec2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          0,
+          2,
+          2
+        ],
+        [
+          1,
+          1,
+          3,
+          3
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          2,
+          1
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          2,
+          3,
+          3
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "xs",
+          "ys"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isRectangleOverlap(vector<int>& rec1, vector<int>& rec2) {\n        bool xs = min(rec1[2], rec2[2]) > max(rec1[0], rec2[0]);\n        bool ys = min(rec1[3], rec2[3]) > max(rec1[1], rec2[1]);\n        return xs && ys;\n    }\n};",
+  "tier": "crafted"
+}

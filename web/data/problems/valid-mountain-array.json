@@ -1,0 +1,73 @@
+{
+  "id": 941,
+  "slug": "valid-mountain-array",
+  "title": "Valid Mountain Array",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "Is It a Real Peak?",
+    "text": "Climb while the trail rises, then descend while it falls. A real mountain climbs at least once, descends at least once, and ends exactly at the last step.",
+    "goal": "Return true if arr is a mountain."
+  },
+  "spec": {
+    "method": "validMountainArray",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          1
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          3,
+          5,
+          5
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          0,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "arr",
+        "label": "trail",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool validMountainArray(vector<int>& arr) {\n        int n = arr.size(), i = 0;\n        while (i + 1 < n && arr[i] < arr[i + 1]) i++;\n        if (i == 0 || i == n - 1) return false;\n        while (i + 1 < n && arr[i] > arr[i + 1]) i++;\n        return i == n - 1;\n    }\n};",
+  "tier": "crafted"
+}

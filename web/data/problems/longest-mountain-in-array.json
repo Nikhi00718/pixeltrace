@@ -1,0 +1,80 @@
+{
+  "id": 845,
+  "slug": "longest-mountain-in-array",
+  "title": "Longest Mountain in Array",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "dynamic-programming",
+    "enumeration"
+  ],
+  "story": {
+    "title": "The Tallest Hike",
+    "text": "From each valley, a hiker climbs as long as the trail rises, then descends as long as it falls. A real mountain needs both a climb and a descent.",
+    "goal": "Return the length of the longest mountain subarray."
+  },
+  "spec": {
+    "method": "longestMountain",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          4,
+          7,
+          3,
+          2,
+          5
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          2
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "arr",
+        "label": "trail",
+        "pointers": [
+          "start",
+          "end"
+        ],
+        "window": [
+          "start",
+          "end"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestMountain(vector<int>& arr) {\n        int n = arr.size(), best = 0, start = 0;\n        while (start < n) {\n            int end = start;\n            if (end + 1 < n && arr[end] < arr[end + 1]) {\n                while (end + 1 < n && arr[end] < arr[end + 1]) end++;\n                if (end + 1 < n && arr[end] > arr[end + 1]) {\n                    while (end + 1 < n && arr[end] > arr[end + 1]) end++;\n                    best = max(best, end - start + 1);\n                }\n            }\n            start = max(end, start + 1);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

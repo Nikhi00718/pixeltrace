@@ -1,0 +1,86 @@
+{
+  "id": 846,
+  "slug": "hand-of-straights",
+  "title": "Hand of Straights",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "hash-table",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Dealing Runs of Cards",
+    "text": "Card counts sit in sorted lockers. The smallest card left must start a run, so take groupSize consecutive cards from it, or fail.",
+    "goal": "Return true if the hand can be split into consecutive groups."
+  },
+  "spec": {
+    "method": "isNStraightHand",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "hand"
+      ],
+      [
+        "int",
+        "groupSize"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          6,
+          2,
+          3,
+          4,
+          7,
+          8
+        ],
+        3
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        4
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "cards left",
+        "lookup": [
+          "start"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "start",
+          "take"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isNStraightHand(vector<int>& hand, int groupSize) {\n        map<int, int> cnt;\n        for (int x : hand) cnt[x]++;\n        while (!cnt.empty()) {\n            int start = cnt.begin()->first;\n            int take = cnt.begin()->second;\n            for (int v = start; v < start + groupSize; v++) {\n                if (cnt[v] < take) return false;\n                cnt[v] -= take;\n                if (cnt[v] == 0) cnt.erase(v);\n            }\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,76 @@
+{
+  "id": 925,
+  "slug": "long-pressed-name",
+  "title": "Long Pressed Name",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "The Sticky Keyboard",
+    "text": "Two readers walk the real name and the typed one. A typed letter must match the next name letter, or repeat the typed letter just before it.",
+    "goal": "Return true if typed could be name with some keys held down."
+  },
+  "spec": {
+    "method": "isLongPressedName",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "name"
+      ],
+      [
+        "string",
+        "typed"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "alex",
+        "aaleex"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "saeed",
+        "ssaaedd"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "leelee",
+        "lleeelee"
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "name",
+        "label": "name",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "typed",
+        "label": "typed",
+        "pointers": [
+          "j"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isLongPressedName(string name, string typed) {\n        int i = 0;\n        for (int j = 0; j < (int)typed.size(); j++) {\n            if (i < (int)name.size() && name[i] == typed[j]) i++;\n            else if (j == 0 || typed[j] != typed[j - 1]) return false;\n        }\n        return i == (int)name.size();\n    }\n};",
+  "tier": "crafted"
+}

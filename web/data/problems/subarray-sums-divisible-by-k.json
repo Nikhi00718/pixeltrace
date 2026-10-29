@@ -1,0 +1,86 @@
+{
+  "id": 974,
+  "slug": "subarray-sums-divisible-by-k",
+  "title": "Subarray Sums Divisible by K",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "prefix-sum"
+  ],
+  "story": {
+    "title": "Matching Remainders",
+    "text": "Two running totals with the same remainder mod k bound a stretch divisible by k. The lockers count each remainder seen.",
+    "goal": "Return how many subarrays sum to a multiple of k."
+  },
+  "spec": {
+    "method": "subarraysDivByK",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          5,
+          0,
+          -2,
+          -3,
+          1
+        ],
+        5
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        9
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "depots",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "seen",
+        "label": "remainder \u2192 times",
+        "lookup": [
+          "rem"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "rem",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int subarraysDivByK(vector<int>& nums, int k) {\n        map<int, int> seen;\n        seen[0] = 1;\n        int rem = 0, count = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            rem = ((rem + nums[i]) % k + k) % k;\n            count += seen[rem];\n            seen[rem]++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

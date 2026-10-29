@@ -1,0 +1,90 @@
+{
+  "id": 859,
+  "slug": "buddy-strings",
+  "title": "Buddy Strings",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "One Swap Away",
+    "text": "Collect the positions where the words differ. Exactly two crossed-over differences make a swap; equal words need a repeated letter to swap with itself.",
+    "goal": "Return true if one swap in s makes it equal goal."
+  },
+  "spec": {
+    "method": "buddyStrings",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "goal"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "ab",
+        "ba"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "ab",
+        "ab"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "aa",
+        "aa"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "abcd",
+        "cbad"
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "s",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "goal",
+        "label": "goal",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "diff",
+        "label": "differences at",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool buddyStrings(string s, string goal) {\n        if (s.size() != goal.size()) return false;\n        if (s == goal) {\n            set<char> seen(s.begin(), s.end());\n            return seen.size() < s.size();\n        }\n        vector<int> diff;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] != goal[i]) diff.push_back(i);\n        }\n        return diff.size() == 2 && s[diff[0]] == goal[diff[1]] && s[diff[1]] == goal[diff[0]];\n    }\n};",
+  "tier": "crafted"
+}

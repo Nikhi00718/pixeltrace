@@ -1,0 +1,91 @@
+{
+  "id": 830,
+  "slug": "positions-of-large-groups",
+  "title": "Positions of Large Groups",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "string"
+  ],
+  "story": {
+    "title": "Long Runs of the Same Letter",
+    "text": "Walk the banner run by run; any run of three or more letters is written down by its start and end.",
+    "goal": "Return [start, end] of every group of length \u2265 3."
+  },
+  "spec": {
+    "method": "largeGroupPositions",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abbxxxxzzy"
+      ],
+      "expected": [
+        [
+          3,
+          6
+        ]
+      ]
+    },
+    {
+      "args": [
+        "abc"
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        "abcdddeeeeaabbbcd"
+      ],
+      "expected": [
+        [
+          3,
+          5
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          12,
+          14
+        ]
+      ]
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "banner",
+        "pointers": [
+          "i",
+          "j"
+        ],
+        "window": [
+          "i",
+          "j"
+        ],
+        "windowExclusive": true
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "large groups",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> largeGroupPositions(string s) {\n        vector<vector<int>> res;\n        int i = 0, n = s.size();\n        while (i < n) {\n            int j = i;\n            while (j < n && s[j] == s[i]) j++;\n            if (j - i >= 3) res.push_back({i, j - 1});\n            i = j;\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

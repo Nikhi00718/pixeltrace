@@ -1,0 +1,123 @@
+{
+  "id": 909,
+  "slug": "snakes-and-ladders",
+  "title": "Snakes and Ladders",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "bfs",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Board Game",
+    "text": "From each square a die roll reaches the next six; snakes and ladders teleport. Explore squares in rings of one roll each until the last square is reached.",
+    "goal": "Return the fewest rolls to reach square n\u00b2, or -1."
+  },
+  "spec": {
+    "method": "snakesAndLadders",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "board"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            35,
+            -1,
+            -1,
+            13,
+            -1
+          ],
+          [
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          [
+            -1,
+            15,
+            -1,
+            -1,
+            -1,
+            -1
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            -1,
+            -1
+          ],
+          [
+            -1,
+            3
+          ]
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "board",
+        "palette": "dp",
+        "label": "board"
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "squares to roll from"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "rolls"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int snakesAndLadders(vector<vector<int>>& board) {\n        int n = board.size();\n        vector<int> dest(n * n + 1);\n        int sq = 1;\n        for (int r = n - 1, k = 0; r >= 0; r--, k++) {\n            for (int c = 0; c < n; c++) {\n                int col = k % 2 == 0 ? c : n - 1 - c;\n                int to = board[r][col] == -1 ? sq : board[r][col];\n                dest[sq] = to;\n                sq++;\n            }\n        }\n        vector<bool> seen(n * n + 1, false);\n        queue<int> q;\n        q.push(1);\n        seen[1] = true;\n        int rolls = 0;\n        while (!q.empty()) {\n            int sz = q.size();\n            for (int s = 0; s < sz; s++) {\n                int cur = q.front();\n                q.pop();\n                if (cur == n * n) return rolls;\n                for (int d = 1; d <= 6 && cur + d <= n * n; d++) {\n                    int nxt = dest[cur + d];\n                    if (!seen[nxt]) {\n                        seen[nxt] = true;\n                        q.push(nxt);\n                    }\n                }\n            }\n            rolls++;\n        }\n        return -1;\n    }\n};",
+  "tier": "crafted"
+}

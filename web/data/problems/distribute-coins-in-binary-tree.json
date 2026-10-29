@@ -1,0 +1,84 @@
+{
+  "id": 979,
+  "slug": "distribute-coins-in-binary-tree",
+  "title": "Distribute Coins in Binary Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Every Fruit Gets One Coin",
+    "text": "Each branch reports its surplus or shortage of coins. That many coins must cross the branch's edge, so add its size to the moves.",
+    "goal": "Return the number of moves to give every node exactly one coin."
+  },
+  "spec": {
+    "method": "distributeCoins",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          0,
+          0
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          0,
+          3,
+          0
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          1,
+          0,
+          0,
+          null,
+          3
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard of coins"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r",
+          "moves"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int moves = 0;\n    int extra(TreeNode* node) {\n        if (!node) return 0;\n        int l = extra(node->left);\n        int r = extra(node->right);\n        moves += abs(l) + abs(r);\n        return node->val + l + r - 1;\n    }\n    int distributeCoins(TreeNode* root) {\n        extra(root);\n        return moves;\n    }\n};",
+  "tier": "crafted"
+}

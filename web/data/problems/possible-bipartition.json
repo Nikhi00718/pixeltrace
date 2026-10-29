@@ -1,0 +1,95 @@
+{
+  "id": 886,
+  "slug": "possible-bipartition",
+  "title": "Possible Bipartition",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "dfs",
+    "bfs",
+    "union-find",
+    "graph"
+  ],
+  "story": {
+    "title": "Splitting Rivals into Two Teams",
+    "text": "Each dislike is a road between two people who can't share a team. Paint the graph in two colours; a road between same colours makes it impossible.",
+    "goal": "Return true if everyone can be split into two groups."
+  },
+  "spec": {
+    "method": "possibleBipartition",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "n"
+      ],
+      [
+        "vector<vector<int>>&",
+        "dislikes"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        4,
+        [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "color",
+        "label": "team by person",
+        "style": "tiles",
+        "pointers": [
+          "u"
+        ]
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "to assign"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {\n        vector<vector<int>> adj(n + 1);\n        for (auto& d : dislikes) {\n            adj[d[0]].push_back(d[1]);\n            adj[d[1]].push_back(d[0]);\n        }\n        vector<int> color(n + 1, 0);\n        for (int s = 1; s <= n; s++) {\n            if (color[s]) continue;\n            queue<int> q;\n            q.push(s);\n            color[s] = 1;\n            while (!q.empty()) {\n                int u = q.front();\n                q.pop();\n                for (int v : adj[u]) {\n                    if (color[v] == color[u]) return false;\n                    if (!color[v]) {\n                        color[v] = 3 - color[u];\n                        q.push(v);\n                    }\n                }\n            }\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

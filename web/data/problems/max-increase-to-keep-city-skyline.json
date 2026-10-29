@@ -1,0 +1,124 @@
+{
+  "id": 807,
+  "slug": "max-increase-to-keep-city-skyline",
+  "title": "Max Increase to Keep City Skyline",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "matrix"
+  ],
+  "story": {
+    "title": "Building Up Without Changing the View",
+    "text": "Each building may grow up to the lower of its row's and column's tallest building, so neither skyline changes.",
+    "goal": "Return the total height that can be added."
+  },
+  "spec": {
+    "method": "maxIncreaseKeepingSkyline",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            3,
+            0,
+            8,
+            4
+          ],
+          [
+            2,
+            4,
+            5,
+            7
+          ],
+          [
+            9,
+            2,
+            6,
+            3
+          ],
+          [
+            0,
+            3,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 35
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "dp",
+        "label": "city blocks",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "array",
+            "var": "rowMax",
+            "label": "row skyline",
+            "style": "tiles"
+          },
+          {
+            "kind": "array",
+            "var": "colMax",
+            "label": "column skyline",
+            "style": "tiles"
+          }
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {\n        int n = grid.size(), total = 0;\n        vector<int> rowMax(n, 0), colMax(n, 0);\n        for (int r = 0; r < n; r++)\n            for (int c = 0; c < n; c++) {\n                rowMax[r] = max(rowMax[r], grid[r][c]);\n                colMax[c] = max(colMax[c], grid[r][c]);\n            }\n        for (int r = 0; r < n; r++)\n            for (int c = 0; c < n; c++) total += min(rowMax[r], colMax[c]) - grid[r][c];\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,86 @@
+{
+  "id": 873,
+  "slug": "length-of-longest-fibonacci-subsequence",
+  "title": "Length of Longest Fibonacci Subsequence",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "hash-table",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Hidden Fibonacci Chains",
+    "text": "For each pair (j, k), look up the earlier value arr[k] - arr[j]; if it exists, the chain ending in that pair extends the chain ending at (i, j).",
+    "goal": "Return the length of the longest Fibonacci-like subsequence (0 if none)."
+  },
+  "spec": {
+    "method": "lenLongestFibSubseq",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          7,
+          11,
+          12,
+          14,
+          18
+        ]
+      ],
+      "expected": 3
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "values",
+        "pointers": [
+          "j",
+          "k"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "where",
+        "label": "index of value"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int lenLongestFibSubseq(vector<int>& arr) {\n        int n = arr.size(), best = 0;\n        map<int, int> where;\n        for (int i = 0; i < n; i++) where[arr[i]] = i;\n        vector<vector<int>> dp(n, vector<int>(n, 2));\n        for (int k = 0; k < n; k++)\n            for (int j = 0; j < k; j++) {\n                int need = arr[k] - arr[j];\n                if (need < arr[j] && where.count(need)) {\n                    dp[j][k] = dp[where[need]][j] + 1;\n                    best = max(best, dp[j][k]);\n                }\n            }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

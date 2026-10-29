@@ -1,0 +1,134 @@
+{
+  "id": 867,
+  "slug": "transpose-matrix",
+  "title": "Transpose Matrix",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "story": {
+    "title": "Turning the Ledger Sideways",
+    "text": "Every row becomes a column: the tile at (r, c) moves to (c, r).",
+    "goal": "Return the transpose of the matrix."
+  },
+  "spec": {
+    "method": "transpose",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "matrix"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          4,
+          7
+        ],
+        [
+          2,
+          5,
+          8
+        ],
+        [
+          3,
+          6,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ]
+      ],
+      "expected": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          6
+        ]
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "grid",
+            "var": "matrix",
+            "palette": "dp",
+            "label": "ledger",
+            "pointers": [
+              [
+                "r",
+                "c"
+              ]
+            ]
+          },
+          {
+            "kind": "grid",
+            "var": "res",
+            "palette": "dp",
+            "label": "turned",
+            "pointers": [
+              [
+                "c",
+                "r"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> transpose(vector<vector<int>>& matrix) {\n        int m = matrix.size(), n = matrix[0].size();\n        vector<vector<int>> res(n, vector<int>(m));\n        for (int r = 0; r < m; r++)\n            for (int c = 0; c < n; c++) res[c][r] = matrix[r][c];\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

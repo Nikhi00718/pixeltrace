@@ -1,0 +1,61 @@
+{
+  "id": 868,
+  "slug": "binary-gap",
+  "title": "Binary Gap",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "The Widest Dark Stretch",
+    "text": "Scan the lamps from the right, remembering where the last lit lamp was. The distance between two lit lamps is a gap.",
+    "goal": "Return the longest distance between adjacent 1 bits."
+  },
+  "spec": {
+    "method": "binaryGap",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        22
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        5
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "pos",
+          "last",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int binaryGap(int n) {\n        int last = -1, best = 0;\n        for (int pos = 0; n > 0; pos++, n >>= 1) {\n            if (n & 1) {\n                if (last >= 0) best = max(best, pos - last);\n                last = pos;\n            }\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

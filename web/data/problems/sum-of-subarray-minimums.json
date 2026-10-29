@@ -1,0 +1,79 @@
+{
+  "id": 907,
+  "slug": "sum-of-subarray-minimums",
+  "title": "Sum of Subarray Minimums",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "stack",
+    "monotonic-stack"
+  ],
+  "story": {
+    "title": "Who Is the Smallest, and for How Long?",
+    "text": "Each tower is the minimum of every stretch reaching from just past the last smaller tower on its left to just before the next smaller on its right. Monotonic stacks find both edges.",
+    "goal": "Return the sum of min(subarray) over all subarrays, mod 1e9+7."
+  },
+  "spec": {
+    "method": "sumSubarrayMins",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          1,
+          2,
+          4
+        ]
+      ],
+      "expected": 17
+    },
+    {
+      "args": [
+        [
+          11,
+          81,
+          94,
+          43,
+          3
+        ]
+      ],
+      "expected": 444
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "arr",
+        "label": "towers",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "rising towers (index)"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int sumSubarrayMins(vector<int>& arr) {\n        const long long MOD = 1000000007;\n        int n = arr.size();\n        vector<int> left(n), right(n);\n        vector<int> st;\n        for (int i = 0; i < n; i++) {\n            while (!st.empty() && arr[st.back()] > arr[i]) st.pop_back();\n            left[i] = st.empty() ? i + 1 : i - st.back();\n            st.push_back(i);\n        }\n        st.clear();\n        for (int i = n - 1; i >= 0; i--) {\n            while (!st.empty() && arr[st.back()] >= arr[i]) st.pop_back();\n            right[i] = st.empty() ? n - i : st.back() - i;\n            st.push_back(i);\n        }\n        long long total = 0;\n        for (int i = 0; i < n; i++) total = (total + (long long)arr[i] * left[i] % MOD * right[i]) % MOD;\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

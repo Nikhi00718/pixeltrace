@@ -1,0 +1,82 @@
+{
+  "id": 958,
+  "slug": "check-completeness-of-a-binary-tree",
+  "title": "Check Completeness of a Binary Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "bfs"
+  ],
+  "story": {
+    "title": "No Gaps in the Rows",
+    "text": "Pickers sweep row by row, queueing even empty branches. Once an empty slot is seen, no real fruit may appear after it.",
+    "goal": "Return true if the tree is complete."
+  },
+  "spec": {
+    "method": "isCompleteTree",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          null,
+          7
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "pickers"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "gap"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isCompleteTree(TreeNode* root) {\n        queue<TreeNode*> q;\n        q.push(root);\n        bool gap = false;\n        while (!q.empty()) {\n            TreeNode* node = q.front();\n            q.pop();\n            if (!node) {\n                gap = true;\n                continue;\n            }\n            if (gap) return false;\n            q.push(node->left);\n            q.push(node->right);\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,94 @@
+{
+  "id": 948,
+  "slug": "bag-of-tokens",
+  "title": "Bag of Tokens",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "two-pointers",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Spending Power for Points",
+    "text": "Tokens are sorted. Spend power on the cheapest token for a point; when stuck, cash in a point for the priciest token's power, keeping the best score seen.",
+    "goal": "Return the largest score possible."
+  },
+  "spec": {
+    "method": "bagOfTokensScore",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "tokens"
+      ],
+      [
+        "int",
+        "power"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          100
+        ],
+        50
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          200,
+          100
+        ],
+        150
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          100,
+          200,
+          300,
+          400
+        ],
+        200
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "tokens",
+        "label": "tokens (sorted)",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "power",
+          "score",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int bagOfTokensScore(vector<int>& tokens, int power) {\n        sort(tokens.begin(), tokens.end());\n        int l = 0, r = tokens.size() - 1, score = 0, best = 0;\n        while (l <= r) {\n            if (power >= tokens[l]) {\n                power -= tokens[l++];\n                best = max(best, ++score);\n            } else if (score > 0) {\n                power += tokens[r--];\n                score--;\n            } else {\n                break;\n            }\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

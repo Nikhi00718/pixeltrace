@@ -1,0 +1,75 @@
+{
+  "id": 945,
+  "slug": "minimum-increment-to-make-array-unique",
+  "title": "Minimum Increment to Make Array Unique",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting",
+    "counting"
+  ],
+  "story": {
+    "title": "Every Badge a Different Number",
+    "text": "Sorted badges are walked in order; any badge not bigger than the one before is bumped to one more than it, and the bumps are counted.",
+    "goal": "Return the fewest +1 moves to make all values unique."
+  },
+  "spec": {
+    "method": "minIncrementForUnique",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          1,
+          2,
+          1,
+          7
+        ]
+      ],
+      "expected": 6
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "badges (sorted)",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "moves"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minIncrementForUnique(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int moves = 0;\n        for (int i = 1; i < (int)nums.size(); i++) {\n            if (nums[i] <= nums[i - 1]) {\n                moves += nums[i - 1] + 1 - nums[i];\n                nums[i] = nums[i - 1] + 1;\n            }\n        }\n        return moves;\n    }\n};",
+  "tier": "crafted"
+}

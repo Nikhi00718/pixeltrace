@@ -1,0 +1,81 @@
+{
+  "id": 896,
+  "slug": "monotonic-array",
+  "title": "Monotonic Array",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "Always Uphill or Always Downhill",
+    "text": "Walk the trail noting whether it ever rises and whether it ever falls; it's monotonic unless it does both.",
+    "goal": "Return true if the array is monotone increasing or decreasing."
+  },
+  "spec": {
+    "method": "isMonotonic",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          3
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          6,
+          5,
+          4,
+          4
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "nums",
+        "label": "trail",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "up",
+          "down"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isMonotonic(vector<int>& nums) {\n        bool up = false, down = false;\n        for (int i = 1; i < (int)nums.size(); i++) {\n            if (nums[i] > nums[i - 1]) up = true;\n            if (nums[i] < nums[i - 1]) down = true;\n        }\n        return !(up && down);\n    }\n};",
+  "tier": "crafted"
+}

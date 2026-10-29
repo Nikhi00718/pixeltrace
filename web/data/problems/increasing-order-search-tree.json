@@ -1,0 +1,101 @@
+{
+  "id": 897,
+  "slug": "increasing-order-search-tree",
+  "title": "Increasing Order Search Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "stack",
+    "tree",
+    "dfs",
+    "bst"
+  ],
+  "story": {
+    "title": "Re-hanging the Orchard as a Vine",
+    "text": "Visit the sorted orchard left to right and hang each fruit as the right child of the one before, dropping every left branch.",
+    "goal": "Return the tree rearranged into a right-only chain in order."
+  },
+  "spec": {
+    "method": "increasingBST",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          8,
+          1,
+          null,
+          null,
+          null,
+          7,
+          9
+        ]
+      ],
+      "expected": [
+        1,
+        null,
+        2,
+        null,
+        3,
+        null,
+        4,
+        null,
+        5,
+        null,
+        6,
+        null,
+        7,
+        null,
+        8,
+        null,
+        9
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          1,
+          7
+        ]
+      ],
+      "expected": [
+        1,
+        null,
+        5,
+        null,
+        7
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node",
+          "tail"
+        ],
+        "label": "orchard"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    TreeNode* tail = nullptr;\n    TreeNode* head = nullptr;\n    void walk(TreeNode* node) {\n        if (!node) return;\n        walk(node->left);\n        node->left = nullptr;\n        if (tail) tail->right = node;\n        else head = node;\n        tail = node;\n        walk(node->right);\n    }\n    TreeNode* increasingBST(TreeNode* root) {\n        walk(root);\n        return head;\n    }\n};",
+  "tier": "crafted"
+}

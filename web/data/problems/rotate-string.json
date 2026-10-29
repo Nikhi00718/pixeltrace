@@ -1,0 +1,61 @@
+{
+  "id": 796,
+  "slug": "rotate-string",
+  "title": "Rotate String",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "string",
+    "string-matching"
+  ],
+  "story": {
+    "title": "The Spinning Banner",
+    "text": "A banner spun around keeps its letters in a loop. Every rotation of s is hidden inside s written twice.",
+    "goal": "Return true if s can become goal by rotation."
+  },
+  "spec": {
+    "method": "rotateString",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "string",
+        "goal"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abcde",
+        "cdeab"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "abcde",
+        "abced"
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "twice",
+        "label": "banner twice",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool rotateString(string s, string goal) {\n        if (s.size() != goal.size()) return false;\n        string twice = s + s;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (twice.compare(i, goal.size(), goal) == 0) return true;\n        }\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

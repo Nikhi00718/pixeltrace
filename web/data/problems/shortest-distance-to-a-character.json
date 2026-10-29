@@ -1,0 +1,96 @@
+{
+  "id": 821,
+  "slug": "shortest-distance-to-a-character",
+  "title": "Shortest Distance to a Character",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Distance to the Nearest Lamp Post",
+    "text": "Sweep left to right remembering the last post, then right to left remembering the next one; each tile keeps the closer distance.",
+    "goal": "Return the distance from every index to the nearest c."
+  },
+  "spec": {
+    "method": "shortestToChar",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "char",
+        "c"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "loveleetcode",
+        "e"
+      ],
+      "expected": [
+        3,
+        2,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        2,
+        2,
+        1,
+        0
+      ]
+    },
+    {
+      "args": [
+        "aaab",
+        "b"
+      ],
+      "expected": [
+        3,
+        2,
+        1,
+        0
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "street",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "distance",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "last"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> shortestToChar(string s, char c) {\n        int n = s.size(), last = -100000;\n        vector<int> res(n);\n        for (int i = 0; i < n; i++) {\n            if (s[i] == c) last = i;\n            res[i] = i - last;\n        }\n        last = 200000;\n        for (int i = n - 1; i >= 0; i--) {\n            if (s[i] == c) last = i;\n            res[i] = min(res[i], last - i);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

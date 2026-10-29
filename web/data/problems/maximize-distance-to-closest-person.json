@@ -1,0 +1,84 @@
+{
+  "id": 849,
+  "slug": "maximize-distance-to-closest-person",
+  "title": "Maximize Distance to Closest Person",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array"
+  ],
+  "story": {
+    "title": "The Quietest Seat",
+    "text": "Walk the row remembering the last occupied seat. Gaps in the middle give half their width; empty runs at either end give their full width.",
+    "goal": "Return the maximum distance to the closest person."
+  },
+  "spec": {
+    "method": "maxDistToClosest",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "seats"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          0,
+          0,
+          0
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          0,
+          1
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "seats",
+        "label": "seats",
+        "style": "tiles",
+        "pointers": [
+          "last",
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxDistToClosest(vector<int>& seats) {\n        int n = seats.size(), last = -1, best = 0;\n        for (int i = 0; i < n; i++) {\n            if (!seats[i]) continue;\n            best = last < 0 ? i : max(best, (i - last) / 2);\n            last = i;\n        }\n        return max(best, n - 1 - last);\n    }\n};",
+  "tier": "crafted"
+}

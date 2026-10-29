@@ -1,0 +1,87 @@
+{
+  "id": 978,
+  "slug": "longest-turbulent-subarray",
+  "title": "Longest Turbulent Subarray",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "sliding-window"
+  ],
+  "story": {
+    "title": "The Choppiest Water",
+    "text": "Track the longest zigzag ending here going up and going down. A rise extends the previous down-run; a fall extends the previous up-run.",
+    "goal": "Return the length of the longest turbulent subarray."
+  },
+  "spec": {
+    "method": "maxTurbulenceSize",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          9,
+          4,
+          2,
+          10,
+          7,
+          8,
+          8,
+          1,
+          9
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          4,
+          8,
+          12,
+          16
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          100
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "bars",
+        "var": "arr",
+        "label": "waves",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "up",
+          "down",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxTurbulenceSize(vector<int>& arr) {\n        int up = 1, down = 1, best = 1;\n        for (int i = 1; i < (int)arr.size(); i++) {\n            if (arr[i] > arr[i - 1]) {\n                up = down + 1;\n                down = 1;\n            } else if (arr[i] < arr[i - 1]) {\n                down = up + 1;\n                up = 1;\n            } else {\n                up = down = 1;\n            }\n            best = max({best, up, down});\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}
