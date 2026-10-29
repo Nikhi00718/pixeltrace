@@ -1,0 +1,80 @@
+{
+  "id": 8,
+  "slug": "string-to-integer-atoi",
+  "title": "String to Integer (atoi)",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "string"
+  ],
+  "story": {
+    "title": "Reading the Meter",
+    "text": "A meter reader skips leading spaces, notes an optional sign, then reads digits until something else appears, clamping the value to the 32-bit range.",
+    "goal": "Convert the string to a 32-bit signed integer."
+  },
+  "spec": {
+    "method": "myAtoi",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "42"
+      ],
+      "expected": 42
+    },
+    {
+      "args": [
+        "   -042"
+      ],
+      "expected": -42
+    },
+    {
+      "args": [
+        "1337c0d3"
+      ],
+      "expected": 1337
+    },
+    {
+      "args": [
+        "0-1"
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        "-91283472332"
+      ],
+      "expected": -2147483648
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "meter",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sign",
+          "val"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int myAtoi(string s) {\n        int i = 0, n = s.size(), sign = 1;\n        while (i < n && s[i] == ' ') i++;\n        if (i < n && (s[i] == '+' || s[i] == '-')) {\n            if (s[i] == '-') sign = -1;\n            i++;\n        }\n        long long val = 0;\n        while (i < n && isdigit(s[i])) {\n            val = val * 10 + (s[i] - '0');\n            if (val * sign > INT_MAX) return INT_MAX;\n            if (val * sign < INT_MIN) return INT_MIN;\n            i++;\n        }\n        return val * sign;\n    }\n};",
+  "tier": "crafted"
+}

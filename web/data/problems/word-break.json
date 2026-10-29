@@ -1,0 +1,103 @@
+{
+  "id": 139,
+  "slug": "word-break",
+  "title": "Word Break",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "hash-table",
+    "string",
+    "dynamic-programming",
+    "trie"
+  ],
+  "story": {
+    "title": "Cutting the Banner into Words",
+    "text": "The ledger marks every prefix of the banner that can be cut into dictionary words. A prefix is good if some earlier good cut is followed by a dictionary word up to here.",
+    "goal": "Return true if s can be split into dictionary words."
+  },
+  "spec": {
+    "method": "wordBreak",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s"
+      ],
+      [
+        "vector<string>&",
+        "wordDict"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "leetcode",
+        [
+          "leet",
+          "code"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "applepenapple",
+        [
+          "apple",
+          "pen"
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "catsandog",
+        [
+          "cats",
+          "dog",
+          "sand",
+          "and",
+          "cat"
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "banner",
+        "pointers": [
+          "j",
+          "i"
+        ],
+        "window": [
+          "j",
+          "i"
+        ],
+        "windowExclusive": true
+      },
+      {
+        "kind": "array",
+        "var": "ok",
+        "label": "good cut after",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "dict",
+        "label": "dictionary"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool wordBreak(string s, vector<string>& wordDict) {\n        set<string> dict(wordDict.begin(), wordDict.end());\n        int n = s.size();\n        vector<bool> ok(n + 1, false);\n        ok[0] = true;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 0; j < i; j++) {\n                if (ok[j] && dict.count(s.substr(j, i - j))) {\n                    ok[i] = true;\n                    break;\n                }\n            }\n        }\n        return ok[n];\n    }\n};",
+  "tier": "crafted"
+}

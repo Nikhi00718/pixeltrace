@@ -1,0 +1,77 @@
+{
+  "id": 41,
+  "slug": "first-missing-positive",
+  "title": "First Missing Positive",
+  "difficulty": "Hard",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table"
+  ],
+  "story": {
+    "title": "Every Crate to Its Own Slot",
+    "text": "Crate v belongs in slot v-1. A worker keeps swapping each crate into its home slot until it's home, out of range, or a duplicate. The first slot holding the wrong crate gives the answer.",
+    "goal": "Return the smallest missing positive integer, in O(n) time and O(1) extra space."
+  },
+  "spec": {
+    "method": "firstMissingPositive",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          0
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          3,
+          4,
+          -1,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          7,
+          8,
+          9,
+          11,
+          12
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "slots",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int firstMissingPositive(vector<int>& nums) {\n        int n = nums.size();\n        for (int i = 0; i < n; i++) {\n            while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) swap(nums[i], nums[nums[i] - 1]);\n        }\n        for (int i = 0; i < n; i++) {\n            if (nums[i] != i + 1) return i + 1;\n        }\n        return n + 1;\n    }\n};",
+  "tier": "crafted"
+}

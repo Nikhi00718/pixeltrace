@@ -1,0 +1,125 @@
+{
+  "id": 221,
+  "slug": "maximal-square",
+  "title": "Maximal Square",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Biggest Square Field",
+    "text": "Each plot of land (1) records the side of the biggest all-land square ending there: one more than the smallest of its top, left and top-left neighbours.",
+    "goal": "Return the area of the largest all-1 square."
+  },
+  "spec": {
+    "method": "maximalSquare",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<char>>&",
+        "matrix"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            "1",
+            "0",
+            "1",
+            "0",
+            "0"
+          ],
+          [
+            "1",
+            "0",
+            "1",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "0",
+            "1",
+            "0"
+          ]
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          [
+            "0",
+            "1"
+          ],
+          [
+            "1",
+            "0"
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          [
+            "0"
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "grid",
+            "var": "matrix",
+            "palette": "islands",
+            "label": "field"
+          },
+          {
+            "kind": "grid",
+            "var": "dp",
+            "palette": "dp",
+            "label": "square side",
+            "pointers": [
+              [
+                "i",
+                "j"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "side"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maximalSquare(vector<vector<char>>& matrix) {\n        int m = matrix.size(), n = matrix[0].size(), side = 0;\n        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));\n        for (int i = 1; i <= m; i++) {\n            for (int j = 1; j <= n; j++) {\n                if (matrix[i - 1][j - 1] == '1') {\n                    dp[i][j] = 1 + min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]});\n                    side = max(side, dp[i][j]);\n                }\n            }\n        }\n        return side * side;\n    }\n};",
+  "tier": "crafted"
+}

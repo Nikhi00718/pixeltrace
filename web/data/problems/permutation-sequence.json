@@ -1,0 +1,78 @@
+{
+  "id": 60,
+  "slug": "permutation-sequence",
+  "title": "Permutation Sequence",
+  "difficulty": "Hard",
+  "world": "backtracking",
+  "tags": [
+    "math",
+    "recursion"
+  ],
+  "story": {
+    "title": "Skipping Whole Blocks of Orders",
+    "text": "Each choice of first digit owns (n-1)! orderings. Divide k by that block size to pick the digit, remove it from the pool, and repeat on the remainder.",
+    "goal": "Return the k-th permutation of 1..n."
+  },
+  "spec": {
+    "method": "getPermutation",
+    "ret": "string",
+    "params": [
+      [
+        "int",
+        "n"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        3,
+        3
+      ],
+      "expected": "213"
+    },
+    {
+      "args": [
+        4,
+        9
+      ],
+      "expected": "2314"
+    },
+    {
+      "args": [
+        3,
+        1
+      ],
+      "expected": "123"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "pool",
+        "label": "digits left",
+        "style": "tiles",
+        "pointers": [
+          "idx"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "block",
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string getPermutation(int n, int k) {\n        vector<int> pool;\n        int block = 1;\n        for (int d = 1; d <= n; d++) {\n            pool.push_back(d);\n            block *= d;\n        }\n        k--;\n        string res;\n        for (int left = n; left > 0; left--) {\n            block /= left;\n            int idx = k / block;\n            k %= block;\n            res += to_string(pool[idx]);\n            pool.erase(pool.begin() + idx);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

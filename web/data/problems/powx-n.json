@@ -1,0 +1,69 @@
+{
+  "id": 50,
+  "slug": "powx-n",
+  "title": "Pow(x, n)",
+  "difficulty": "Medium",
+  "world": "bits",
+  "tags": [
+    "math",
+    "recursion"
+  ],
+  "story": {
+    "title": "Squaring Up the Tower",
+    "text": "Read the exponent's lamps from the right. Each step the base is squared; whenever the current lamp is lit, the base so far is multiplied into the answer.",
+    "goal": "Return x raised to the power n."
+  },
+  "spec": {
+    "method": "myPow",
+    "ret": "double",
+    "params": [
+      [
+        "double",
+        "x"
+      ],
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "compare": "float",
+  "tests": [
+    {
+      "args": [
+        2.0,
+        10
+      ],
+      "expected": 1024.0
+    },
+    {
+      "args": [
+        2.1,
+        3
+      ],
+      "expected": 9.261
+    },
+    {
+      "args": [
+        2.0,
+        -2
+      ],
+      "expected": 0.25
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "base",
+          "e",
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    double myPow(double x, int n) {\n        long long e = n;\n        double base = x, res = 1.0;\n        if (e < 0) {\n            base = 1 / base;\n            e = -e;\n        }\n        while (e > 0) {\n            if (e & 1) res *= base;\n            base *= base;\n            e >>= 1;\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

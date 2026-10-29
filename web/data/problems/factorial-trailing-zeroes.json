@@ -1,0 +1,60 @@
+{
+  "id": 172,
+  "slug": "factorial-trailing-zeroes",
+  "title": "Factorial Trailing Zeroes",
+  "difficulty": "Medium",
+  "world": "bits",
+  "tags": [
+    "math"
+  ],
+  "story": {
+    "title": "Counting the Fives",
+    "text": "Every trailing zero needs a pair of 2 and 5, and fives are rarer. Count the multiples of 5, then of 25, then 125, and so on.",
+    "goal": "Return the number of trailing zeroes in n!."
+  },
+  "spec": {
+    "method": "trailingZeroes",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        3
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        5
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        130
+      ],
+      "expected": 32
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "zeros"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int trailingZeroes(int n) {\n        int zeros = 0;\n        while (n > 0) {\n            n /= 5;\n            zeros += n;\n        }\n        return zeros;\n    }\n};",
+  "tier": "crafted"
+}

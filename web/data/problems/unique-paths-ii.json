@@ -1,0 +1,106 @@
+{
+  "id": 63,
+  "slug": "unique-paths-ii",
+  "title": "Unique Paths II",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Robot Field with Rocks",
+    "text": "Rocks (1) block some plots. Each open plot counts the routes into it from above and from the left; a rock plot counts zero.",
+    "goal": "Return the number of routes to the bottom-right corner."
+  },
+  "spec": {
+    "method": "uniquePathsWithObstacles",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "obstacleGrid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        [
+          [
+            1
+          ]
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "grid",
+            "var": "obstacleGrid",
+            "palette": "maze",
+            "label": "rocks"
+          },
+          {
+            "kind": "grid",
+            "var": "dp",
+            "palette": "dp",
+            "label": "routes",
+            "pointers": [
+              [
+                "i",
+                "j"
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {\n        int m = obstacleGrid.size(), n = obstacleGrid[0].size();\n        vector<vector<long long>> dp(m, vector<long long>(n, 0));\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (obstacleGrid[i][j]) continue;\n                if (i == 0 && j == 0) dp[i][j] = 1;\n                else dp[i][j] = (i > 0 ? dp[i - 1][j] : 0) + (j > 0 ? dp[i][j - 1] : 0);\n            }\n        }\n        return dp[m - 1][n - 1];\n    }\n};",
+  "tier": "crafted"
+}

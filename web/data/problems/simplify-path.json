@@ -1,0 +1,85 @@
+{
+  "id": 71,
+  "slug": "simplify-path",
+  "title": "Simplify Path",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "Walking the Folder Tower",
+    "text": "A path is read one folder name at a time. A name is stacked on the tower, .. knocks the top folder off, and . or empty names are ignored.",
+    "goal": "Return the simplified canonical path."
+  },
+  "spec": {
+    "method": "simplifyPath",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "path"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "/home/"
+      ],
+      "expected": "/home"
+    },
+    {
+      "args": [
+        "/home//foo/"
+      ],
+      "expected": "/home/foo"
+    },
+    {
+      "args": [
+        "/home/user/Documents/../Pictures"
+      ],
+      "expected": "/home/user/Pictures"
+    },
+    {
+      "args": [
+        "/../"
+      ],
+      "expected": "/"
+    },
+    {
+      "args": [
+        "/.../a/../b/c/../d/./"
+      ],
+      "expected": "/.../b/d"
+    }
+  ],
+  "visualTest": 4,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "path",
+        "label": "path",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "name"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "folder tower"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string simplifyPath(string path) {\n        vector<string> st;\n        int i = 0, n = path.size();\n        while (i < n) {\n            while (i < n && path[i] == '/') i++;\n            string name;\n            while (i < n && path[i] != '/') name.push_back(path[i++]);\n            if (name.empty() || name == \".\") continue;\n            if (name == \"..\") {\n                if (!st.empty()) st.pop_back();\n            } else {\n                st.push_back(name);\n            }\n        }\n        string res;\n        for (auto& s : st) res += \"/\" + s;\n        return res.empty() ? \"/\" : res;\n    }\n};",
+  "tier": "crafted"
+}

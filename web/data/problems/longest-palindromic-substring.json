@@ -1,0 +1,78 @@
+{
+  "id": 5,
+  "slug": "longest-palindromic-substring",
+  "title": "Longest Palindromic Substring",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "The Widest Mirror",
+    "text": "Stand on every letter (and between every pair of letters) and let two scouts walk outward while the letters they stand on match. The widest stretch they ever cover is the answer.",
+    "goal": "Return the longest palindromic substring."
+  },
+  "spec": {
+    "method": "longestPalindrome",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "cbbd"
+      ],
+      "expected": "bb"
+    },
+    {
+      "args": [
+        "a"
+      ],
+      "expected": "a"
+    },
+    {
+      "args": [
+        "forgeeksskeegfor"
+      ],
+      "expected": "geeksskeeg"
+    }
+  ],
+  "visualTest": 0,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "letters",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "start",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int start = 0, best = 0;\n    void expand(string& s, int l, int r) {\n        while (l >= 0 && r < (int)s.size() && s[l] == s[r]) {\n            l--;\n            r++;\n        }\n        if (r - l - 1 > best) {\n            best = r - l - 1;\n            start = l + 1;\n        }\n    }\n    string longestPalindrome(string s) {\n        for (int c = 0; c < (int)s.size(); c++) {\n            expand(s, c, c);\n            expand(s, c, c + 1);\n        }\n        return s.substr(start, best);\n    }\n};",
+  "hints": [
+    "When two palindromes tie for longest, LeetCode accepts either; these tests have a unique answer."
+  ],
+  "tier": "crafted"
+}

@@ -1,0 +1,124 @@
+{
+  "id": 210,
+  "slug": "course-schedule-ii",
+  "title": "Course Schedule II",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "dfs",
+    "bfs",
+    "graph",
+    "topological-sort"
+  ],
+  "story": {
+    "title": "Ordering the Quests",
+    "text": "Every quest records how many prerequisites remain. Quests with none queue at the gate; finishing one unlocks the quests waiting on it. If some never unlock, there's a cycle.",
+    "goal": "Return an order to finish all courses, or an empty list."
+  },
+  "spec": {
+    "method": "findOrder",
+    "ret": "vector<int>",
+    "params": [
+      [
+        "int",
+        "numCourses"
+      ],
+      [
+        "vector<vector<int>>&",
+        "prerequisites"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        2,
+        [
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        1
+      ]
+    },
+    {
+      "args": [
+        4,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            2
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "args": [
+        2,
+        [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "expected": []
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "graph",
+        "edges": "prerequisites",
+        "n": "numCourses",
+        "reverse": true,
+        "directed": true,
+        "state": "indeg",
+        "pointers": [
+          "u"
+        ],
+        "label": "quest towns"
+      },
+      {
+        "kind": "queue",
+        "var": "q",
+        "label": "ready to start"
+      },
+      {
+        "kind": "array",
+        "var": "order",
+        "label": "order",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {\n        vector<vector<int>> adj(numCourses);\n        vector<int> indeg(numCourses, 0);\n        for (auto& p : prerequisites) {\n            adj[p[1]].push_back(p[0]);\n            indeg[p[0]]++;\n        }\n        queue<int> q;\n        for (int v = 0; v < numCourses; v++) {\n            if (indeg[v] == 0) q.push(v);\n        }\n        vector<int> order;\n        while (!q.empty()) {\n            int u = q.front();\n            q.pop();\n            order.push_back(u);\n            for (int v : adj[u]) {\n                if (--indeg[v] == 0) q.push(v);\n            }\n        }\n        if ((int)order.size() != numCourses) return {};\n        return order;\n    }\n};",
+  "hints": [
+    "LeetCode accepts any valid order; these tests have exactly one."
+  ],
+  "tier": "crafted"
+}

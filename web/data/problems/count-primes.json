@@ -1,0 +1,72 @@
+{
+  "id": 204,
+  "slug": "count-primes",
+  "title": "Count Primes",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "math",
+    "enumeration",
+    "number-theory"
+  ],
+  "story": {
+    "title": "The Sieve Field",
+    "text": "Every plot below n starts marked prime. Walking up, each prime still standing crosses out all its multiples from its own square onward.",
+    "goal": "Return the number of primes less than n."
+  },
+  "spec": {
+    "method": "countPrimes",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        10
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        30
+      ],
+      "expected": 10
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "prime",
+        "label": "still prime?",
+        "style": "tiles",
+        "pointers": [
+          "p",
+          "m"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int countPrimes(int n) {\n        if (n < 3) return 0;\n        vector<bool> prime(n, true);\n        prime[0] = prime[1] = false;\n        for (int p = 2; p * p < n; p++) {\n            if (!prime[p]) continue;\n            for (int m = p * p; m < n; m += p) prime[m] = false;\n        }\n        int count = 0;\n        for (bool b : prime) count += b;\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

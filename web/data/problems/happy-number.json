@@ -1,0 +1,69 @@
+{
+  "id": 202,
+  "slug": "happy-number",
+  "title": "Happy Number",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "hash-table",
+    "math",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "The Digit-Square Walk",
+    "text": "Replace a number by the sum of the squares of its digits, again and again. Every number visited goes into the lockers; reaching 1 is happy, revisiting a locker means an endless loop.",
+    "goal": "Return true if n is a happy number."
+  },
+  "spec": {
+    "method": "isHappy",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        19
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        2
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        7
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "set",
+        "var": "seen",
+        "label": "numbers visited",
+        "lookup": [
+          "n"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "next"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isHappy(int n) {\n        set<int> seen;\n        while (n != 1 && !seen.count(n)) {\n            seen.insert(n);\n            int next = 0;\n            while (n > 0) {\n                next += (n % 10) * (n % 10);\n                n /= 10;\n            }\n            n = next;\n        }\n        return n == 1;\n    }\n};",
+  "tier": "crafted"
+}

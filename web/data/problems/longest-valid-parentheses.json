@@ -1,0 +1,85 @@
+{
+  "id": 32,
+  "slug": "longest-valid-parentheses",
+  "title": "Longest Valid Parentheses",
+  "difficulty": "Hard",
+  "world": "stack",
+  "tags": [
+    "string",
+    "dynamic-programming",
+    "stack"
+  ],
+  "story": {
+    "title": "The Longest Sealed Corridor",
+    "text": "The tower keeps the index of every unmatched bracket, with a floor marker at the bottom. Each closing bracket pops its partner; the gap down to whatever is now on top is a sealed stretch.",
+    "goal": "Return the length of the longest valid parentheses substring."
+  },
+  "spec": {
+    "method": "longestValidParentheses",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "(()"
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        ")()())"
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        "()(())"
+      ],
+      "expected": 6
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "brackets",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "stack",
+            "var": "st",
+            "label": "unmatched (index)"
+          },
+          {
+            "kind": "values",
+            "vars": [
+              "best"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int longestValidParentheses(string s) {\n        stack<int> st;\n        st.push(-1);\n        int best = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '(') {\n                st.push(i);\n            } else {\n                st.pop();\n                if (st.empty()) st.push(i);\n                else best = max(best, i - st.top());\n            }\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

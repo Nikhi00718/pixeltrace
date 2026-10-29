@@ -1,0 +1,77 @@
+{
+  "id": 91,
+  "slug": "decode-ways",
+  "title": "Decode Ways",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Reading the Coded Message",
+    "text": "Letters were sent as numbers 1\u201326. The ledger counts the ways to read each prefix: a valid single digit extends the previous count, and a valid two-digit code extends the count from two back.",
+    "goal": "Return how many ways the digits can be decoded."
+  },
+  "spec": {
+    "method": "numDecodings",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "12"
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        "226"
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "06"
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        "11106"
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "digits",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "ways per prefix",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numDecodings(string s) {\n        int n = s.size();\n        vector<int> dp(n + 1, 0);\n        dp[0] = 1;\n        for (int i = 1; i <= n; i++) {\n            if (s[i - 1] != '0') dp[i] += dp[i - 1];\n            if (i >= 2) {\n                int two = (s[i - 2] - '0') * 10 + (s[i - 1] - '0');\n                if (two >= 10 && two <= 26) dp[i] += dp[i - 2];\n            }\n        }\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

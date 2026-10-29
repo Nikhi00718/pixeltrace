@@ -1,0 +1,90 @@
+{
+  "id": 59,
+  "slug": "spiral-matrix-ii",
+  "title": "Spiral Matrix II",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "matrix",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Snail Plants a Garden",
+    "text": "This time the snail plants numbered seeds as it spirals in: along the top, down the right, back along the bottom, up the left, then the walls close in.",
+    "goal": "Return an n x n matrix filled 1..n\u00b2 in spiral order."
+  },
+  "spec": {
+    "method": "generateMatrix",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        3
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          3
+        ],
+        [
+          8,
+          9,
+          4
+        ],
+        [
+          7,
+          6,
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": [
+        [
+          1
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "m",
+        "palette": "dp",
+        "label": "garden",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "top",
+          "bottom",
+          "left",
+          "right"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> generateMatrix(int n) {\n        vector<vector<int>> m(n, vector<int>(n, 0));\n        int top = 0, bottom = n - 1, left = 0, right = n - 1, k = 1;\n        while (top <= bottom && left <= right) {\n            for (int c = left; c <= right; c++) m[top][c] = k++;\n            top++;\n            for (int r = top; r <= bottom; r++) m[r][right] = k++;\n            right--;\n            for (int c = right; c >= left && top <= bottom; c--) m[bottom][c] = k++;\n            bottom--;\n            for (int r = bottom; r >= top && left <= right; r--) m[r][left] = k++;\n            left++;\n        }\n        return m;\n    }\n};",
+  "tier": "crafted"
+}

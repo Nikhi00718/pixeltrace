@@ -1,0 +1,66 @@
+{
+  "id": 7,
+  "slug": "reverse-integer",
+  "title": "Reverse Integer",
+  "difficulty": "Medium",
+  "world": "bits",
+  "tags": [
+    "math"
+  ],
+  "story": {
+    "title": "The Backwards Odometer",
+    "text": "Peel the last digit off and push it onto the reversed number, checking before every push that the result still fits in 32 bits.",
+    "goal": "Return x with its digits reversed, or 0 if that overflows."
+  },
+  "spec": {
+    "method": "reverse",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "x"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        123
+      ],
+      "expected": 321
+    },
+    {
+      "args": [
+        -123
+      ],
+      "expected": -321
+    },
+    {
+      "args": [
+        120
+      ],
+      "expected": 21
+    },
+    {
+      "args": [
+        1534236469
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "x",
+          "digit",
+          "rev"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int reverse(int x) {\n        int rev = 0;\n        while (x != 0) {\n            int digit = x % 10;\n            x /= 10;\n            if (rev > INT_MAX / 10 || rev < INT_MIN / 10) return 0;\n            rev = rev * 10 + digit;\n        }\n        return rev;\n    }\n};",
+  "tier": "crafted"
+}

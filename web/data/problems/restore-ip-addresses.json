@@ -1,0 +1,86 @@
+{
+  "id": 93,
+  "slug": "restore-ip-addresses",
+  "title": "Restore IP Addresses",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "string",
+    "backtracking"
+  ],
+  "story": {
+    "title": "Cutting the Address Ribbon",
+    "text": "A ribbon of digits must be cut into four parts, each 0\u2013255 without leading zeros. At every door the cutter tries a 1-, 2- or 3-digit piece, goes deeper, and tapes it back.",
+    "goal": "Return every valid IP address (any order)."
+  },
+  "spec": {
+    "method": "restoreIpAddresses",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        "25525511135"
+      ],
+      "expected": [
+        "255.255.11.135",
+        "255.255.111.35"
+      ]
+    },
+    {
+      "args": [
+        "0000"
+      ],
+      "expected": [
+        "0.0.0.0"
+      ]
+    },
+    {
+      "args": [
+        "101023"
+      ],
+      "expected": [
+        "1.0.10.23",
+        "1.0.102.3",
+        "10.1.0.23",
+        "10.10.2.3",
+        "101.0.2.3"
+      ]
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "digits",
+        "pointers": [
+          "start"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "parts",
+        "label": "pieces",
+        "style": "tiles"
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "addresses",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> res;\n    vector<string> parts;\n    void go(string& s, int start) {\n        if (parts.size() == 4) {\n            if (start == (int)s.size()) res.push_back(parts[0] + \".\" + parts[1] + \".\" + parts[2] + \".\" + parts[3]);\n            return;\n        }\n        for (int len = 1; len <= 3 && start + len <= (int)s.size(); len++) {\n            string piece = s.substr(start, len);\n            if ((piece.size() > 1 && piece[0] == '0') || stoi(piece) > 255) continue;\n            parts.push_back(piece);\n            go(s, start + len);\n            parts.pop_back();\n        }\n    }\n    vector<string> restoreIpAddresses(string s) {\n        go(s, 0);\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

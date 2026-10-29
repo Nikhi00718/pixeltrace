@@ -1,0 +1,92 @@
+{
+  "id": 25,
+  "slug": "reverse-nodes-in-k-group",
+  "title": "Reverse Nodes in k-Group",
+  "difficulty": "Hard",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "recursion"
+  ],
+  "story": {
+    "title": "Turning the Train k Cars at a Time",
+    "text": "A brakeman checks that k cars are left ahead, then turns that group around by repeatedly pulling the next car to the front of the group, and moves on. A short tail group stays as it is.",
+    "goal": "Reverse every group of k nodes and return the list."
+  },
+  "spec": {
+    "method": "reverseKGroup",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ],
+      "expected": [
+        2,
+        1,
+        4,
+        3,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        3
+      ],
+      "expected": [
+        3,
+        2,
+        1,
+        4,
+        5
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "prev",
+          "cur",
+          "nxt",
+          "check"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* reverseKGroup(ListNode* head, int k) {\n        ListNode* dummy = new ListNode(0, head);\n        ListNode* prev = dummy;\n        while (true) {\n            ListNode* check = prev;\n            for (int s = 0; s < k && check; s++) check = check->next;\n            if (!check) break;\n            ListNode* cur = prev->next;\n            for (int s = 1; s < k; s++) {\n                ListNode* nxt = cur->next;\n                cur->next = nxt->next;\n                nxt->next = prev->next;\n                prev->next = nxt;\n            }\n            prev = cur;\n        }\n        return dummy->next;\n    }\n};",
+  "tier": "crafted"
+}

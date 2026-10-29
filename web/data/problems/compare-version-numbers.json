@@ -1,0 +1,90 @@
+{
+  "id": 165,
+  "slug": "compare-version-numbers",
+  "title": "Compare Version Numbers",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Which Release Is Newer?",
+    "text": "Two clerks read version labels part by part, each turning the digits up to the next dot into a number. The first part that differs decides; missing parts count as 0.",
+    "goal": "Return -1, 0 or 1 comparing version1 with version2."
+  },
+  "spec": {
+    "method": "compareVersion",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "version1"
+      ],
+      [
+        "string",
+        "version2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "1.2",
+        "1.10"
+      ],
+      "expected": -1
+    },
+    {
+      "args": [
+        "1.01",
+        "1.001"
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        "1.0",
+        "1.0.0.0"
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        "1.0.1",
+        "1"
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "version1",
+        "label": "version 1",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "version2",
+        "label": "version 2",
+        "pointers": [
+          "j"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "a",
+          "b"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int compareVersion(string version1, string version2) {\n        int i = 0, j = 0, n = version1.size(), m = version2.size();\n        while (i < n || j < m) {\n            long long a = 0, b = 0;\n            while (i < n && version1[i] != '.') a = a * 10 + (version1[i++] - '0');\n            while (j < m && version2[j] != '.') b = b * 10 + (version2[j++] - '0');\n            if (a < b) return -1;\n            if (a > b) return 1;\n            i++;\n            j++;\n        }\n        return 0;\n    }\n};",
+  "tier": "crafted"
+}

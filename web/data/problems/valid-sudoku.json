@@ -1,0 +1,269 @@
+{
+  "id": 36,
+  "slug": "valid-sudoku",
+  "title": "Valid Sudoku",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Puzzle Inspector",
+    "text": "An inspector walks every filled cell and files its digit under its row, its column and its 3x3 box. A digit already filed in any of the three breaks the rules.",
+    "goal": "Return true if the filled cells follow Sudoku rules."
+  },
+  "spec": {
+    "method": "isValidSudoku",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<vector<char>>&",
+        "board"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            "5",
+            "3",
+            ".",
+            ".",
+            "7",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            "6",
+            ".",
+            ".",
+            "1",
+            "9",
+            "5",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            "9",
+            "8",
+            ".",
+            ".",
+            ".",
+            ".",
+            "6",
+            "."
+          ],
+          [
+            "8",
+            ".",
+            ".",
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            "3"
+          ],
+          [
+            "4",
+            ".",
+            ".",
+            "8",
+            ".",
+            "3",
+            ".",
+            ".",
+            "1"
+          ],
+          [
+            "7",
+            ".",
+            ".",
+            ".",
+            "2",
+            ".",
+            ".",
+            ".",
+            "6"
+          ],
+          [
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            ".",
+            "2",
+            "8",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            "4",
+            "1",
+            "9",
+            ".",
+            ".",
+            "5"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            "8",
+            ".",
+            ".",
+            "7",
+            "9"
+          ]
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          [
+            "8",
+            "3",
+            ".",
+            ".",
+            "7",
+            ".",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            "6",
+            ".",
+            ".",
+            "1",
+            "9",
+            "5",
+            ".",
+            ".",
+            "."
+          ],
+          [
+            ".",
+            "9",
+            "8",
+            ".",
+            ".",
+            ".",
+            ".",
+            "6",
+            "."
+          ],
+          [
+            "8",
+            ".",
+            ".",
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            "3"
+          ],
+          [
+            "4",
+            ".",
+            ".",
+            "8",
+            ".",
+            "3",
+            ".",
+            ".",
+            "1"
+          ],
+          [
+            "7",
+            ".",
+            ".",
+            ".",
+            "2",
+            ".",
+            ".",
+            ".",
+            "6"
+          ],
+          [
+            ".",
+            "6",
+            ".",
+            ".",
+            ".",
+            ".",
+            "2",
+            "8",
+            "."
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            "4",
+            "1",
+            "9",
+            ".",
+            ".",
+            "5"
+          ],
+          [
+            ".",
+            ".",
+            ".",
+            ".",
+            "8",
+            ".",
+            ".",
+            "7",
+            "9"
+          ]
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "board",
+        "palette": "board",
+        "label": "puzzle",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "seen",
+        "label": "filed",
+        "lookup": [
+          "rowKey"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isValidSudoku(vector<vector<char>>& board) {\n        set<string> seen;\n        for (int r = 0; r < 9; r++) {\n            for (int c = 0; c < 9; c++) {\n                char d = board[r][c];\n                if (d == '.') continue;\n                string rowKey = string(1, d) + \" in row \" + to_string(r);\n                string colKey = string(1, d) + \" in col \" + to_string(c);\n                string boxKey = string(1, d) + \" in box \" + to_string(r / 3) + to_string(c / 3);\n                if (seen.count(rowKey) || seen.count(colKey) || seen.count(boxKey)) return false;\n                seen.insert(rowKey);\n                seen.insert(colKey);\n                seen.insert(boxKey);\n            }\n        }\n        return true;\n    }\n};",
+  "tier": "crafted"
+}

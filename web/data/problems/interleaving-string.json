@@ -1,0 +1,94 @@
+{
+  "id": 97,
+  "slug": "interleaving-string",
+  "title": "Interleaving String",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "string",
+    "dynamic-programming"
+  ],
+  "story": {
+    "title": "Braiding Two Ropes",
+    "text": "Can rope s3 be braided from s1 and s2 without reordering either? Each grid cell asks whether the first i strands of s1 and j of s2 braid into the first i+j of s3, by taking the next strand from either rope.",
+    "goal": "Return true if s3 is an interleaving of s1 and s2."
+  },
+  "spec": {
+    "method": "isInterleave",
+    "ret": "bool",
+    "params": [
+      [
+        "string",
+        "s1"
+      ],
+      [
+        "string",
+        "s2"
+      ],
+      [
+        "string",
+        "s3"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "aabcc",
+        "dbbca",
+        "aadbbcbcac"
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        "aabcc",
+        "dbbca",
+        "aadbbbaccc"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "string",
+            "var": "s1",
+            "label": "rope 1"
+          },
+          {
+            "kind": "string",
+            "var": "s2",
+            "label": "rope 2"
+          }
+        ]
+      },
+      {
+        "kind": "grid",
+        "var": "dp",
+        "palette": "bool",
+        "label": "can braid?",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool isInterleave(string s1, string s2, string s3) {\n        int n = s1.size(), m = s2.size();\n        if (n + m != (int)s3.size()) return false;\n        vector<vector<bool>> dp(n + 1, vector<bool>(m + 1, false));\n        dp[0][0] = true;\n        for (int i = 0; i <= n; i++) {\n            for (int j = 0; j <= m; j++) {\n                if (i > 0 && s1[i - 1] == s3[i + j - 1] && dp[i - 1][j]) dp[i][j] = true;\n                if (j > 0 && s2[j - 1] == s3[i + j - 1] && dp[i][j - 1]) dp[i][j] = true;\n            }\n        }\n        return dp[n][m];\n    }\n};",
+  "tier": "crafted"
+}

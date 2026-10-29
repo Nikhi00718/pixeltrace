@@ -1,0 +1,74 @@
+{
+  "id": 187,
+  "slug": "repeated-dna-sequences",
+  "title": "Repeated DNA Sequences",
+  "difficulty": "Medium",
+  "world": "sliding-window",
+  "tags": [
+    "hash-table",
+    "string",
+    "bit-manipulation",
+    "sliding-window",
+    "rolling-hash"
+  ],
+  "story": {
+    "title": "Spotting Repeated Gene Strips",
+    "text": "A ten-letter window slides along the DNA strand. Every strip it sees goes into the lockers; a strip seen a second time is written down once.",
+    "goal": "Return every 10-letter sequence that occurs more than once (any order)."
+  },
+  "spec": {
+    "method": "findRepeatedDnaSequences",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+      ],
+      "expected": [
+        "AAAAACCCCC",
+        "CCCCCAAAAA"
+      ]
+    },
+    {
+      "args": [
+        "AAAAAAAAAAAAA"
+      ],
+      "expected": [
+        "AAAAAAAAAA"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "strand",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "map",
+        "var": "seen",
+        "label": "strips seen"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> findRepeatedDnaSequences(string s) {\n        map<string, int> seen;\n        vector<string> res;\n        for (int r = 9; r < (int)s.size(); r++) {\n            int l = r - 9;\n            string strip = s.substr(l, 10);\n            if (++seen[strip] == 2) res.push_back(strip);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

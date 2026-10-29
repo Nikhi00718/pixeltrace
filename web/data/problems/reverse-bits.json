@@ -1,0 +1,55 @@
+{
+  "id": 190,
+  "slug": "reverse-bits",
+  "title": "Reverse Bits",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "divide-and-conquer",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Mirroring the Lamp Row",
+    "text": "Take the lamps off the right end of the row one at a time and put each onto the right end of a new row, so the new row is the mirror image.",
+    "goal": "Reverse the 32 bits of n."
+  },
+  "spec": {
+    "method": "reverseBits",
+    "ret": "uint32_t",
+    "params": [
+      [
+        "uint32_t",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        43261596
+      ],
+      "expected": 964176192
+    },
+    {
+      "args": [
+        4294967293
+      ],
+      "expected": 3221225471
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "res",
+          "k"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    uint32_t reverseBits(uint32_t n) {\n        uint32_t res = 0;\n        for (int k = 0; k < 32; k++) {\n            res = (res << 1) | (n & 1);\n            n >>= 1;\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

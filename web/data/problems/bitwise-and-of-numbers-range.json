@@ -1,0 +1,67 @@
+{
+  "id": 201,
+  "slug": "bitwise-and-of-numbers-range",
+  "title": "Bitwise AND of Numbers Range",
+  "difficulty": "Medium",
+  "world": "bits",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "The Shared Lamp Prefix",
+    "text": "ANDing every number from left to right keeps only the lamps they all share: the common prefix. Shift both ends right until they agree, then shift back.",
+    "goal": "Return the AND of all numbers in [left, right]."
+  },
+  "spec": {
+    "method": "rangeBitwiseAnd",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "left"
+      ],
+      [
+        "int",
+        "right"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        5,
+        7
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        0,
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        1,
+        2147483647
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "left",
+          "right",
+          "shift"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int rangeBitwiseAnd(int left, int right) {\n        int shift = 0;\n        while (left < right) {\n            left >>= 1;\n            right >>= 1;\n            shift++;\n        }\n        return left << shift;\n    }\n};",
+  "tier": "crafted"
+}

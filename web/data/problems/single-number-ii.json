@@ -1,0 +1,91 @@
+{
+  "id": 137,
+  "slug": "single-number-ii",
+  "title": "Single Number II",
+  "difficulty": "Medium",
+  "world": "bits",
+  "tags": [
+    "array",
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Counting Lamps in Threes",
+    "text": "Every number appears three times except one. For each lamp position, count how many numbers light it; counts that aren't a multiple of three belong to the lonely number.",
+    "goal": "Return the element that appears once."
+  },
+  "spec": {
+    "method": "singleNumber",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          2,
+          3,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          99
+        ]
+      ],
+      "expected": 99
+    },
+    {
+      "args": [
+        [
+          -2,
+          -2,
+          1,
+          1,
+          4,
+          1,
+          4,
+          4,
+          -4,
+          -2
+        ]
+      ],
+      "expected": -4
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "numbers"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "bit",
+          "cnt",
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int singleNumber(vector<int>& nums) {\n        int res = 0;\n        for (int bit = 0; bit < 32; bit++) {\n            int cnt = 0;\n            for (int x : nums) cnt += (x >> bit) & 1;\n            if (cnt % 3) res |= (1u << bit);\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

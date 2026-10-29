@@ -1,0 +1,74 @@
+{
+  "id": 80,
+  "slug": "remove-duplicates-from-sorted-array-ii",
+  "title": "Remove Duplicates from Sorted Array II",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "At Most Two of Each Sticker",
+    "text": "The album may hold each sticker at most twice. The keeper accepts a sticker only if it differs from the one two places back in the album.",
+    "goal": "Keep at most two copies of each value at the front and return the new length."
+  },
+  "spec": {
+    "method": "removeDuplicates",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          2,
+          2,
+          3
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          2,
+          3,
+          3
+        ]
+      ],
+      "expected": 7
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "album",
+        "pointers": [
+          "k",
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int removeDuplicates(vector<int>& nums) {\n        int k = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (k < 2 || nums[i] != nums[k - 2]) {\n                nums[k] = nums[i];\n                k++;\n            }\n        }\n        return k;\n    }\n};",
+  "tier": "crafted"
+}

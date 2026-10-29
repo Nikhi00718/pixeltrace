@@ -1,0 +1,61 @@
+{
+  "id": 168,
+  "slug": "excel-sheet-column-title",
+  "title": "Excel Sheet Column Title",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math",
+    "string"
+  ],
+  "story": {
+    "title": "Labelling the Ledger Columns",
+    "text": "Column letters count in base 26 with no zero: A is 1 and Z is 26. Shift down by one, peel off the last letter, and divide, until nothing is left.",
+    "goal": "Return the column title for a column number."
+  },
+  "spec": {
+    "method": "convertToTitle",
+    "ret": "string",
+    "params": [
+      [
+        "int",
+        "columnNumber"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        1
+      ],
+      "expected": "A"
+    },
+    {
+      "args": [
+        28
+      ],
+      "expected": "AB"
+    },
+    {
+      "args": [
+        701
+      ],
+      "expected": "ZY"
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "columnNumber",
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string convertToTitle(int columnNumber) {\n        string res;\n        while (columnNumber > 0) {\n            columnNumber--;\n            res.push_back('A' + columnNumber % 26);\n            columnNumber /= 26;\n        }\n        reverse(res.begin(), res.end());\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

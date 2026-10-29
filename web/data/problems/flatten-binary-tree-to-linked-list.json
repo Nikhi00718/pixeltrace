@@ -1,0 +1,89 @@
+{
+  "id": 114,
+  "slug": "flatten-binary-tree-to-linked-list",
+  "title": "Flatten Binary Tree to Linked List",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "linked-list",
+    "stack",
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Training the Vine",
+    "text": "The gardener wants every fruit on one long right-hand vine in preorder. At each fruit with a left branch, they find that branch's rightmost fruit, hang the right branch from it, and swing the left branch over.",
+    "goal": "Flatten the tree in place into a right-only chain."
+  },
+  "spec": {
+    "method": "flatten",
+    "ret": "void",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ],
+    "output": "param:0"
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          5,
+          3,
+          4,
+          null,
+          6
+        ]
+      ],
+      "expected": [
+        1,
+        null,
+        2,
+        null,
+        3,
+        null,
+        4,
+        null,
+        5,
+        null,
+        6
+      ]
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "cur",
+          "tail"
+        ],
+        "label": "orchard"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    void flatten(TreeNode* root) {\n        TreeNode* cur = root;\n        while (cur) {\n            if (cur->left) {\n                TreeNode* tail = cur->left;\n                while (tail->right) tail = tail->right;\n                tail->right = cur->right;\n                cur->right = cur->left;\n                cur->left = nullptr;\n            }\n            cur = cur->right;\n        }\n    }\n};",
+  "tier": "crafted"
+}

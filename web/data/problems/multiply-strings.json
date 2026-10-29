@@ -1,0 +1,89 @@
+{
+  "id": 43,
+  "slug": "multiply-strings",
+  "title": "Multiply Strings",
+  "difficulty": "Medium",
+  "world": "arrays",
+  "tags": [
+    "math",
+    "string",
+    "simulation"
+  ],
+  "story": {
+    "title": "Long Multiplication on the Chalkboard",
+    "text": "Every pair of digits is multiplied and dropped into its column on the chalkboard, carrying into the column to its left, exactly like long multiplication by hand.",
+    "goal": "Return the product of two non-negative numbers given as strings."
+  },
+  "spec": {
+    "method": "multiply",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "num1"
+      ],
+      [
+        "string",
+        "num2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "2",
+        "3"
+      ],
+      "expected": "6"
+    },
+    {
+      "args": [
+        "123",
+        "456"
+      ],
+      "expected": "56088"
+    },
+    {
+      "args": [
+        "0",
+        "52"
+      ],
+      "expected": "0"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "string",
+            "var": "num1",
+            "label": "num1",
+            "pointers": [
+              "i"
+            ]
+          },
+          {
+            "kind": "string",
+            "var": "num2",
+            "label": "num2",
+            "pointers": [
+              "j"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "cols",
+        "label": "chalkboard columns",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string multiply(string num1, string num2) {\n        int n = num1.size(), m = num2.size();\n        vector<int> cols(n + m, 0);\n        for (int i = n - 1; i >= 0; i--) {\n            for (int j = m - 1; j >= 0; j--) {\n                int sum = (num1[i] - '0') * (num2[j] - '0') + cols[i + j + 1];\n                cols[i + j + 1] = sum % 10;\n                cols[i + j] += sum / 10;\n            }\n        }\n        string res;\n        for (int d : cols) {\n            if (!(res.empty() && d == 0)) res.push_back('0' + d);\n        }\n        return res.empty() ? \"0\" : res;\n    }\n};",
+  "tier": "crafted"
+}

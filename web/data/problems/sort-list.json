@@ -1,0 +1,93 @@
+{
+  "id": 148,
+  "slug": "sort-list",
+  "title": "Sort List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers",
+    "divide-and-conquer",
+    "sorting",
+    "merge-sort"
+  ],
+  "story": {
+    "title": "Merge-Sorting the Train",
+    "text": "The train is cut in half at the middle, each half is sorted the same way behind its own door, and the two sorted halves are zipped back together.",
+    "goal": "Return the list sorted in ascending order."
+  },
+  "spec": {
+    "method": "sortList",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          -1,
+          5,
+          3,
+          4,
+          0
+        ]
+      ],
+      "expected": [
+        -1,
+        0,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "args": [
+        []
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "slow",
+          "fast",
+          "a",
+          "b",
+          "tail"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "yard"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* mergeLists(ListNode* a, ListNode* b) {\n        ListNode dummy;\n        ListNode* tail = &dummy;\n        while (a && b) {\n            if (a->val <= b->val) {\n                tail->next = a;\n                a = a->next;\n            } else {\n                tail->next = b;\n                b = b->next;\n            }\n            tail = tail->next;\n        }\n        tail->next = a ? a : b;\n        return dummy.next;\n    }\n    ListNode* sortList(ListNode* head) {\n        if (!head || !head->next) return head;\n        ListNode* slow = head;\n        ListNode* fast = head->next;\n        while (fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next;\n        }\n        ListNode* right = slow->next;\n        slow->next = nullptr;\n        return mergeLists(sortList(head), sortList(right));\n    }\n};",
+  "tier": "crafted"
+}

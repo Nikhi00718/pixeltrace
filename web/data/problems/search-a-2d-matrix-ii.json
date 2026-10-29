@@ -1,0 +1,145 @@
+{
+  "id": 240,
+  "slug": "search-a-2d-matrix-ii",
+  "title": "Search a 2D Matrix II",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search",
+    "divide-and-conquer",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Staircase Search",
+    "text": "Rows and columns both increase. Start at the top-right drawer: too big means the whole column is too big, so step left; too small means the whole row is too small, so step down.",
+    "goal": "Return true if target is in the matrix."
+  },
+  "spec": {
+    "method": "searchMatrix",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "matrix"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            4,
+            7,
+            11,
+            15
+          ],
+          [
+            2,
+            5,
+            8,
+            12,
+            19
+          ],
+          [
+            3,
+            6,
+            9,
+            16,
+            22
+          ],
+          [
+            10,
+            13,
+            14,
+            17,
+            24
+          ],
+          [
+            18,
+            21,
+            23,
+            26,
+            30
+          ]
+        ],
+        5
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            4,
+            7,
+            11,
+            15
+          ],
+          [
+            2,
+            5,
+            8,
+            12,
+            19
+          ],
+          [
+            3,
+            6,
+            9,
+            16,
+            22
+          ],
+          [
+            10,
+            13,
+            14,
+            17,
+            24
+          ],
+          [
+            18,
+            21,
+            23,
+            26,
+            30
+          ]
+        ],
+        20
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "matrix",
+        "palette": "dp",
+        "label": "vault",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "target"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n        int r = 0, c = matrix[0].size() - 1;\n        while (r < (int)matrix.size() && c >= 0) {\n            if (matrix[r][c] == target) return true;\n            if (matrix[r][c] > target) c--;\n            else r++;\n        }\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

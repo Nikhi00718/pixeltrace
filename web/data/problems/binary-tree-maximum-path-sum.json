@@ -1,0 +1,85 @@
+{
+  "id": 124,
+  "slug": "binary-tree-maximum-path-sum",
+  "title": "Binary Tree Maximum Path Sum",
+  "difficulty": "Hard",
+  "world": "trees",
+  "tags": [
+    "dynamic-programming",
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "The Richest Vine",
+    "text": "A vine may bend once at any fruit. Each fruit asks both branches for their best downward gain (ignoring negative ones); the fruit plus both gains is a candidate vine, and it reports itself plus the better gain upward.",
+    "goal": "Return the maximum path sum."
+  },
+  "spec": {
+    "method": "maxPathSum",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          -10,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": 42
+    },
+    {
+      "args": [
+        [
+          -3
+        ]
+      ],
+      "expected": -3
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int best = INT_MIN;\n    int gain(TreeNode* node) {\n        if (!node) return 0;\n        int l = max(0, gain(node->left));\n        int r = max(0, gain(node->right));\n        best = max(best, node->val + l + r);\n        return node->val + max(l, r);\n    }\n    int maxPathSum(TreeNode* root) {\n        gain(root);\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

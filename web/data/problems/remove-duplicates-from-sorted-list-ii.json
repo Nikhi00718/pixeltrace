@@ -1,0 +1,80 @@
+{
+  "id": 82,
+  "slug": "remove-duplicates-from-sorted-list-ii",
+  "title": "Remove Duplicates from Sorted List II",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "two-pointers"
+  ],
+  "story": {
+    "title": "Dropping Every Twin Car",
+    "text": "Any value that appears more than once must vanish entirely. A worker behind the dummy engine looks ahead; when the next cars repeat, the whole run is skipped.",
+    "goal": "Keep only values that appear exactly once."
+  },
+  "spec": {
+    "method": "deleteDuplicates",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          3,
+          4,
+          4,
+          5
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": [
+        2,
+        3
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "prev",
+          "cur"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* deleteDuplicates(ListNode* head) {\n        ListNode* dummy = new ListNode(0, head);\n        ListNode* prev = dummy;\n        while (prev->next) {\n            ListNode* cur = prev->next;\n            if (cur->next && cur->next->val == cur->val) {\n                int v = cur->val;\n                while (cur && cur->val == v) cur = cur->next;\n                prev->next = cur;\n            } else {\n                prev = cur;\n            }\n        }\n        return dummy->next;\n    }\n};",
+  "tier": "crafted"
+}

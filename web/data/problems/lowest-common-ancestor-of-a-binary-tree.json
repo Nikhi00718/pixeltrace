@@ -1,0 +1,113 @@
+{
+  "id": 236,
+  "slug": "lowest-common-ancestor-of-a-binary-tree",
+  "title": "Lowest Common Ancestor of a Binary Tree",
+  "difficulty": "Medium",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Where Two Searches Meet",
+    "text": "Two birds search an unsorted orchard. Every fruit asks both branches whether they found a bird; the lowest fruit hearing \"yes\" from both sides (or being a bird itself with one yes) is where they meet.",
+    "goal": "Return the value of the lowest common ancestor of p and q."
+  },
+  "spec": {
+    "method": "lowestCommonAncestor",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "p"
+      ],
+      [
+        "int",
+        "q"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          0,
+          8,
+          null,
+          null,
+          7,
+          4
+        ],
+        5,
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          3,
+          5,
+          1,
+          6,
+          2,
+          0,
+          8,
+          null,
+          null,
+          7,
+          4
+        ],
+        5,
+        4
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        1,
+        2
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "p",
+          "q"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    TreeNode* find(TreeNode* node, int p, int q) {\n        if (!node || node->val == p || node->val == q) return node;\n        TreeNode* l = find(node->left, p, q);\n        TreeNode* r = find(node->right, p, q);\n        if (l && r) return node;\n        return l ? l : r;\n    }\n    int lowestCommonAncestor(TreeNode* root, int p, int q) {\n        return find(root, p, q)->val;\n    }\n};",
+  "hints": [
+    "LeetCode passes TreeNode* p and q; here they are values, which is all the search needs."
+  ],
+  "tier": "crafted"
+}

@@ -1,0 +1,83 @@
+{
+  "id": 179,
+  "slug": "largest-number",
+  "title": "Largest Number",
+  "difficulty": "Medium",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "string",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Lining Up Number Cards",
+    "text": "Number cards are arranged to spell the biggest number. Card a goes before card b whenever a followed by b reads bigger than b followed by a.",
+    "goal": "Return the largest number as a string."
+  },
+  "spec": {
+    "method": "largestNumber",
+    "ret": "string",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          2
+        ]
+      ],
+      "expected": "210"
+    },
+    {
+      "args": [
+        [
+          3,
+          30,
+          34,
+          5,
+          9
+        ]
+      ],
+      "expected": "9534330"
+    },
+    {
+      "args": [
+        [
+          0,
+          0
+        ]
+      ],
+      "expected": "0"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "cards",
+        "label": "cards (sorted)",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string largestNumber(vector<int>& nums) {\n        vector<string> cards;\n        for (int x : nums) cards.push_back(to_string(x));\n        sort(cards.begin(), cards.end(), [](const string& a, const string& b) { return a + b > b + a; });\n        if (cards[0] == \"0\") return \"0\";\n        string res;\n        for (int i = 0; i < (int)cards.size(); i++) res += cards[i];\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,97 @@
+{
+  "id": 81,
+  "slug": "search-in-rotated-sorted-array-ii",
+  "title": "Search in Rotated Sorted Array II",
+  "difficulty": "Medium",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Turned Corridor with Twins",
+    "text": "The rotated corridor may now have repeated chests. When the ends and the middle all look the same, the guard can't tell which half is sorted, so they shrink both ends by one and try again.",
+    "goal": "Return true if target is in the array."
+  },
+  "spec": {
+    "method": "search",
+    "ret": "bool",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          5,
+          6,
+          0,
+          0,
+          1,
+          2
+        ],
+        0
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          2,
+          5,
+          6,
+          0,
+          0,
+          1,
+          2
+        ],
+        3
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          1,
+          0,
+          1,
+          1,
+          1
+        ],
+        0
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "chests",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool search(vector<int>& nums, int target) {\n        int lo = 0, hi = nums.size() - 1;\n        while (lo <= hi) {\n            int mid = (lo + hi) / 2;\n            if (nums[mid] == target) return true;\n            if (nums[lo] == nums[mid] && nums[mid] == nums[hi]) {\n                lo++;\n                hi--;\n            } else if (nums[lo] <= nums[mid]) {\n                if (nums[lo] <= target && target < nums[mid]) hi = mid - 1;\n                else lo = mid + 1;\n            } else {\n                if (nums[mid] < target && target <= nums[hi]) lo = mid + 1;\n                else hi = mid - 1;\n            }\n        }\n        return false;\n    }\n};",
+  "tier": "crafted"
+}

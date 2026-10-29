@@ -1,0 +1,68 @@
+{
+  "id": 171,
+  "slug": "excel-sheet-column-number",
+  "title": "Excel Sheet Column Number",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math",
+    "string"
+  ],
+  "story": {
+    "title": "Reading the Column Label",
+    "text": "Read the label left to right: multiply the running number by 26 and add the letter's position.",
+    "goal": "Return the column number for a title."
+  },
+  "spec": {
+    "method": "titleToNumber",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "columnTitle"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "A"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "AB"
+      ],
+      "expected": 28
+    },
+    {
+      "args": [
+        "ZY"
+      ],
+      "expected": 701
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "columnTitle",
+        "label": "label",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "num"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int titleToNumber(string columnTitle) {\n        long long num = 0;\n        for (int i = 0; i < (int)columnTitle.size(); i++) num = num * 26 + (columnTitle[i] - 'A' + 1);\n        return num;\n    }\n};",
+  "tier": "crafted"
+}

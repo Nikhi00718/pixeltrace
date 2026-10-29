@@ -1,0 +1,115 @@
+{
+  "id": 18,
+  "slug": "4sum",
+  "title": "4Sum",
+  "difficulty": "Medium",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "sorting"
+  ],
+  "story": {
+    "title": "Four-Crate Balance",
+    "text": "Two foremen stand on crates i and j of the sorted dock; two dockhands squeeze inward over the rest looking for a pair that balances all four to the target. Duplicates are skipped at every level.",
+    "goal": "Return every unique quadruplet summing to target (any order)."
+  },
+  "spec": {
+    "method": "fourSum",
+    "ret": "vector<vector<int>>",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "target"
+      ]
+    ]
+  },
+  "compare": "unordered-deep",
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          -1,
+          0,
+          -2,
+          2
+        ],
+        0
+      ],
+      "expected": [
+        [
+          -2,
+          -1,
+          1,
+          2
+        ],
+        [
+          -2,
+          0,
+          0,
+          2
+        ],
+        [
+          -1,
+          0,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        8
+      ],
+      "expected": [
+        [
+          2,
+          2,
+          2,
+          2
+        ]
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "sorted crates",
+        "pointers": [
+          "i",
+          "j",
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<vector<int>> fourSum(vector<int>& nums, int target) {\n        sort(nums.begin(), nums.end());\n        vector<vector<int>> res;\n        int n = nums.size();\n        for (int i = 0; i < n; i++) {\n            if (i > 0 && nums[i] == nums[i - 1]) continue;\n            for (int j = i + 1; j < n; j++) {\n                if (j > i + 1 && nums[j] == nums[j - 1]) continue;\n                int l = j + 1, r = n - 1;\n                while (l < r) {\n                    long long sum = (long long)nums[i] + nums[j] + nums[l] + nums[r];\n                    if (sum < target) l++;\n                    else if (sum > target) r--;\n                    else {\n                        res.push_back({nums[i], nums[j], nums[l], nums[r]});\n                        while (l < r && nums[l] == nums[l + 1]) l++;\n                        while (l < r && nums[r] == nums[r - 1]) r--;\n                        l++;\n                        r--;\n                    }\n                }\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

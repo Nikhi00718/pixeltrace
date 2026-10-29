@@ -1,0 +1,86 @@
+{
+  "id": 227,
+  "slug": "basic-calculator-ii",
+  "title": "Basic Calculator II",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "math",
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "The Calculator Tower (with Precedence)",
+    "text": "Numbers are read with the operator before them. + and - stack the number (negated for -); * and / combine it with the top of the tower right away. The tower's sum is the answer.",
+    "goal": "Evaluate the expression with + - * / and no parentheses."
+  },
+  "spec": {
+    "method": "calculate",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "3+2*2"
+      ],
+      "expected": 7
+    },
+    {
+      "args": [
+        " 3/2 "
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        " 3+5 / 2 "
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        "14-3*2+8/4"
+      ],
+      "expected": 10
+    }
+  ],
+  "visualTest": 3,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "expression",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "row",
+        "children": [
+          {
+            "kind": "stack",
+            "var": "st",
+            "label": "tower"
+          },
+          {
+            "kind": "values",
+            "vars": [
+              "num",
+              "op"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int calculate(string s) {\n        vector<int> st;\n        long long num = 0;\n        char op = '+';\n        for (int i = 0; i < (int)s.size(); i++) {\n            char c = s[i];\n            if (isdigit(c)) num = num * 10 + (c - '0');\n            if ((!isdigit(c) && c != ' ') || i == (int)s.size() - 1) {\n                if (op == '+') st.push_back(num);\n                else if (op == '-') st.push_back(-num);\n                else if (op == '*') st.back() *= num;\n                else st.back() /= num;\n                op = c;\n                num = 0;\n            }\n        }\n        int total = 0;\n        for (int x : st) total += x;\n        return total;\n    }\n};",
+  "tier": "crafted"
+}
