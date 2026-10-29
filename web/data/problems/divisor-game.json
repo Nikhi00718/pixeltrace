@@ -1,0 +1,66 @@
+{
+  "id": 1025,
+  "slug": "divisor-game",
+  "title": "Divisor Game",
+  "difficulty": "Easy",
+  "world": "dp",
+  "tags": [
+    "math",
+    "dynamic-programming",
+    "brainteaser",
+    "game-theory"
+  ],
+  "story": {
+    "title": "The Shrinking Pile",
+    "text": "Two players take turns picking a divisor x of the pile size and removing x stones. The ledger marks each pile size as a win if some move leaves the opponent on a losing size.",
+    "goal": "Return true if the first player wins with n stones."
+  },
+  "spec": {
+    "method": "divisorGame",
+    "ret": "bool",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        2
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        3
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        8
+      ],
+      "expected": true
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "win",
+        "label": "winning pile sizes",
+        "style": "tiles",
+        "pointers": [
+          "i",
+          "x"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool divisorGame(int n) {\n        vector<bool> win(n + 1, false);\n        for (int i = 2; i <= n; i++) {\n            for (int x = 1; x < i; x++) {\n                if (i % x == 0 && !win[i - x]) {\n                    win[i] = true;\n                    break;\n                }\n            }\n        }\n        return win[n];\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,87 @@
+{
+  "id": 1863,
+  "slug": "sum-of-all-subset-xor-totals",
+  "title": "Sum of All Subset XOR Totals",
+  "difficulty": "Easy",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "math",
+    "backtracking",
+    "bit-manipulation",
+    "combinatorics",
+    "enumeration"
+  ],
+  "story": {
+    "title": "Every Bag's Lamp Pattern",
+    "text": "Behind each door you decide whether the next item goes in the bag; the bag's value is the XOR of what's inside. Every complete bag adds its value to the total.",
+    "goal": "Return the sum of XOR totals over every subset."
+  },
+  "spec": {
+    "method": "subsetXORSum",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          3
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          5,
+          1,
+          6
+        ]
+      ],
+      "expected": 28
+    },
+    {
+      "args": [
+        [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      ],
+      "expected": 480
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "items",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cur",
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int total = 0;\n    void go(vector<int>& nums, int i, int cur) {\n        if (i == (int)nums.size()) {\n            total += cur;\n            return;\n        }\n        go(nums, i + 1, cur ^ nums[i]);\n        go(nums, i + 1, cur);\n    }\n    int subsetXORSum(vector<int>& nums) {\n        go(nums, 0, 0);\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

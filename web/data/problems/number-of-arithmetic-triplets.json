@@ -1,0 +1,89 @@
+{
+  "id": 2367,
+  "slug": "number-of-arithmetic-triplets",
+  "title": "Number of Arithmetic Triplets",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "two-pointers",
+    "enumeration"
+  ],
+  "story": {
+    "title": "Evenly Spaced Lanterns",
+    "text": "Lanterns hang at increasing heights. For each lantern, check the lockers for lanterns exactly diff and 2\u00b7diff lower; if both exist, that's a triplet.",
+    "goal": "Return how many triplets have equal spacing diff."
+  },
+  "spec": {
+    "method": "arithmeticTriplets",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "diff"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          1,
+          4,
+          6,
+          7,
+          10
+        ],
+        3
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        2
+      ],
+      "expected": 2
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "lanterns",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "seen",
+        "label": "heights seen"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "diff",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int arithmeticTriplets(vector<int>& nums, int diff) {\n        set<int> seen;\n        int count = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            if (seen.count(nums[i] - diff) && seen.count(nums[i] - 2 * diff)) count++;\n            seen.insert(nums[i]);\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

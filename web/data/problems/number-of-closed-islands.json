@@ -1,0 +1,142 @@
+{
+  "id": 1254,
+  "slug": "number-of-closed-islands",
+  "title": "Number of Closed Islands",
+  "difficulty": "Medium",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "dfs",
+    "bfs",
+    "union-find",
+    "matrix"
+  ],
+  "story": {
+    "title": "Islands Surrounded by Sea",
+    "text": "Here 0 is land and 1 is water. A surveyor floods every land patch; if the flood ever reaches the map's edge, that patch isn't closed. Patches that stay inside count.",
+    "goal": "Return the number of closed islands."
+  },
+  "spec": {
+    "method": "closedIsland",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "dp",
+        "label": "map (0 land, 1 sea, 2 explored)",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool closed(vector<vector<int>>& grid, int r, int c) {\n        if (r < 0 || c < 0 || r >= (int)grid.size() || c >= (int)grid[0].size()) return false;\n        if (grid[r][c] != 0) return true;\n        grid[r][c] = 2;\n        bool a = closed(grid, r + 1, c);\n        bool b = closed(grid, r - 1, c);\n        bool d = closed(grid, r, c + 1);\n        bool e = closed(grid, r, c - 1);\n        return a && b && d && e;\n    }\n    int closedIsland(vector<vector<int>>& grid) {\n        int count = 0;\n        for (int r = 0; r < (int)grid.size(); r++)\n            for (int c = 0; c < (int)grid[0].size(); c++)\n                if (grid[r][c] == 0 && closed(grid, r, c)) count++;\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

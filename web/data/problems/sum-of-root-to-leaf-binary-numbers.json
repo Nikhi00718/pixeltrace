@@ -1,0 +1,72 @@
+{
+  "id": 1022,
+  "slug": "sum-of-root-to-leaf-binary-numbers",
+  "title": "Sum of Root To Leaf Binary Numbers",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Binary Trails",
+    "text": "Every fruit is a 0 or 1. Climbing down, the squirrel shifts its number left and adds the fruit's bit; at each leaf the number joins the total.",
+    "goal": "Return the sum of all root-to-leaf binary numbers."
+  },
+  "spec": {
+    "method": "sumRootToLeaf",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 22
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "cur",
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int total = 0;\n    void walk(TreeNode* node, int cur) {\n        if (!node) return;\n        cur = cur * 2 + node->val;\n        if (!node->left && !node->right) total += cur;\n        walk(node->left, cur);\n        walk(node->right, cur);\n    }\n    int sumRootToLeaf(TreeNode* root) {\n        walk(root, 0);\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

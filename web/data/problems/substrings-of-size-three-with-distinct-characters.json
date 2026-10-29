@@ -1,0 +1,69 @@
+{
+  "id": 1876,
+  "slug": "substrings-of-size-three-with-distinct-characters",
+  "title": "Substrings of Size Three with Distinct Characters",
+  "difficulty": "Easy",
+  "world": "sliding-window",
+  "tags": [
+    "hash-table",
+    "string",
+    "sliding-window",
+    "counting"
+  ],
+  "story": {
+    "title": "Three Different Buoys",
+    "text": "A beam exactly three buoys wide slides along the row. Every time the three buoys inside are all different colours, it counts one.",
+    "goal": "Return how many length-3 substrings have no repeated letters."
+  },
+  "spec": {
+    "method": "countGoodSubstrings",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "xyzzaz"
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        "aababcabc"
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "buoys",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int countGoodSubstrings(string s) {\n        int count = 0;\n        for (int r = 2; r < (int)s.size(); r++) {\n            int l = r - 2;\n            if (s[l] != s[l + 1] && s[l] != s[r] && s[l + 1] != s[r]) count++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

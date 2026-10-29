@@ -1,0 +1,83 @@
+{
+  "id": 2144,
+  "slug": "minimum-cost-of-buying-candies-with-discount",
+  "title": "Minimum Cost of Buying Candies With Discount",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Buy Two, Get One Free",
+    "text": "For every two candies bought, a third one no pricier is free. Sorted from most expensive, the shopper pays for two and takes the third free, over and over.",
+    "goal": "Return the minimum total cost."
+  },
+  "spec": {
+    "method": "minimumCost",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "cost"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        [
+          6,
+          5,
+          7,
+          9,
+          2,
+          2
+        ]
+      ],
+      "expected": 23
+    },
+    {
+      "args": [
+        [
+          5,
+          5
+        ]
+      ],
+      "expected": 10
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "cost",
+        "label": "candies (priciest first)",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minimumCost(vector<int>& cost) {\n        sort(cost.rbegin(), cost.rend());\n        int total = 0;\n        for (int i = 0; i < (int)cost.size(); i++) {\n            if (i % 3 != 2) total += cost[i];\n        }\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

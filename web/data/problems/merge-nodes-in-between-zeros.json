@@ -1,0 +1,90 @@
+{
+  "id": 2181,
+  "slug": "merge-nodes-in-between-zeros",
+  "title": "Merge Nodes in Between Zeros",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "simulation"
+  ],
+  "story": {
+    "title": "Packing Cars Between Markers",
+    "text": "Zero cars mark the edges of groups. A worker walks the train adding up each group's cargo, writing the total onto the next marker car and coupling the markers together.",
+    "goal": "Return a train with one car per group holding the group's sum."
+  },
+  "spec": {
+    "method": "mergeNodes",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          0,
+          3,
+          1,
+          0,
+          4,
+          5,
+          2,
+          0
+        ]
+      ],
+      "expected": [
+        4,
+        11
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          0,
+          3,
+          0,
+          2,
+          2,
+          0
+        ]
+      ],
+      "expected": [
+        1,
+        3,
+        4
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "tail",
+          "cur"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* mergeNodes(ListNode* head) {\n        ListNode* tail = head;\n        ListNode* cur = head->next;\n        int sum = 0;\n        while (cur) {\n            if (cur->val == 0) {\n                tail->next = cur;\n                tail = cur;\n                tail->val = sum;\n                sum = 0;\n            } else {\n                sum += cur->val;\n            }\n            cur = cur->next;\n        }\n        return head->next;\n    }\n};",
+  "tier": "crafted"
+}

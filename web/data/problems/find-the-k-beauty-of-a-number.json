@@ -1,0 +1,75 @@
+{
+  "id": 2269,
+  "slug": "find-the-k-beauty-of-a-number",
+  "title": "Find the K-Beauty of a Number",
+  "difficulty": "Easy",
+  "world": "sliding-window",
+  "tags": [
+    "math",
+    "string",
+    "sliding-window"
+  ],
+  "story": {
+    "title": "Digit Windows",
+    "text": "A window k digits wide slides along the number. Each window is read as a number; if it divides the original evenly (and isn't zero), it adds to the beauty.",
+    "goal": "Return how many k-digit windows divide num."
+  },
+  "spec": {
+    "method": "divisorSubstrings",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "num"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        240,
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        430043,
+        2
+      ],
+      "expected": 2
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "digits",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "part",
+          "beauty"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int divisorSubstrings(int num, int k) {\n        string s = to_string(num);\n        int beauty = 0;\n        for (int r = k - 1; r < (int)s.size(); r++) {\n            int l = r - k + 1;\n            int part = stoi(s.substr(l, k));\n            if (part != 0 && num % part == 0) beauty++;\n        }\n        return beauty;\n    }\n};",
+  "tier": "crafted"
+}

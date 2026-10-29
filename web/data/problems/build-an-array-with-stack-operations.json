@@ -1,0 +1,103 @@
+{
+  "id": 1441,
+  "slug": "build-an-array-with-stack-operations",
+  "title": "Build an Array With Stack Operations",
+  "difficulty": "Medium",
+  "world": "stack",
+  "tags": [
+    "array",
+    "stack",
+    "simulation"
+  ],
+  "story": {
+    "title": "Stacking Only the Right Crates",
+    "text": "Crates numbered 1, 2, 3\u2026 come down a chute. Each one is pushed onto the stack; if it isn't wanted, it is popped straight off again, until the stack matches the target.",
+    "goal": "Return the list of Push / Pop operations."
+  },
+  "spec": {
+    "method": "buildArray",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "vector<int>&",
+        "target"
+      ],
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          3
+        ],
+        3
+      ],
+      "expected": [
+        "Push",
+        "Push",
+        "Pop",
+        "Push"
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        3
+      ],
+      "expected": [
+        "Push",
+        "Push",
+        "Push"
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        4
+      ],
+      "expected": [
+        "Push",
+        "Push"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "target",
+        "label": "target",
+        "pointers": [
+          "t"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "ops",
+        "label": "operations",
+        "style": "tiles"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> buildArray(vector<int>& target, int n) {\n        vector<string> ops;\n        int t = 0;\n        for (int x = 1; x <= n && t < (int)target.size(); x++) {\n            ops.push_back(\"Push\");\n            if (target[t] == x) t++;\n            else ops.push_back(\"Pop\");\n        }\n        return ops;\n    }\n};",
+  "tier": "crafted"
+}

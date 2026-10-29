@@ -1,0 +1,81 @@
+{
+  "id": 2530,
+  "slug": "maximal-score-after-applying-k-operations",
+  "title": "Maximal Score After Applying K Operations",
+  "difficulty": "Medium",
+  "world": "heap",
+  "tags": [
+    "array",
+    "greedy",
+    "heap"
+  ],
+  "story": {
+    "title": "Draining the Richest Wells",
+    "text": "Each turn you draw all the water from the fullest well and it refills to a third of that (rounded up). The pyramid always keeps the fullest well on top.",
+    "goal": "Return the most water collected in k turns."
+  },
+  "spec": {
+    "method": "maxKelements",
+    "ret": "long long",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        5
+      ],
+      "expected": 50
+    },
+    {
+      "args": [
+        [
+          1,
+          10,
+          3,
+          3,
+          3
+        ],
+        3
+      ],
+      "expected": 17
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "wells (fullest on top)",
+        "color": "#5ad1ff"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "top",
+          "score"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    long long maxKelements(vector<int>& nums, int k) {\n        priority_queue<int> pq(nums.begin(), nums.end());\n        long long score = 0;\n        while (k-- > 0) {\n            int top = pq.top();\n            pq.pop();\n            score += top;\n            pq.push((top + 2) / 3);\n        }\n        return score;\n    }\n};",
+  "tier": "crafted"
+}

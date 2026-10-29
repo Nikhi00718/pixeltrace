@@ -1,0 +1,88 @@
+{
+  "id": 2108,
+  "slug": "find-first-palindromic-string-in-the-array",
+  "title": "Find First Palindromic String in the Array",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "array",
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "The First Mirror Word",
+    "text": "Scrolls are checked in order. On each, two readers walk in from both ends; the first scroll they agree on all the way through wins.",
+    "goal": "Return the first palindrome, or an empty string."
+  },
+  "spec": {
+    "method": "firstPalindrome",
+    "ret": "string",
+    "params": [
+      [
+        "vector<string>&",
+        "words"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "abc",
+          "car",
+          "ada",
+          "racecar",
+          "cool"
+        ]
+      ],
+      "expected": "ada"
+    },
+    {
+      "args": [
+        [
+          "notapalindrome",
+          "racecar"
+        ]
+      ],
+      "expected": "racecar"
+    },
+    {
+      "args": [
+        [
+          "def",
+          "ghi"
+        ]
+      ],
+      "expected": ""
+    }
+  ],
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "words",
+        "label": "scrolls",
+        "style": "tiles",
+        "pointers": [
+          "k"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "w",
+        "label": "checking",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool mirror(string& w) {\n        int l = 0, r = w.size() - 1;\n        while (l < r) {\n            if (w[l] != w[r]) return false;\n            l++;\n            r--;\n        }\n        return true;\n    }\n    string firstPalindrome(vector<string>& words) {\n        for (int k = 0; k < (int)words.size(); k++) {\n            if (mirror(words[k])) return words[k];\n        }\n        return \"\";\n    }\n};",
+  "tier": "crafted"
+}

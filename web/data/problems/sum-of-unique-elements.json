@@ -1,0 +1,87 @@
+{
+  "id": 1748,
+  "slug": "sum-of-unique-elements",
+  "title": "Sum of Unique Elements",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "hash-table",
+    "counting"
+  ],
+  "story": {
+    "title": "One-of-a-Kind Coins",
+    "text": "Coins go into lockers by value. Afterwards only the values that showed up exactly once are added to the collector's purse.",
+    "goal": "Return the sum of the values that appear exactly once."
+  },
+  "spec": {
+    "method": "sumOfUnique",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          2
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": 15
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "coins"
+      },
+      {
+        "kind": "map",
+        "var": "cnt",
+        "label": "lockers"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int sumOfUnique(vector<int>& nums) {\n        map<int, int> cnt;\n        for (int x : nums) cnt[x]++;\n        int sum = 0;\n        for (auto& [v, c] : cnt) {\n            if (c == 1) sum += v;\n        }\n        return sum;\n    }\n};",
+  "tier": "crafted"
+}

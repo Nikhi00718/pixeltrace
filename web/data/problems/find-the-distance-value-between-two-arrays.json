@@ -1,0 +1,131 @@
+{
+  "id": 1385,
+  "slug": "find-the-distance-value-between-two-arrays",
+  "title": "Find the Distance Value Between Two Arrays",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "two-pointers",
+    "binary-search",
+    "sorting"
+  ],
+  "story": {
+    "title": "Keeping Your Distance",
+    "text": "For each number in the first list, a guard binary-searches the sorted second list for its nearest neighbours. If none is within d, it counts.",
+    "goal": "Return how many values in arr1 are farther than d from every value in arr2."
+  },
+  "spec": {
+    "method": "findTheDistanceValue",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr1"
+      ],
+      [
+        "vector<int>&",
+        "arr2"
+      ],
+      [
+        "int",
+        "d"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          5,
+          8
+        ],
+        [
+          10,
+          9,
+          1,
+          8
+        ],
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          1,
+          4,
+          2,
+          3
+        ],
+        [
+          -4,
+          -3,
+          6,
+          10,
+          20,
+          30
+        ],
+        3
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          2,
+          1,
+          100,
+          3
+        ],
+        [
+          -5,
+          -2,
+          10,
+          -3,
+          7
+        ],
+        6
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr1",
+        "label": "first list",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "arr2",
+        "label": "second list (sorted)",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ],
+        "windowExclusive": true
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "d",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {\n        sort(arr2.begin(), arr2.end());\n        int count = 0, m = arr2.size();\n        for (int i = 0; i < (int)arr1.size(); i++) {\n            int lo = 0, hi = m;\n            while (lo < hi) {\n                int mid = (lo + hi) / 2;\n                if (arr2[mid] < arr1[i]) lo = mid + 1;\n                else hi = mid;\n            }\n            bool far = true;\n            if (lo < m && arr2[lo] - arr1[i] <= d) far = false;\n            if (lo > 0 && arr1[i] - arr2[lo - 1] <= d) far = false;\n            if (far) count++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

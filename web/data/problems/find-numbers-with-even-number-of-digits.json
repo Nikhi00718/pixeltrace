@@ -1,0 +1,74 @@
+{
+  "id": 1295,
+  "slug": "find-numbers-with-even-number-of-digits",
+  "title": "Find Numbers with Even Number of Digits",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "math"
+  ],
+  "story": {
+    "title": "Even-Length Tickets",
+    "text": "A clerk counts the digits on each ticket by chopping off the last digit until nothing is left, and keeps the tickets with an even count.",
+    "goal": "Return how many numbers have an even number of digits."
+  },
+  "spec": {
+    "method": "findNumbers",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          12,
+          345,
+          2,
+          6,
+          7896
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        [
+          555,
+          901,
+          482,
+          1771
+        ]
+      ],
+      "expected": 1
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "tickets",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "x",
+          "digits",
+          "count"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findNumbers(vector<int>& nums) {\n        int count = 0;\n        for (int i = 0; i < (int)nums.size(); i++) {\n            int x = nums[i], digits = 0;\n            while (x > 0) {\n                x /= 10;\n                digits++;\n            }\n            if (digits % 2 == 0) count++;\n        }\n        return count;\n    }\n};",
+  "tier": "crafted"
+}

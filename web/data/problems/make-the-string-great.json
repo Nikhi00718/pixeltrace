@@ -1,0 +1,67 @@
+{
+  "id": 1544,
+  "slug": "make-the-string-great",
+  "title": "Make The String Great",
+  "difficulty": "Easy",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "Cancelling Opposite Cases",
+    "text": "Letters stack up one by one. A letter that lands on the same letter in the opposite case (a on A, or A on a) cancels both out.",
+    "goal": "Return the string after removing all such pairs."
+  },
+  "spec": {
+    "method": "makeGood",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "leEeetcode"
+      ],
+      "expected": "leetcode"
+    },
+    {
+      "args": [
+        "abBAcC"
+      ],
+      "expected": ""
+    },
+    {
+      "args": [
+        "s"
+      ],
+      "expected": "s"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "letters arriving",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "tower"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string makeGood(string s) {\n        string st;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (!st.empty() && st.back() != s[i] && tolower(st.back()) == tolower(s[i])) st.pop_back();\n            else st.push_back(s[i]);\n        }\n        return st;\n    }\n};",
+  "tier": "crafted"
+}

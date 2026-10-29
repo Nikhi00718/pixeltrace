@@ -1,0 +1,77 @@
+{
+  "id": 965,
+  "slug": "univalued-binary-tree",
+  "title": "Univalued Binary Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bfs"
+  ],
+  "story": {
+    "title": "All the Same Fruit?",
+    "text": "An inspector climbs every branch checking that each fruit has the same label as the one at the top.",
+    "goal": "Return true if every node has the same value."
+  },
+  "spec": {
+    "method": "isUnivalTree",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          2,
+          5,
+          2
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "want"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool same(TreeNode* node, int want) {\n        if (!node) return true;\n        if (node->val != want) return false;\n        return same(node->left, want) && same(node->right, want);\n    }\n    bool isUnivalTree(TreeNode* root) {\n        return same(root, root->val);\n    }\n};",
+  "tier": "crafted"
+}

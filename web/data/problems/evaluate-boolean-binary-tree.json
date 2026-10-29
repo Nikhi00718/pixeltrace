@@ -1,0 +1,84 @@
+{
+  "id": 2331,
+  "slug": "evaluate-boolean-binary-tree",
+  "title": "Evaluate Boolean Binary Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "The Logic Orchard",
+    "text": "Leaves hold 0 (false) or 1 (true). Branch fruits are gates: 2 means OR, 3 means AND. Each gate asks both branches for their answer and combines them.",
+    "goal": "Return the value at the root."
+  },
+  "spec": {
+    "method": "evaluateTree",
+    "ret": "bool",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          3,
+          null,
+          null,
+          0,
+          1
+        ]
+      ],
+      "expected": true
+    },
+    {
+      "args": [
+        [
+          0
+        ]
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          1,
+          0,
+          0
+        ]
+      ],
+      "expected": false
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "logic orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    bool eval(TreeNode* node) {\n        if (!node->left) return node->val == 1;\n        bool l = eval(node->left);\n        bool r = eval(node->right);\n        return node->val == 2 ? (l || r) : (l && r);\n    }\n    bool evaluateTree(TreeNode* root) {\n        return eval(root);\n    }\n};",
+  "tier": "crafted"
+}

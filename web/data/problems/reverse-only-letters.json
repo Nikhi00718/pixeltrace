@@ -1,0 +1,67 @@
+{
+  "id": 917,
+  "slug": "reverse-only-letters",
+  "title": "Reverse Only Letters",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string"
+  ],
+  "story": {
+    "title": "Leave the Punctuation Alone",
+    "text": "Two painters walk in from both ends of a sign, skipping anything that isn't a letter, and swap the letters they stop on.",
+    "goal": "Reverse only the letters, keeping other characters in place."
+  },
+  "spec": {
+    "method": "reverseOnlyLetters",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "ab-cd"
+      ],
+      "expected": "dc-ba"
+    },
+    {
+      "args": [
+        "a-bC-dEf-ghIj"
+      ],
+      "expected": "j-Ih-gfE-dCba"
+    },
+    {
+      "args": [
+        "Test1ng-Leet=code-Q!"
+      ],
+      "expected": "Qedo1ct-eeLg=ntse-T!"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "sign",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string reverseOnlyLetters(string s) {\n        int l = 0, r = s.size() - 1;\n        while (l < r) {\n            if (!isalpha(s[l])) l++;\n            else if (!isalpha(s[r])) r--;\n            else {\n                swap(s[l], s[r]);\n                l++;\n                r--;\n            }\n        }\n        return s;\n    }\n};",
+  "tier": "crafted"
+}

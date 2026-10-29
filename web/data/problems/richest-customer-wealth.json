@@ -1,0 +1,113 @@
+{
+  "id": 1672,
+  "slug": "richest-customer-wealth",
+  "title": "Richest Customer Wealth",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "array",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Bank's Ledger",
+    "text": "Each row of the ledger is one customer's bank accounts. A teller adds up each row and remembers the biggest total.",
+    "goal": "Return the wealth of the richest customer."
+  },
+  "spec": {
+    "method": "maximumWealth",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "accounts"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            3,
+            2,
+            1
+          ]
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            5
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            3,
+            5
+          ]
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "args": [
+        [
+          [
+            2,
+            8,
+            7
+          ],
+          [
+            7,
+            1,
+            3
+          ],
+          [
+            1,
+            9,
+            5
+          ]
+        ]
+      ],
+      "expected": 17
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "accounts",
+        "palette": "dp",
+        "label": "ledger",
+        "pointers": [
+          [
+            "i",
+            "j"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "sum",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maximumWealth(vector<vector<int>>& accounts) {\n        int best = 0;\n        for (int i = 0; i < (int)accounts.size(); i++) {\n            int sum = 0;\n            for (int j = 0; j < (int)accounts[i].size(); j++) sum += accounts[i][j];\n            best = max(best, sum);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

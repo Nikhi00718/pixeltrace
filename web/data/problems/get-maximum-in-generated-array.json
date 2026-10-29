@@ -1,0 +1,74 @@
+{
+  "id": 1646,
+  "slug": "get-maximum-in-generated-array",
+  "title": "Get Maximum in Generated Array",
+  "difficulty": "Easy",
+  "world": "dp",
+  "tags": [
+    "array",
+    "simulation"
+  ],
+  "story": {
+    "title": "The Growing Ledger",
+    "text": "Each even slot copies the slot at half its index; each odd slot adds the two slots around its half. The farmer fills the ledger and keeps the biggest number.",
+    "goal": "Return the maximum value of the generated array."
+  },
+  "spec": {
+    "method": "getMaximumGenerated",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        7
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        2
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        3
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        15
+      ],
+      "expected": 5
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "a",
+        "label": "generated",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int getMaximumGenerated(int n) {\n        if (n == 0) return 0;\n        vector<int> a(n + 1, 0);\n        a[1] = 1;\n        int best = 1;\n        for (int i = 2; i <= n; i++) {\n            a[i] = i % 2 == 0 ? a[i / 2] : a[i / 2] + a[i / 2 + 1];\n            best = max(best, a[i]);\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

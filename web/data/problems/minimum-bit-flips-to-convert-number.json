@@ -1,0 +1,61 @@
+{
+  "id": 2220,
+  "slug": "minimum-bit-flips-to-convert-number",
+  "title": "Minimum Bit Flips to Convert Number",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Rewiring the Lamp Row",
+    "text": "XOR lights up exactly the lamps that differ between start and goal; switching them off one by one counts the flips needed.",
+    "goal": "Return the number of bit flips to turn start into goal."
+  },
+  "spec": {
+    "method": "minBitFlips",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "start"
+      ],
+      [
+        "int",
+        "goal"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        10,
+        7
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        3,
+        4
+      ],
+      "expected": 3
+    }
+  ],
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "start",
+          "goal",
+          "diff",
+          "flips"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minBitFlips(int start, int goal) {\n        int diff = start ^ goal, flips = 0;\n        while (diff) {\n            diff &= diff - 1;\n            flips++;\n        }\n        return flips;\n    }\n};",
+  "tier": "crafted"
+}

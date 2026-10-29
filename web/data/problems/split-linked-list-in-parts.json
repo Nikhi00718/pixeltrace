@@ -1,0 +1,116 @@
+{
+  "id": 725,
+  "slug": "split-linked-list-in-parts",
+  "title": "Split Linked List in Parts",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list"
+  ],
+  "story": {
+    "title": "Dividing the Train",
+    "text": "The train must be split into k shorter trains as evenly as possible, the first ones one car longer if needed. A worker counts the cars, then walks along uncoupling at each cut.",
+    "goal": "Return the k parts (empty parts are null)."
+  },
+  "spec": {
+    "method": "splitListToParts",
+    "ret": "vector<ListNode*>",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        5
+      ],
+      "expected": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        3
+      ],
+      "expected": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10
+        ]
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "cur"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "train"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "n",
+          "size",
+          "part"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<ListNode*> splitListToParts(ListNode* head, int k) {\n        int n = 0;\n        for (ListNode* p = head; p; p = p->next) n++;\n        vector<ListNode*> res(k, nullptr);\n        ListNode* cur = head;\n        for (int part = 0; part < k && cur; part++) {\n            res[part] = cur;\n            int size = n / k + (part < n % k ? 1 : 0);\n            for (int s = 1; s < size; s++) cur = cur->next;\n            ListNode* nxt = cur->next;\n            cur->next = nullptr;\n            cur = nxt;\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

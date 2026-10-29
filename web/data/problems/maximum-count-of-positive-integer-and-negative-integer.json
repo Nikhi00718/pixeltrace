@@ -1,0 +1,90 @@
+{
+  "id": 2529,
+  "slug": "maximum-count-of-positive-integer-and-negative-integer",
+  "title": "Maximum Count of Positive Integer and Negative Integer",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search",
+    "counting"
+  ],
+  "story": {
+    "title": "Above and Below Sea Level",
+    "text": "Depths are sorted. One guard finds where the zeros start, another where they end; everything before is below sea level and everything after is above.",
+    "goal": "Return the larger of the negative count and the positive count."
+  },
+  "spec": {
+    "method": "maximumCount",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "nums"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          -2,
+          -1,
+          -1,
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          -3,
+          -2,
+          -1,
+          0,
+          0,
+          1,
+          2
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          5,
+          20,
+          66,
+          1314
+        ]
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "dock",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "nums",
+        "label": "depths",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ],
+        "windowExclusive": true
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int firstAtLeast(vector<int>& nums, int x) {\n        int lo = 0, hi = nums.size();\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            if (nums[mid] < x) lo = mid + 1;\n            else hi = mid;\n        }\n        return lo;\n    }\n    int maximumCount(vector<int>& nums) {\n        int neg = firstAtLeast(nums, 0);\n        int pos = nums.size() - firstAtLeast(nums, 1);\n        return max(neg, pos);\n    }\n};",
+  "tier": "crafted"
+}
