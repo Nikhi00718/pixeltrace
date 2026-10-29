@@ -20,6 +20,7 @@ import problems_src_5  # noqa: E402,F401
 import problems_src_6  # noqa: E402,F401
 import problems_src_7  # noqa: E402,F401
 import problems_src_8  # noqa: E402,F401
+import problems_src_9  # noqa: E402,F401
 
 OUT = ROOT / "web" / "data" / "problems"
 

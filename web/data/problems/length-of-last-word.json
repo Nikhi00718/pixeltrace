@@ -1,0 +1,67 @@
+{
+  "id": 58,
+  "slug": "length-of-last-word",
+  "title": "Length of Last Word",
+  "difficulty": "Easy",
+  "world": "arrays",
+  "tags": [
+    "string"
+  ],
+  "story": {
+    "title": "The Last Word on the Sign",
+    "text": "A painter reads the sign from the right, first skipping the trailing spaces, then counting letters until the next space.",
+    "goal": "Return the length of the last word."
+  },
+  "spec": {
+    "method": "lengthOfLastWord",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "Hello World"
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        "   fly me   to   the moon  "
+      ],
+      "expected": 4
+    },
+    {
+      "args": [
+        "luffy is still joyboy"
+      ],
+      "expected": 6
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "sign",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "len"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int lengthOfLastWord(string s) {\n        int i = s.size() - 1, len = 0;\n        while (i >= 0 && s[i] == ' ') i--;\n        while (i >= 0 && s[i] != ' ') {\n            len++;\n            i--;\n        }\n        return len;\n    }\n};",
+  "tier": "crafted"
+}

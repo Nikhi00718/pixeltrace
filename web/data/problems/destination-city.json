@@ -1,0 +1,88 @@
+{
+  "id": 1436,
+  "slug": "destination-city",
+  "title": "Destination City",
+  "difficulty": "Easy",
+  "world": "graphs",
+  "tags": [
+    "array",
+    "hash-table",
+    "string"
+  ],
+  "story": {
+    "title": "The End of the Road",
+    "text": "Roads form one long route. Every city that has a road leaving it goes into the lockers; the one city with no way out is the destination.",
+    "goal": "Return the city with no outgoing road."
+  },
+  "spec": {
+    "method": "destCity",
+    "ret": "string",
+    "params": [
+      [
+        "vector<vector<string>>&",
+        "paths"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            "London",
+            "New York"
+          ],
+          [
+            "New York",
+            "Lima"
+          ],
+          [
+            "Lima",
+            "Sao Paulo"
+          ]
+        ]
+      ],
+      "expected": "Sao Paulo"
+    },
+    {
+      "args": [
+        [
+          [
+            "B",
+            "C"
+          ],
+          [
+            "D",
+            "B"
+          ],
+          [
+            "C",
+            "A"
+          ]
+        ]
+      ],
+      "expected": "A"
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "paths",
+        "label": "roads [from, to]",
+        "style": "tiles",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "set",
+        "var": "leaves",
+        "label": "cities with a way out"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string destCity(vector<vector<string>>& paths) {\n        set<string> leaves;\n        for (auto& p : paths) leaves.insert(p[0]);\n        for (int i = 0; i < (int)paths.size(); i++) {\n            if (!leaves.count(paths[i][1])) return paths[i][1];\n        }\n        return \"\";\n    }\n};",
+  "tier": "crafted"
+}

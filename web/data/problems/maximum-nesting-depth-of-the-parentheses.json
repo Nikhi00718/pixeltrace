@@ -1,0 +1,68 @@
+{
+  "id": 1614,
+  "slug": "maximum-nesting-depth-of-the-parentheses",
+  "title": "Maximum Nesting Depth of the Parentheses",
+  "difficulty": "Easy",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "How Deep Is the Cave?",
+    "text": "Every ( is a step down into a cave and every ) a step back up. A miner walks the expression counting how far down they are and remembers the deepest point.",
+    "goal": "Return the maximum nesting depth."
+  },
+  "spec": {
+    "method": "maxDepth",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "(1+(2*3)+((8)/4))+1"
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "(1)+((2))+(((3)))"
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        "()(())((()()))"
+      ],
+      "expected": 3
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "expression",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "depth",
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maxDepth(string s) {\n        int depth = 0, best = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '(') best = max(best, ++depth);\n            else if (s[i] == ')') depth--;\n        }\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

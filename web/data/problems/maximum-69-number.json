@@ -1,0 +1,61 @@
+{
+  "id": 1323,
+  "slug": "maximum-69-number",
+  "title": "Maximum 69 Number",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "math",
+    "greedy"
+  ],
+  "story": {
+    "title": "Flipping One Digit Card",
+    "text": "A number is made of 6 and 9 cards. You may flip one card; turning the leftmost 6 into a 9 gains the most.",
+    "goal": "Return the largest number after at most one flip."
+  },
+  "spec": {
+    "method": "maximum69Number",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "num"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        9669
+      ],
+      "expected": 9969
+    },
+    {
+      "args": [
+        9996
+      ],
+      "expected": 9999
+    },
+    {
+      "args": [
+        9999
+      ],
+      "expected": 9999
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "digit cards",
+        "pointers": [
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int maximum69Number(int num) {\n        string s = to_string(num);\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '6') {\n                s[i] = '9';\n                break;\n            }\n        }\n        return stoi(s);\n    }\n};",
+  "tier": "crafted"
+}

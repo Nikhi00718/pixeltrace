@@ -1,0 +1,68 @@
+{
+  "id": 1021,
+  "slug": "remove-outermost-parentheses",
+  "title": "Remove Outermost Parentheses",
+  "difficulty": "Easy",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "Peeling the Outer Shells",
+    "text": "A row of nested shells is made of balanced groups. A counter tracks the depth; only brackets that are not the outermost of their group are kept.",
+    "goal": "Remove the outer brackets of every primitive group."
+  },
+  "spec": {
+    "method": "removeOuterParentheses",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "(()())(())"
+      ],
+      "expected": "()()()"
+    },
+    {
+      "args": [
+        "(()())(())(()(()))"
+      ],
+      "expected": "()()()()(())"
+    },
+    {
+      "args": [
+        "()()"
+      ],
+      "expected": ""
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "shells",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "depth",
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string removeOuterParentheses(string s) {\n        string res;\n        int depth = 0;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (s[i] == '(') {\n                if (depth > 0) res.push_back('(');\n                depth++;\n            } else {\n                depth--;\n                if (depth > 0) res.push_back(')');\n            }\n        }\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

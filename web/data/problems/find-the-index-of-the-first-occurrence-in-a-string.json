@@ -1,0 +1,78 @@
+{
+  "id": 28,
+  "slug": "find-the-index-of-the-first-occurrence-in-a-string",
+  "title": "Find the Index of the First Occurrence in a String",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string",
+    "string-matching"
+  ],
+  "story": {
+    "title": "Spotting the Stamp",
+    "text": "A clerk slides a stamp along a long ribbon of letters. At each position they compare letter by letter, giving up at the first mismatch and sliding one step on.",
+    "goal": "Return the first index where needle appears in haystack, or -1."
+  },
+  "spec": {
+    "method": "strStr",
+    "ret": "int",
+    "params": [
+      [
+        "string",
+        "haystack"
+      ],
+      [
+        "string",
+        "needle"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "sadbutsad",
+        "sad"
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        "leetcode",
+        "leeto"
+      ],
+      "expected": -1
+    },
+    {
+      "args": [
+        "mississippi",
+        "issip"
+      ],
+      "expected": 4
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "lab",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "haystack",
+        "label": "ribbon",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "needle",
+        "label": "stamp",
+        "pointers": [
+          "j"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int strStr(string haystack, string needle) {\n        int n = haystack.size(), m = needle.size();\n        for (int i = 0; i + m <= n; i++) {\n            int j = 0;\n            while (j < m && haystack[i + j] == needle[j]) j++;\n            if (j == m) return i;\n        }\n        return -1;\n    }\n};",
+  "tier": "crafted"
+}

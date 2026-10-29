@@ -1,0 +1,82 @@
+{
+  "id": 147,
+  "slug": "insertion-sort-list",
+  "title": "Insertion Sort List",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list",
+    "sorting"
+  ],
+  "story": {
+    "title": "Re-coupling in Order",
+    "text": "Cars are taken off the old train one at a time and slid into the right place on a new, sorted train that starts behind a dummy engine.",
+    "goal": "Return the train sorted by insertion sort."
+  },
+  "spec": {
+    "method": "insertionSortList",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "head"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          1,
+          3
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          -1,
+          5,
+          3,
+          4,
+          0
+        ]
+      ],
+      "expected": [
+        -1,
+        0,
+        3,
+        4,
+        5
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "head",
+          "cur",
+          "prev",
+          "nxt"
+        ],
+        "heads": [
+          "head"
+        ],
+        "label": "yard"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* insertionSortList(ListNode* head) {\n        ListNode* dummy = new ListNode(0);\n        ListNode* cur = head;\n        while (cur) {\n            ListNode* nxt = cur->next;\n            ListNode* prev = dummy;\n            while (prev->next && prev->next->val < cur->val) prev = prev->next;\n            cur->next = prev->next;\n            prev->next = cur;\n            cur = nxt;\n        }\n        return dummy->next;\n    }\n};",
+  "tier": "crafted"
+}

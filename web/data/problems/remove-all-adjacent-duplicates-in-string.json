@@ -1,0 +1,60 @@
+{
+  "id": 1047,
+  "slug": "remove-all-adjacent-duplicates-in-string",
+  "title": "Remove All Adjacent Duplicates In String",
+  "difficulty": "Easy",
+  "world": "stack",
+  "tags": [
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "Popping Twin Blocks",
+    "text": "Letter blocks drop onto a tower one by one. When a block lands on its twin, both vanish, which may expose another twin pair underneath.",
+    "goal": "Return what remains after removing all adjacent duplicate pairs."
+  },
+  "spec": {
+    "method": "removeDuplicates",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "s"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abbaca"
+      ],
+      "expected": "ca"
+    },
+    {
+      "args": [
+        "azxxzy"
+      ],
+      "expected": "ay"
+    }
+  ],
+  "scene": {
+    "theme": "castle",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "s",
+        "label": "blocks arriving",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "stack",
+        "var": "st",
+        "label": "tower"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string removeDuplicates(string s) {\n        string st;\n        for (int i = 0; i < (int)s.size(); i++) {\n            if (!st.empty() && st.back() == s[i]) st.pop_back();\n            else st.push_back(s[i]);\n        }\n        return st;\n    }\n};",
+  "tier": "crafted"
+}

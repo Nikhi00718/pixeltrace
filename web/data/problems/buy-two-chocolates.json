@@ -1,0 +1,95 @@
+{
+  "id": 2706,
+  "slug": "buy-two-chocolates",
+  "title": "Buy Two Chocolates",
+  "difficulty": "Easy",
+  "world": "greedy",
+  "tags": [
+    "array",
+    "greedy",
+    "sorting"
+  ],
+  "story": {
+    "title": "Two Cheapest Treats",
+    "text": "A kid wants exactly two chocolates and must not go into debt. Walking the shelf, they remember the two cheapest prices seen so far.",
+    "goal": "Return the money left after buying the two cheapest, or the original money if that is impossible."
+  },
+  "spec": {
+    "method": "buyChoco",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "prices"
+      ],
+      [
+        "int",
+        "money"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2
+        ],
+        3
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          3
+        ],
+        3
+      ],
+      "expected": 3
+    },
+    {
+      "args": [
+        [
+          98,
+          54,
+          6,
+          34,
+          66,
+          63,
+          52,
+          39
+        ],
+        62
+      ],
+      "expected": 22
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "prices",
+        "label": "shelf",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "a",
+          "b",
+          "money"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int buyChoco(vector<int>& prices, int money) {\n        int a = INT_MAX, b = INT_MAX;\n        for (int i = 0; i < (int)prices.size(); i++) {\n            if (prices[i] < a) {\n                b = a;\n                a = prices[i];\n            } else if (prices[i] < b) {\n                b = prices[i];\n            }\n        }\n        return a + b <= money ? money - a - b : money;\n    }\n};",
+  "tier": "crafted"
+}

@@ -45,6 +45,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
   const [cleared, setCleared] = useState(false);
   const [focusLine, setFocusLine] = useState<number | null>(null);
   const [picked, setPicked] = useState<string | null>(null);
+  const [theater, setTheater] = useState(false);
   const editorRef = useRef<EditorT | null>(null);
   const monacoRef = useRef<Monaco | null>(null);
   const decoRef = useRef<string[]>([]);
@@ -281,6 +282,9 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
             <span key={i} className={`heart ${results[i] ? (results[i].passed ? "full" : "broken") : ""}`} />
           ))}
         </div>
+        <button className={`hud-btn ${theater ? "on" : ""}`} onClick={() => setTheater((t) => !t)} title="Hide the editor and give the scene the whole width">
+          {theater ? "◧ EDITOR" : "⛶ THEATER"}
+        </button>
         <button
           className={`hud-btn ${sound ? "on" : ""}`}
           onClick={() => {
@@ -293,7 +297,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
         </button>
       </header>
 
-      <div className="ws-grid">
+      <div className={`ws-grid ${theater ? "theater" : ""}`}>
         <section className="ws-code">
           <div className="quest panel">
             <div className="tabs">
@@ -478,7 +482,8 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
         </section>
 
         <section className="ws-stage">
-          <div className={`stage panel ${crashed ? "shake" : ""}`}>
+          <div className="stage-card">
+          <div className={`stage ${crashed ? "shake" : ""}`}>
             <SceneCanvas trace={trace} def={scene} step={step} speedMs={Math.round(SPEEDS[speed].ms * 0.75)} onPick={onPick} />
             {isPreview && !running && (
               <div className="stage-hint">
@@ -510,7 +515,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
             )}
           </div>
 
-          <div className="narrator panel">
+          <div className="narrator">
             <div className="owl" aria-hidden>
               <svg viewBox="0 0 10 10" width="36" height="36" shapeRendering="crispEdges">
                 <rect x="2" y="1" width="6" height="7" fill="#8d6e63" />
@@ -544,7 +549,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
             </div>
           </div>
 
-          <div className="gamepad panel">
+          <div className="gamepad">
             <div className="pad-buttons">
               <button className="pad" onClick={() => setStep(0)} disabled={isPreview} title="First (Home)">⏮</button>
               <button className="pad" onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={isPreview} title="Back (←)">◀</button>
@@ -565,6 +570,7 @@ export default function Workspace({ problem, starter }: { problem: Problem; star
                 ))}
               </div>
             </div>
+          </div>
           </div>
 
           <div className="inspect panel">

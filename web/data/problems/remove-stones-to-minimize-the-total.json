@@ -1,0 +1,77 @@
+{
+  "id": 1962,
+  "slug": "remove-stones-to-minimize-the-total",
+  "title": "Remove Stones to Minimize the Total",
+  "difficulty": "Medium",
+  "world": "heap",
+  "tags": [
+    "array",
+    "greedy",
+    "heap"
+  ],
+  "story": {
+    "title": "Halving the Biggest Pile",
+    "text": "k times, a worker takes the biggest stone pile and removes half of it (rounded down). The pyramid keeps the biggest pile on top.",
+    "goal": "Return the fewest stones left after k operations."
+  },
+  "spec": {
+    "method": "minStoneSum",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "piles"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          5,
+          4,
+          9
+        ],
+        2
+      ],
+      "expected": 12
+    },
+    {
+      "args": [
+        [
+          4,
+          3,
+          6,
+          7
+        ],
+        3
+      ],
+      "expected": 12
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "heap",
+        "var": "pq",
+        "label": "piles (biggest on top)",
+        "color": "#9a8c98"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "top",
+          "total"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minStoneSum(vector<int>& piles, int k) {\n        priority_queue<int> pq(piles.begin(), piles.end());\n        while (k-- > 0) {\n            int top = pq.top();\n            pq.pop();\n            pq.push(top - top / 2);\n        }\n        int total = 0;\n        while (!pq.empty()) {\n            total += pq.top();\n            pq.pop();\n        }\n        return total;\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,86 @@
+{
+  "id": 1539,
+  "slug": "kth-missing-positive-number",
+  "title": "Kth Missing Positive Number",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "Missing House Numbers",
+    "text": "Before the house at position i, exactly arr[i] - i - 1 numbers are missing. The guard binary-searches for the first house with at least k missing numbers before it.",
+    "goal": "Return the k-th missing positive integer."
+  },
+  "spec": {
+    "method": "findKthPositive",
+    "ret": "int",
+    "params": [
+      [
+        "vector<int>&",
+        "arr"
+      ],
+      [
+        "int",
+        "k"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          3,
+          4,
+          7,
+          11
+        ],
+        5
+      ],
+      "expected": 9
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        2
+      ],
+      "expected": 6
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "arr",
+        "label": "houses",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ],
+        "windowExclusive": true
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "k",
+          "missing"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findKthPositive(vector<int>& arr, int k) {\n        int lo = 0, hi = arr.size();\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            int missing = arr[mid] - mid - 1;\n            if (missing < k) lo = mid + 1;\n            else hi = mid;\n        }\n        return lo + k;\n    }\n};",
+  "tier": "crafted"
+}

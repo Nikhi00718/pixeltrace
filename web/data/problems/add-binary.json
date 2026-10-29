@@ -1,0 +1,79 @@
+{
+  "id": 67,
+  "slug": "add-binary",
+  "title": "Add Binary",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "math",
+    "string",
+    "bit-manipulation",
+    "simulation"
+  ],
+  "story": {
+    "title": "Adding Two Lamp Rows",
+    "text": "Two rows of lamps are added from the right, lamp by lamp, carrying a 1 whenever two lit lamps meet.",
+    "goal": "Return the binary sum as a string."
+  },
+  "spec": {
+    "method": "addBinary",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "a"
+      ],
+      [
+        "string",
+        "b"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "11",
+        "1"
+      ],
+      "expected": "100"
+    },
+    {
+      "args": [
+        "1010",
+        "1011"
+      ],
+      "expected": "10101"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "a",
+        "label": "row a",
+        "pointers": [
+          "i"
+        ]
+      },
+      {
+        "kind": "string",
+        "var": "b",
+        "label": "row b",
+        "pointers": [
+          "j"
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "carry",
+          "res"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string addBinary(string a, string b) {\n        string res;\n        int i = a.size() - 1, j = b.size() - 1, carry = 0;\n        while (i >= 0 || j >= 0 || carry) {\n            int sum = carry;\n            if (i >= 0) sum += a[i--] - '0';\n            if (j >= 0) sum += b[j--] - '0';\n            res.push_back('0' + sum % 2);\n            carry = sum / 2;\n        }\n        reverse(res.begin(), res.end());\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

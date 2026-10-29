@@ -1,0 +1,74 @@
+{
+  "id": 2000,
+  "slug": "reverse-prefix-of-word",
+  "title": "Reverse Prefix of Word",
+  "difficulty": "Easy",
+  "world": "two-pointers",
+  "tags": [
+    "two-pointers",
+    "string",
+    "stack"
+  ],
+  "story": {
+    "title": "Flipping the Front of the Banner",
+    "text": "Find the first copy of letter ch on the banner, then two painters flip everything from the start up to that letter, swapping from both ends.",
+    "goal": "Reverse the prefix ending at the first ch (if any)."
+  },
+  "spec": {
+    "method": "reversePrefix",
+    "ret": "string",
+    "params": [
+      [
+        "string",
+        "word"
+      ],
+      [
+        "char",
+        "ch"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        "abcdefd",
+        "d"
+      ],
+      "expected": "dcbaefd"
+    },
+    {
+      "args": [
+        "xyxzxe",
+        "z"
+      ],
+      "expected": "zxyxxe"
+    },
+    {
+      "args": [
+        "abcd",
+        "z"
+      ],
+      "expected": "abcd"
+    }
+  ],
+  "scene": {
+    "theme": "market",
+    "layers": [
+      {
+        "kind": "string",
+        "var": "word",
+        "label": "banner",
+        "pointers": [
+          "l",
+          "r"
+        ],
+        "window": [
+          "l",
+          "r"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    string reversePrefix(string word, char ch) {\n        int r = word.find(ch);\n        if (r == (int)string::npos) return word;\n        int l = 0;\n        while (l < r) {\n            swap(word[l], word[r]);\n            l++;\n            r--;\n        }\n        return word;\n    }\n};",
+  "tier": "crafted"
+}

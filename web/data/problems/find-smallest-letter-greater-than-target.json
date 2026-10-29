@@ -1,0 +1,90 @@
+{
+  "id": 744,
+  "slug": "find-smallest-letter-greater-than-target",
+  "title": "Find Smallest Letter Greater Than Target",
+  "difficulty": "Easy",
+  "world": "binary-search",
+  "tags": [
+    "array",
+    "binary-search"
+  ],
+  "story": {
+    "title": "The Next Letter Box",
+    "text": "Letter boxes are sorted. The guard halves the shelf looking for the first box strictly after the target; if none is, the shelf wraps around to the first box.",
+    "goal": "Return the smallest letter greater than target (wrapping around)."
+  },
+  "spec": {
+    "method": "nextGreatestLetter",
+    "ret": "char",
+    "params": [
+      [
+        "vector<char>&",
+        "letters"
+      ],
+      [
+        "char",
+        "target"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          "c",
+          "f",
+          "j"
+        ],
+        "a"
+      ],
+      "expected": "c"
+    },
+    {
+      "args": [
+        [
+          "c",
+          "f",
+          "j"
+        ],
+        "c"
+      ],
+      "expected": "f"
+    },
+    {
+      "args": [
+        [
+          "x",
+          "x",
+          "y",
+          "y"
+        ],
+        "z"
+      ],
+      "expected": "x"
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "letters",
+        "label": "boxes",
+        "style": "letters",
+        "pointers": [
+          "lo",
+          "mid",
+          "hi"
+        ],
+        "window": [
+          "lo",
+          "hi"
+        ],
+        "windowExclusive": true
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    char nextGreatestLetter(vector<char>& letters, char target) {\n        int lo = 0, hi = letters.size();\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            if (letters[mid] <= target) lo = mid + 1;\n            else hi = mid;\n        }\n        return letters[lo % letters.size()];\n    }\n};",
+  "tier": "crafted"
+}

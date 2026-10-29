@@ -1,0 +1,118 @@
+{
+  "id": 1669,
+  "slug": "merge-in-between-linked-lists",
+  "title": "Merge In Between Linked Lists",
+  "difficulty": "Medium",
+  "world": "linked-list",
+  "tags": [
+    "linked-list"
+  ],
+  "story": {
+    "title": "Swapping Out a Section of Train",
+    "text": "Cars a through b of the first train are replaced by a whole second train. One worker parks just before car a, another just after car b, and the second train is coupled in between.",
+    "goal": "Return the first train with the section replaced."
+  },
+  "spec": {
+    "method": "mergeInBetween",
+    "ret": "ListNode*",
+    "params": [
+      [
+        "ListNode*",
+        "list1"
+      ],
+      [
+        "int",
+        "a"
+      ],
+      [
+        "int",
+        "b"
+      ],
+      [
+        "ListNode*",
+        "list2"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          10,
+          1,
+          13,
+          6,
+          9,
+          5
+        ],
+        3,
+        4,
+        [
+          1000000,
+          1000001,
+          1000002
+        ]
+      ],
+      "expected": [
+        10,
+        1,
+        13,
+        1000000,
+        1000001,
+        1000002,
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        2,
+        5,
+        [
+          7,
+          8,
+          9
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        7,
+        8,
+        9,
+        6
+      ]
+    }
+  ],
+  "visualTest": 1,
+  "scene": {
+    "theme": "farm",
+    "layers": [
+      {
+        "kind": "list",
+        "vars": [
+          "list1",
+          "list2",
+          "before",
+          "after",
+          "tail"
+        ],
+        "heads": [
+          "list1",
+          "list2"
+        ],
+        "label": "trains"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {\n        ListNode* before = list1;\n        for (int s = 1; s < a; s++) before = before->next;\n        ListNode* after = before;\n        for (int s = a; s <= b + 1; s++) after = after->next;\n        before->next = list2;\n        ListNode* tail = list2;\n        while (tail->next) tail = tail->next;\n        tail->next = after;\n        return list1;\n    }\n};",
+  "tier": "crafted"
+}

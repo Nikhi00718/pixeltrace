@@ -63,7 +63,32 @@ interface Live {
   t0: number;
   flash: number;
   dead: boolean;
+  born: boolean;
+  dir: number;
+  hop: number;
+  sparkAt: number;
+  wasMoving: boolean;
 }
+
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  t0: number;
+  life: number;
+  color: string;
+  g: number;
+}
+
+// sprites that hop in an arc when they slide sideways (so swaps read as jumps)
+const HOPPERS = new Set(["crate", "tile", "block", "fruit", "car", "person", "locker", "bar"]);
+const easeInOut = (k: number) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const easeOutBack = (k: number) => {
+  const c1 = 1.70158;
+  const c3 = c1 + 1;
+  return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2);
+};
 
 /** Owns the canvas, tweens entities between frames, and draws them. */
 export class Renderer {
@@ -75,6 +100,7 @@ export class Renderer {
   private readonly S = 3;
   private bornStep = 0;
   private hoverId: string | null = null;
+  private parts: Particle[] = [];
 
   constructor(private canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext("2d")!;
@@ -112,6 +138,7 @@ export class Renderer {
         cur.t0 = animate ? now : now - this.duration;
         if (changed && animate && e.kind !== "hero" && e.kind !== "label") cur.flash = now;
         cur.ent = e;
+        cur.born = false;
       } else {
         const spawnFromAbove = animate && this.bornStep !== i && !["label", "edge", "arrow", "segment", "ground", "gate", "nullpad", "tiny"].includes(e.kind);
         this.live.set(e.id, {
@@ -126,6 +153,11 @@ export class Renderer {
           t0: animate ? now : now - this.duration,
           flash: spawnFromAbove ? now : 0,
           dead: false,
+          born: spawnFromAbove,
+          dir: 1,
+          hop: 0,
+          sparkAt: 0,
+          wasMoving: false,
         });
       }
     }
@@ -207,22 +239,48 @@ export class Renderer {
     const list: Live[] = [];
     for (const [id, l] of this.live) {
       const k = Math.min(1, (now - l.t0) / this.duration);
-      const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-      l.x = l.fx + (l.ent.x - l.fx) * e;
-      l.y = l.fy + (l.ent.y - l.fy) * e;
-      l.a = l.fa + (l.ta - l.fa) * e;
+      const move = easeInOut(k);
+      const dx = l.ent.x - l.fx;
+      l.x = l.fx + dx * move;
+      l.y = l.fy + (l.ent.y - l.fy) * (l.born ? easeOutBack(k) : move);
+      l.a = l.fa + (l.ta - l.fa) * Math.min(1, k * 1.6);
+      l.hop = HOPPERS.has(l.ent.kind) && Math.abs(dx) > 2 && k < 1 ? -Math.sin(Math.PI * k) * Math.min(12, Math.abs(dx) * 0.3) : 0;
+      if (Math.abs(dx) > 0.5 && k < 1) l.dir = dx < 0 ? -1 : 1;
       if (l.dead && k >= 1) {
         this.live.delete(id);
         continue;
+      }
+      const moving = k < 1 && (Math.abs(dx) > 0.5 || Math.abs(l.ent.y - l.fy) > 0.5);
+      if (l.ent.kind === "hero" && l.wasMoving && !moving) this.burst(l.x, l.y, 5, "#c9b89a", 0.04);
+      l.wasMoving = moving;
+      if (l.flash > l.sparkAt && now - l.flash > this.duration * 0.55) {
+        l.sparkAt = l.flash;
+        const b = this.box(l);
+        if (b) this.burst(b[0] + b[2] / 2, b[1] + b[3] / 2, 8, "#fff6a0", 0.02);
       }
       list.push(l);
     }
     list.sort((a, b) => (a.ent.z ?? 5) - (b.ent.z ?? 5));
     for (const l of list) {
       c.globalAlpha = Math.max(0, Math.min(1, l.a));
+      const since = now - l.flash;
+      let scale = since >= 0 && since < 280 && !l.born ? 1 + 0.18 * (1 - since / 280) : 1;
+      if (l.dead) scale = 0.6 + 0.4 * Math.max(0, l.a);
+      const b = scale !== 1 ? this.box(l) : null;
+      c.save();
+      if (l.hop) c.translate(0, l.hop);
+      if (b) {
+        const cx = b[0] + b[2] / 2;
+        const cy = b[1] + b[3] / 2;
+        c.translate(cx, cy);
+        c.scale(scale, scale);
+        c.translate(-cx, -cy);
+      }
       this.draw(l, now);
+      c.restore();
     }
     c.globalAlpha = 1;
+    this.drawParticles(now);
     const hov = this.hoverId ? this.live.get(this.hoverId) : undefined;
     if (hov) {
       const b = this.box(hov);
@@ -237,6 +295,28 @@ export class Renderer {
     // faint scanlines for the CRT feel
     c.fillStyle = "rgba(0,0,0,0.05)";
     for (let y = 0; y < H; y += 2) c.fillRect(0, y, W, 1);
+  }
+
+  private burst(x: number, y: number, n: number, color: string, g: number) {
+    const now = performance.now();
+    for (let i = 0; i < n; i++) {
+      const a = (Math.PI * 2 * i) / n + Math.random() * 0.6;
+      const sp = 0.012 + Math.random() * 0.02;
+      this.parts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 0.01, t0: now, life: 380 + Math.random() * 200, color, g: g * 0.0004 });
+    }
+    if (this.parts.length > 300) this.parts.splice(0, this.parts.length - 300);
+  }
+
+  private drawParticles(now: number) {
+    const c = this.ctx;
+    this.parts = this.parts.filter((p) => now - p.t0 < p.life);
+    for (const p of this.parts) {
+      const t = now - p.t0;
+      c.globalAlpha = Math.max(0, 1 - t / p.life);
+      c.fillStyle = p.color;
+      c.fillRect(Math.round(p.x + p.vx * t), Math.round(p.y + p.vy * t + p.g * t * t), 1, 1);
+    }
+    c.globalAlpha = 1;
   }
 
   private center(id: string | undefined): { x: number; y: number; w: number; h: number; kind: string } | null {
@@ -361,7 +441,8 @@ export class Renderer {
       case "hero": {
         let y = l.y;
         if (e.fall) y += ((now / 6) % 30);
-        D.hero(c, l.x, y, e.color ?? "#e8534a", moving, now);
+        else if (!moving && Math.floor((now + e.id.length * 137) / 650) % 2) y -= 1;
+        D.hero(c, l.x, y, e.color ?? "#e8534a", moving, now, l.dir < 0);
         const stacked = e.h ?? 0;
         const tagY = stacked ? (e.below ? l.y + 5 + (stacked - 1) * 8 : l.y - 17 - stacked * 8) : l.y - 17;
         D.nameTag(c, e.sub ? `${e.text}=${e.sub}` : e.text ?? "", l.x, tagY, e.color ?? "#e8534a");

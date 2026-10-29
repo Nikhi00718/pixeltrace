@@ -1,0 +1,83 @@
+{
+  "id": 257,
+  "slug": "binary-tree-paths",
+  "title": "Binary Tree Paths",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "string",
+    "backtracking",
+    "tree",
+    "dfs"
+  ],
+  "story": {
+    "title": "Writing Down Every Trail",
+    "text": "A squirrel climbs every route from the top to a leaf, writing the route as it goes. At each leaf the written route goes into the logbook.",
+    "goal": "Return every root-to-leaf path as \"a->b->c\" (any order)."
+  },
+  "spec": {
+    "method": "binaryTreePaths",
+    "ret": "vector<string>",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "compare": "unordered",
+  "tests": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          null,
+          5
+        ]
+      ],
+      "expected": [
+        "1->2->5",
+        "1->3"
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": [
+        "1"
+      ]
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "path"
+        ]
+      },
+      {
+        "kind": "array",
+        "var": "res",
+        "label": "logbook",
+        "style": "tiles"
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    vector<string> res;\n    void walk(TreeNode* node, string path) {\n        if (!node) return;\n        path += to_string(node->val);\n        if (!node->left && !node->right) {\n            res.push_back(path);\n            return;\n        }\n        walk(node->left, path + \"->\");\n        walk(node->right, path + \"->\");\n    }\n    vector<string> binaryTreePaths(TreeNode* root) {\n        walk(root, \"\");\n        return res;\n    }\n};",
+  "tier": "crafted"
+}

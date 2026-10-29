@@ -49,7 +49,7 @@ export default function ProblemBrowser({ problems, worlds }: { problems: Problem
   const xp = ((solvedCount % 3) / 3) * 100;
 
   return (
-    <section className="browser">
+    <section className="browser" id="worlds" style={{ display: "flex", flexDirection: "column", gap: 22 }}>
       <div className="player-card panel">
         <div className="avatar" aria-hidden>
           <svg viewBox="0 0 8 12" width="32" height="48" shapeRendering="crispEdges">
@@ -80,7 +80,13 @@ export default function ProblemBrowser({ problems, worlds }: { problems: Problem
         )}
       </div>
 
-      <WorldMap worlds={mapWorlds} selected={world} onSelect={(id) => { setWorld(id); setQ(""); setDiff("All"); }} />
+      <div>
+        <div className="section-title">
+          <h2>Choose an island</h2>
+          <span className="small">Each world is one pattern. Click an island to walk there.</span>
+        </div>
+        <WorldMap worlds={mapWorlds} selected={world} onSelect={(id) => { setWorld(id); setQ(""); setDiff("All"); }} />
+      </div>
 
       <div className="filters">
         <input placeholder="🔎 Search every world: title, number, tag…" value={q} onChange={(e) => setQ(e.target.value)} />

@@ -1,0 +1,60 @@
+{
+  "id": 476,
+  "slug": "number-complement",
+  "title": "Number Complement",
+  "difficulty": "Easy",
+  "world": "bits",
+  "tags": [
+    "bit-manipulation"
+  ],
+  "story": {
+    "title": "Flipping Every Lamp",
+    "text": "Build a mask with a lit lamp under every lamp the number uses, then XOR with it so every lamp flips.",
+    "goal": "Return the complement of num (flip every bit of its binary form)."
+  },
+  "spec": {
+    "method": "findComplement",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "num"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        5
+      ],
+      "expected": 2
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        100
+      ],
+      "expected": 27
+    }
+  ],
+  "visualTest": 2,
+  "scene": {
+    "theme": "space",
+    "layers": [
+      {
+        "kind": "values",
+        "vars": [
+          "num",
+          "mask"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int findComplement(int num) {\n        long long mask = 1;\n        while (mask <= num) mask <<= 1;\n        return (int)((mask - 1) ^ num);\n    }\n};",
+  "tier": "crafted"
+}

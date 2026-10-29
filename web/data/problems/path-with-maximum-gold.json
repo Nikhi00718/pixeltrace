@@ -1,0 +1,108 @@
+{
+  "id": 1219,
+  "slug": "path-with-maximum-gold",
+  "title": "Path with Maximum Gold",
+  "difficulty": "Medium",
+  "world": "backtracking",
+  "tags": [
+    "array",
+    "backtracking",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Gold Mine",
+    "text": "A miner may start in any cell with gold and walk up, down, left or right, never revisiting a cell. Each step into the tunnels empties the cell; backing out puts the gold back for the next try.",
+    "goal": "Return the most gold one walk can collect."
+  },
+  "spec": {
+    "method": "getMaximumGold",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "grid"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            0,
+            6,
+            0
+          ],
+          [
+            5,
+            8,
+            7
+          ],
+          [
+            0,
+            9,
+            0
+          ]
+        ]
+      ],
+      "expected": 24
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            0,
+            7
+          ],
+          [
+            2,
+            0,
+            6
+          ],
+          [
+            3,
+            4,
+            5
+          ],
+          [
+            0,
+            3,
+            0
+          ],
+          [
+            9,
+            0,
+            20
+          ]
+        ]
+      ],
+      "expected": 28
+    }
+  ],
+  "scene": {
+    "theme": "cave",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "grid",
+        "palette": "dp",
+        "label": "mine",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "best"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int dig(vector<vector<int>>& grid, int r, int c) {\n        if (r < 0 || c < 0 || r >= (int)grid.size() || c >= (int)grid[0].size() || grid[r][c] == 0) return 0;\n        int gold = grid[r][c];\n        grid[r][c] = 0;\n        int more = max({dig(grid, r + 1, c), dig(grid, r - 1, c), dig(grid, r, c + 1), dig(grid, r, c - 1)});\n        grid[r][c] = gold;\n        return gold + more;\n    }\n    int getMaximumGold(vector<vector<int>>& grid) {\n        int best = 0;\n        for (int r = 0; r < (int)grid.size(); r++)\n            for (int c = 0; c < (int)grid[0].size(); c++)\n                best = max(best, dig(grid, r, c));\n        return best;\n    }\n};",
+  "tier": "crafted"
+}

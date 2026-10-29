@@ -1,0 +1,66 @@
+{
+  "id": 96,
+  "slug": "unique-binary-search-trees",
+  "title": "Unique Binary Search Trees",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "math",
+    "dynamic-programming",
+    "tree",
+    "bst"
+  ],
+  "story": {
+    "title": "How Many Orchards?",
+    "text": "With n labelled fruits, any one can be the root. The left side then holds the smaller ones and the right the bigger, so the count is the sum of left ways times right ways.",
+    "goal": "Return how many structurally unique BSTs store 1..n."
+  },
+  "spec": {
+    "method": "numTrees",
+    "ret": "int",
+    "params": [
+      [
+        "int",
+        "n"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        3
+      ],
+      "expected": 5
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        6
+      ],
+      "expected": 132
+    }
+  ],
+  "visualTest": 0,
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "array",
+        "var": "dp",
+        "label": "orchards per size",
+        "style": "tiles",
+        "pointers": [
+          "root",
+          "i"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int numTrees(int n) {\n        vector<long long> dp(n + 1, 0);\n        dp[0] = 1;\n        for (int i = 1; i <= n; i++) {\n            for (int root = 1; root <= i; root++) {\n                dp[i] += dp[root - 1] * dp[i - root];\n            }\n        }\n        return dp[n];\n    }\n};",
+  "tier": "crafted"
+}

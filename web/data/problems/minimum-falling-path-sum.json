@@ -1,0 +1,85 @@
+{
+  "id": 931,
+  "slug": "minimum-falling-path-sum",
+  "title": "Minimum Falling Path Sum",
+  "difficulty": "Medium",
+  "world": "dp",
+  "tags": [
+    "array",
+    "dynamic-programming",
+    "matrix"
+  ],
+  "story": {
+    "title": "The Cheapest Fall",
+    "text": "A raindrop falls through a grid of fees, moving straight down or diagonally each row. Row by row, each cell is overwritten with the cheapest total fall to reach it.",
+    "goal": "Return the cheapest falling path from the top row to the bottom."
+  },
+  "spec": {
+    "method": "minFallingPathSum",
+    "ret": "int",
+    "params": [
+      [
+        "vector<vector<int>>&",
+        "matrix"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            6,
+            5,
+            4
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ]
+      ],
+      "expected": 13
+    },
+    {
+      "args": [
+        [
+          [
+            -19,
+            57
+          ],
+          [
+            -40,
+            -5
+          ]
+        ]
+      ],
+      "expected": -59
+    }
+  ],
+  "scene": {
+    "theme": "city",
+    "layers": [
+      {
+        "kind": "grid",
+        "var": "matrix",
+        "palette": "dp",
+        "label": "fees",
+        "pointers": [
+          [
+            "r",
+            "c"
+          ]
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int minFallingPathSum(vector<vector<int>>& matrix) {\n        int n = matrix.size();\n        for (int r = 1; r < n; r++) {\n            for (int c = 0; c < n; c++) {\n                int best = matrix[r - 1][c];\n                if (c > 0) best = min(best, matrix[r - 1][c - 1]);\n                if (c + 1 < n) best = min(best, matrix[r - 1][c + 1]);\n                matrix[r][c] += best;\n            }\n        }\n        return *min_element(matrix[n - 1].begin(), matrix[n - 1].end());\n    }\n};",
+  "tier": "crafted"
+}

@@ -1,0 +1,83 @@
+{
+  "id": 700,
+  "slug": "search-in-a-binary-search-tree",
+  "title": "Search in a Binary Search Tree",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "bst"
+  ],
+  "story": {
+    "title": "Finding the Labelled Fruit",
+    "text": "In a sorted orchard a picker goes left for smaller labels and right for bigger ones until they find the fruit, or run out of branches.",
+    "goal": "Return the subtree rooted at val, or an empty tree."
+  },
+  "spec": {
+    "method": "searchBST",
+    "ret": "TreeNode*",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ],
+      [
+        "int",
+        "val"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          4,
+          2,
+          7,
+          1,
+          3
+        ],
+        2
+      ],
+      "expected": [
+        2,
+        1,
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          4,
+          2,
+          7,
+          1,
+          3
+        ],
+        5
+      ],
+      "expected": []
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "cur"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "val"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    TreeNode* searchBST(TreeNode* root, int val) {\n        TreeNode* cur = root;\n        while (cur && cur->val != val) cur = val < cur->val ? cur->left : cur->right;\n        return cur;\n    }\n};",
+  "tier": "crafted"
+}

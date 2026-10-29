@@ -1,0 +1,73 @@
+{
+  "id": 404,
+  "slug": "sum-of-left-leaves",
+  "title": "Sum of Left Leaves",
+  "difficulty": "Easy",
+  "world": "trees",
+  "tags": [
+    "tree",
+    "dfs",
+    "bfs"
+  ],
+  "story": {
+    "title": "Only the Left-Hanging Fruit",
+    "text": "A squirrel only collects fruit that hang at the very end of a left branch. Each branch is told whether it is a left child.",
+    "goal": "Return the sum of all left leaves."
+  },
+  "spec": {
+    "method": "sumOfLeftLeaves",
+    "ret": "int",
+    "params": [
+      [
+        "TreeNode*",
+        "root"
+      ]
+    ]
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      ],
+      "expected": 24
+    },
+    {
+      "args": [
+        [
+          1
+        ]
+      ],
+      "expected": 0
+    }
+  ],
+  "scene": {
+    "theme": "forest",
+    "layers": [
+      {
+        "kind": "tree",
+        "var": "root",
+        "pointers": [
+          "node"
+        ],
+        "label": "orchard"
+      },
+      {
+        "kind": "values",
+        "vars": [
+          "isLeft",
+          "sum"
+        ]
+      }
+    ]
+  },
+  "reference": "class Solution {\npublic:\n    int sum = 0;\n    void walk(TreeNode* node, bool isLeft) {\n        if (!node) return;\n        if (!node->left && !node->right && isLeft) sum += node->val;\n        walk(node->left, true);\n        walk(node->right, false);\n    }\n    int sumOfLeftLeaves(TreeNode* root) {\n        walk(root, false);\n        return sum;\n    }\n};",
+  "tier": "crafted"
+}
